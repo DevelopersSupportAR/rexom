@@ -6,7 +6,7 @@ const fs = require("fs");
 const DisTube = require('distube');
 require('discord-buttons')(client);
 
-client.distube = new DisTube(client, { searchSongs: true, emitNewSongOnly: true });
+client.distube = new DisTube(client, { searchSongs: true, emitNewSongOnly: true, leaveOnFinish: true });
 client.queue = new Map();
 client.commands = new Collection();
 
