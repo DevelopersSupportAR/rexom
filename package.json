@@ -1,0 +1,43 @@
+{
+    "name": "rexom",
+    "version": "1.0.0",
+    "description": "Play your favorite playlist with rexom",
+    "main": "./src/index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node ./src/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/DevelopersSupportAR/rexom.git"
+    },
+    "keywords": [
+        "ticket-bot"
+    ],
+    "author": "niro",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/DevelopersSupportAR/rexom/issues"
+    },
+    "homepage": "https://github.com/DevelopersSupportAR/rexom#readme",
+    "dependencies": {
+        "@discordjs/opus": "^0.5.3",
+        "chalk": "^4.1.1",
+        "colon-notation": "^1.2.1",
+        "discord-buttons": "^4.0.0",
+        "discord-tts": "^1.2.0",
+        "discord.js": "^12.5.3",
+        "distube": "^2.8.15",
+        "dotenv": "^10.0.0",
+        "express": "^4.17.1",
+        "ffmpeg": "0.0.4",
+        "ffmpeg-static": "^4.4.0",
+        "figlet": "^1.5.0",
+        "fs": "0.0.1-security",
+        "lyrics-finder": "^21.7.0",
+        "quick.db": "^7.1.3",
+        "string-progressbar": "^1.0.4",
+        "yt-search": "^2.9.0",
+        "ytdl-core": "^4.8.3"
+    }
+}
