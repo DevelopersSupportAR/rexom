@@ -34,6 +34,7 @@ module.exports = async function(client, button) {
                 return
             }
             if (button.id == 'stop') {
+                await button.reply.defer()
                 distube.stop(button);
                 button.channel.send(
                     new MessageEmbed()
@@ -46,6 +47,7 @@ module.exports = async function(client, button) {
                     }, 1000 * 5);
                 });
             } else if (button.id == 'skip') {
+                await button.reply.defer()
                 distube.skip(button);
                 button.channel.send(
                         new MessageEmbed()
@@ -60,6 +62,7 @@ setTimeout(() => {
 }, 1000 * 5);
 });
     } else if (button.id == 'pause') {
+        await button.reply.defer()
         let queue = distube.getQueue(button);
         if (queue.pause == true) {
             button.channel.send({
@@ -88,6 +91,7 @@ setTimeout(() => {
             }, 1000 * 5);
         });
     } else if (button.id == 'resume') {
+        await button.reply.defer()
         let queue = distube.getQueue(button);
         if (queue.pause == false) {
             button.channel.send({
@@ -116,6 +120,7 @@ setTimeout(() => {
             }, 1000 * 5);
         });
     } else if (button.id == 'loop') {
+        await button.reply.defer()
         let modeler = 1;
         distube.setRepeatMode(button, parseInt(modeler));
         button.channel.send(
@@ -130,6 +135,7 @@ setTimeout(() => {
             }, 1000 * 5);
         });
     } else if (button.id == 'lyrics') {
+        await button.reply.defer()
         let name = queue.songs.map((song, id) => song.name).slice(0, 1).join("\n");
         let thumbnail = queue.songs.map((song, id) => song.thumbnail).slice(0, 1).join("\n");
         let url = queue.songs.map((song, id) => song.url).slice(0, 1).join("\n");
