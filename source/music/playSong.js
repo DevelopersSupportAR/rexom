@@ -13,7 +13,7 @@ const db = require('quick.db');
 
 module.exports = async(client, queue, song) => {
     module.exports.song = song;
-    let lang = require('../slashCommands/play').guildLANG || require('../commands/play').guildLANG;
+    let lang = require('../slashCommands/play').guildLANG;
     let interaction = require('../slashCommands/play').interactionGET || require('../commands/play').interactionGET;
     if (lang == "en") {
         let embed = new MessageEmbed()
