@@ -18,23 +18,18 @@ module.exports = async(client, message) => {
     });
     let prefix = settings.prefix;
     let lang = settings.lang;
-    let row = new MessageActionRow()
-        .addComponents(
-            new MessageButton()
-            .setLabel("Contact the developer")
-            .setStyle("DANGER")
-            .setURL("https://github.com/DevelopersSupportAR/rexom/issues")
-        );
     if (message.content.includes(prefix)) return message.reply({
         content: `The Bot Does not Support The Normal Commands anymore!!
-    just kick the bot and reinvite in your server with slash command permissions
-    from here: https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=517580779376&scope=bot%20applications.commands
-    to use slash commands
+just kick the bot and reinvite in your server with slash command permissions
+from here: https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=517580779376&scope=bot%20applications.commands
+to use slash commands
     
-    FAQ!
-    Q: When can I use regular commands
-    A: When the 1.6.0 update is released and it is not possible to determine when the update will be available because this depends on when the developer will finish the update`,
-        components: [row]
+FAQ!
+Q: When can I use regular commands
+A: When the 1.6.0 update is released and it is not possible to determine when the update will be available because this depends on when the developer will finish the update
+    
+Contact the developer: https://github.com/DevelopersSupportAR/rexom/issues`,
+        components: []
     });
     /*
     const argument = message.content.slice(prefix.length).trim().split(/ +/g);
