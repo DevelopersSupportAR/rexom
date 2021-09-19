@@ -7,7 +7,7 @@ const { Client, MessageEmbed, Message } = require('discord.js');
  */
 
 module.exports = async(client, queue, playlist) => {
-    let lang = require('../slashCommands/play').guildLANG || require('../commands/play').guildLANG;
+    let lang = require('../slashCommands/play').guildLANG;
     if (lang == "en") {
         queue.textChannel.send({
             embeds: [
