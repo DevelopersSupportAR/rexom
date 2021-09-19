@@ -1,0 +1,1 @@
+{"version":3,"file":"TaskQueue.d.ts","sourceRoot":"","sources":["../../src/struct/TaskQueue.ts"],"names":[],"mappings":"AAYA;;;GAGG;AACH,qBAAa,SAAS;IACpB;;;;OAIG;IACH,OAAO,CAAC,KAAK,CAAc;IAE3B;;;;OAIG;IACI,OAAO,CAAC,WAAW,UAAQ,GAAG,OAAO,CAAC,IAAI,CAAC;IAMlD;;OAEG;IACI,OAAO,IAAI,IAAI;IAItB;;;OAGG;IACH,IAAW,SAAS,IAAI,MAAM,CAE7B;IAED;;;OAGG;IACH,IAAW,cAAc,IAAI,OAAO,CAEnC;CACF"}
