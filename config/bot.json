@@ -1,0 +1,10 @@
+{
+    "activity": {
+        "name": "<The Bot Activity Name>",
+        "type": "<The Bot Activity Type>"
+    },
+    "status": "<The Bot Status>",
+
+    "mainPrefix": "<The Bot Prefix>",
+    "mainLang": "<The Bot Lang>"
+}
