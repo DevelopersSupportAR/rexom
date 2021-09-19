@@ -62,10 +62,10 @@ module.exports = async(client, queue, song) => {
                 msg.delete();
                 interaction.channel.messages.fetch(msgID).then(m => m.delete())
                 player.stop(interaction);
-                //i.reply({ content: "🛑 | **Music Has Stoped**", ephemeral: true })
+                //interaction.channel.send({ content: "🛑 | **Music Has Stoped**", ephemeral: true })
             } else if (i.customId == "loop") {
                 player.setRepeatMode(interaction, parseInt(1));
-                i.reply({ content: "🔄 | **Music Is On Loop**", ephemeral: true })
+                interaction.channel.send({ content: "🔄 | **Music Is On Loop**", ephemeral: true })
             } else if (i.customId == "lyrics") {
                 let lyrics = await require('lyrics-finder')(song.name, song.name) || "Not Found!";
                 let lyr = new MessageEmbed()
@@ -74,21 +74,21 @@ module.exports = async(client, queue, song) => {
                     .setThumbnail(song.thumbnail)
                     .setDescription(lyrics)
                     .setFooter("Bot Made By: NIRO")
-                i.reply({ content: "📑 | **Music Lyrics: **", embeds: [lyr], ephemeral: true })
+                interaction.channel.send({ content: "📑 | **Music Lyrics: **", embeds: [lyr], ephemeral: true })
             } else if (i.customId == "skip") {
-                if (queue.songs.map((song, i) => i).length == 1) return i.reply({ content: ":x: | **Thare Are No Song To Skip**", ephemeral: true });
+                if (queue.songs.map((song, i) => i).length == 1) return interaction.channel.send({ content: ":x: | **Thare Are No Song To Skip**", ephemeral: true });
                 else {
                     player.skip(interaction);
-                    i.reply({ content: "⏭ | **Music Has Skiped**", ephemeral: true });
+                    interaction.channel.send({ content: "⏭ | **Music Has Skiped**", ephemeral: true });
                 }
             } else if (i.customId == "pause") {
-                if (queue.paused == true) return i.reply({ content: ":x: | **This Music Is All Ready Paused**", ephemeral: true });
+                if (queue.paused == true) return interaction.channel.send({ content: ":x: | **This Music Is All Ready Paused**", ephemeral: true });
                 player.pause(interaction);
-                i.reply({ content: "⏸ | **Music Has Paused**", ephemeral: true });
+                interaction.channel.send({ content: "⏸ | **Music Has Paused**", ephemeral: true });
             } else if (i.customId == "resume") {
-                if (queue.paused == false) return i.reply({ content: ":x: | **The Music Is Not Paused**", ephemeral: true });
+                if (queue.paused == false) return interaction.channel.send({ content: ":x: | **The Music Is Not Paused**", ephemeral: true });
                 player.resume(interaction);
-                i.reply({ content: "▶ | **Music Has Resumed**", ephemeral: true });
+                interaction.channel.send({ content: "▶ | **Music Has Resumed**", ephemeral: true });
             }
         });
     } else if (lang == "ar") {
@@ -138,10 +138,10 @@ module.exports = async(client, queue, song) => {
                 msg.delete();
                 interaction.channel.messages.fetch(msgID).then(m => m.delete())
                 player.stop(interaction);
-                //i.reply({ content: "🛑 | **تم أياف الموسيقى**", ephemeral: true })
+                //interaction.channel.send({ content: "🛑 | **تم أياف الموسيقى**", ephemeral: true })
             } else if (i.customId == "loop") {
                 player.setRepeatMode(interaction, parseInt(1));
-                i.reply({ content: "🔄 | **تم تقعيل وضع التكرار**", ephemeral: true })
+                interaction.channel.send({ content: "🔄 | **تم تقعيل وضع التكرار**", ephemeral: true })
             } else if (i.customId == "lyrics") {
                 let lyrics = await require('lyrics-finder')(song.name, song.name) || "Not Found!";
                 let lyr = new MessageEmbed()
@@ -150,21 +150,21 @@ module.exports = async(client, queue, song) => {
                     .setThumbnail(song.thumbnail)
                     .setDescription(lyrics)
                     .setFooter("Bot Made By: NIRO")
-                i.reply({ content: "📑 | ** كلمات الأغنية: **", embeds: [lyr], ephemeral: true })
+                interaction.channel.send({ content: "📑 | ** كلمات الأغنية: **", embeds: [lyr], ephemeral: true })
             } else if (i.customId == "skip") {
-                if (queue.songs.map((song, i) => i).length == 1) return i.reply({ content: ":x: | **مفيش حاجه اسكب ليه هل ات عبيت**", ephemeral: true });
+                if (queue.songs.map((song, i) => i).length == 1) return interaction.channel.send({ content: ":x: | **مفيش حاجه اسكب ليه هل ات عبيت**", ephemeral: true });
                 else {
                     player.skip(interaction);
-                    i.reply({ content: "⏭ | **تم تخطي الغنيه**", ephemeral: true });
+                    interaction.channel.send({ content: "⏭ | **تم تخطي الغنيه**", ephemeral: true });
                 }
             } else if (i.customId == "pause") {
-                if (queue.paused == true) return i.reply({ content: ":x: | **والله الموسيقى وقفه متبقاش بضان و دوس تاني**", ephemeral: true });
+                if (queue.paused == true) return interaction.channel.send({ content: ":x: | **والله الموسيقى وقفه متبقاش بضان و دوس تاني**", ephemeral: true });
                 player.pause(interaction);
-                i.reply({ content: "⏸ | **تم أيقاف الموسقى**", ephemeral: true });
+                interaction.channel.send({ content: "⏸ | **تم أيقاف الموسقى**", ephemeral: true });
             } else if (i.customId == "resume") {
-                if (queue.paused == false) return i.reply({ content: ":x: | **لم يتم ايقاف الموسيى اصلا انت بتعمل ايه**", ephemeral: true });
+                if (queue.paused == false) return interaction.channel.send({ content: ":x: | **لم يتم ايقاف الموسيى اصلا انت بتعمل ايه**", ephemeral: true });
                 player.resume(interaction);
-                i.reply({ content: "▶ | **تم أستكمال الموسيقى**", ephemeral: true });
+                interaction.channel.send({ content: "▶ | **تم أستكمال الموسيقى**", ephemeral: true });
             }
         });
     }
