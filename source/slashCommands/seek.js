@@ -4,7 +4,7 @@ const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
 
 module.exports = {
-    name: "search",
+    name: "seek",
     description: "Skips to the specified timestamp in the track",
     type: 'CHAT_INPUT',
     options: [{
