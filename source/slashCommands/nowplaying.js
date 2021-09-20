@@ -79,7 +79,7 @@ module.exports = {
                     allowedMentions: false
                 }).then(async function() {
                     setInterval(() => {
-                        interaction.editfollowUp({
+                        interaction.editReply({
                             embeds: [new MessageEmbed()
                                 .setColor('YELLOW')
                                 .setAuthor(track.name, track.Thumbnail, track.url)
