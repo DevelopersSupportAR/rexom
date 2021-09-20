@@ -15,7 +15,6 @@ module.exports = async (client, queue, song) => {
   module.exports.song = song;
   let lang = require('../slashCommands/play').guildLANG || require('../commands/play').guildLANG;
   let interaction = require('../slashCommands/play').interactionGET || require('../commands/play').messageGET;
-  let queue = player.getQueue(interaction)
   if (lang == "en") {
     let embed = new MessageEmbed()
       .setAuthor(song.name, song.thumbnail, song.url)
