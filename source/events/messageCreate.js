@@ -18,7 +18,7 @@ module.exports = async(client, message) => {
     });
     let prefix = settings.prefix;
     let lang = settings.lang;
-
+    if (!message.content.includes(prefix)) return;
     const argument = message.content.slice(prefix.length).trim().split(/ +/g);
     const cmd = argument.shift().toLowerCase()
     const command = client.commands.get(cmd) || client.commands.find(a => a.aliases && a.aliases.includes(cmd));
