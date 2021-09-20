@@ -4,7 +4,7 @@ const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
 
 module.exports = {
-    name: "say",
+    name: "search",
     aliases: [],
     description: "Make The Bot Say Any Thing",
 
@@ -41,7 +41,7 @@ module.exports = {
                     ephemeral: false,
                     allowedMentions: false
                 });
-                let filter = m => m.author.id == message.user.id;
+                let filter = m => m.author.id == message.author.id;
                 let collector = await message.channel.createMessageCollector({ filter, time: 0 });
                 collector.on("collect", async(collected) => {
                     if (!isNaN(collected.content)) player.play(message, results.map((song, i) => song.url).slice(Number(collected.content) - 1, Number(collected.content))[0]) && collected.delete() && message.editReply({
@@ -55,7 +55,7 @@ module.exports = {
                         msg.react('⏯️')
                         msg.react('⏹️')
                         msg.react('🔄')
-                        let filter2 = (reaction, user) => user.id == message.user.id;
+                        let filter2 = (reaction, user) => user.id == message.author.id;
                         let emcoll = await msg.createReactionCollector({ filter2, time: 0 });
                         emcoll.on("collect", async(reaction, user) => {
                             if (user.partial) await user.fetch();
@@ -113,7 +113,7 @@ module.exports = {
                     ephemeral: false,
                     allowedMentions: false
                 });
-                let filter = m => m.author.id == message.user.id;
+                let filter = m => m.author.id == message.author.id;
                 let collector = await message.channel.createMessageCollector({ filter, time: 0 });
                 collector.on("collect", async(collected) => {
                     if (!isNaN(collected.content)) player.play(message, results.map((song, i) => song.url).slice(Number(collected.content) - 1, Number(collected.content))[0]) && collected.delete() && message.editReply({
@@ -127,7 +127,7 @@ module.exports = {
                         msg.react('⏯️')
                         msg.react('⏹️')
                         msg.react('🔄')
-                        let filter2 = (reaction, user) => user.id == message.user.id;
+                        let filter2 = (reaction, user) => user.id == message.author.id;
                         let emcoll = await msg.createReactionCollector({ filter2, time: 0 });
                         emcoll.on("collect", async(reaction, user) => {
                             if (user.partial) await user.fetch();
