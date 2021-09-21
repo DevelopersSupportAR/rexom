@@ -1,4 +1,4 @@
-const { Client, Message, MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
+const { Client, Message, MessageEmbed, MessageActionRow, MessageButton, Permissions } = require("discord.js");
 const { Song } = require('distube')
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
