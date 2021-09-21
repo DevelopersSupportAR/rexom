@@ -15,6 +15,7 @@ module.exports = async (client, queue, song) => {
   module.exports.song = song;
   let lang = require('../slashCommands/play').guildLANG || require('../commands/play').guildLANG;
   let interaction = require('../slashCommands/play').interactionGET || require('../commands/play').messageGET;
+  let getQueue = await player.getQueue(interaction);
   if (lang == "en") {
     let embed = new MessageEmbed()
       .setAuthor(song.name, song.thumbnail, song.url)
@@ -58,48 +59,76 @@ module.exports = async (client, queue, song) => {
       // i.deferReply();
       // if (!interaction.member.voice.channel) return i.channel.send({ content: emojis.error + " | **You Have To Be On Voice Channel, **<@!" + i.user.id + ">", allowedMentions: false, ephemeral: true })
       if (i.customId == "stop") {
-        if (queue) {
+        try {
+          if (!getQueue) return;
           let msgID = require('quick.db').fetch(`Delete_${interaction.channel.id}`);
           msg.delete();
           interaction.channel.messages.fetch(msgID).then(m => m.delete())
-          player.stop(interaction);
           i.channel.send({ content: "🛑 | **Music Has Stoped**", ephemeral: true })
+          player.stop(interaction);
+        } catch {
+          console.log('')
         }
       } else if (i.customId == "loop") {
-        if (queue) {
-          player.setRepeatMode(interaction, parseInt(1));
-          i.channel.send({ content: "🔄 | **Music Is On Loop**", ephemeral: true })
+        try {
+          if (!getQueue) return;
+          if (queue) {
+            player.setRepeatMode(interaction, parseInt(1));
+            i.channel.send({ content: "🔄 | **Music Is On Loop**", ephemeral: true })
+          }
+        } catch {
+          console.log('')
         }
       } else if (i.customId == "lyrics") {
-        if (queue) {
-          let lyrics = await require('lyrics-finder')(song.name, song.name) || "Not Found!";
-          let lyr = new MessageEmbed()
-            .setAuthor(`📑 | Lyrics`, song.thumbnail, song.url)
-            .setColor('GREEN')
-            .setThumbnail(song.thumbnail)
-            .setDescription(lyrics)
-            .setFooter("Bot Made By: NIRO")
-          i.channel.send({ content: "📑 | **Music Lyrics: **", embeds: [lyr], ephemeral: true })
+        try {
+          if (!getQueue) return;
+          if (queue) {
+            let lyrics = await require('lyrics-finder')(song.name, song.name) || "Not Found!";
+            let lyr = new MessageEmbed()
+              .setAuthor(`📑 | Lyrics`, song.thumbnail, song.url)
+              .setColor('GREEN')
+              .setThumbnail(song.thumbnail)
+              .setDescription(lyrics)
+              .setFooter("Bot Made By: NIRO")
+            i.channel.send({ content: "📑 | **Music Lyrics: **", embeds: [lyr], ephemeral: true })
+          }
+        } catch {
+          console.log('')
         }
       } else if (i.customId == "skip") {
-        if (queue) {
-          if (queue.songs.map((song, i) => i).length == 1) return i.channel.send({ content: ":x: | **Thare Are No Song To Skip**", ephemeral: true });
-          else {
-            player.skip(interaction);
-            i.channel.send({ content: "⏭ | **Music Has Skiped**", ephemeral: true });
+        try {
+          if (!getQueue) return;
+          if (queue) {
+            if (queue.songs.map((song, i) => i).length == 1) return i.channel.send({ content: ":x: | **Thare Are No Song To Skip**", ephemeral: true });
+            else {
+              player.skip(interaction);
+              i.channel.send({ content: "⏭ | **Music Has Skiped**", ephemeral: true });
+            }
           }
+        } catch {
+          console.log('')
         }
       } else if (i.customId == "pause") {
-        if (queue) {
-          if (queue.paused == true) return i.channel.send({ content: ":x: | **This Music Is All Ready Paused**", ephemeral: true });
-          player.pause(interaction);
-          i.channel.send({ content: "⏸ | **Music Has Paused**", ephemeral: true });
+        try {
+          if (!getQueue) return;
+          if (queue) {
+            if (queue.paused == true) return i.channel.send({ content: ":x: | **This Music Is All Ready Paused**", ephemeral: true });
+            player.pause(interaction);
+            i.channel.send({ content: "⏸ | **Music Has Paused**", ephemeral: true });
+          }
+        } catch {
+          console.log('')
         }
       } else if (i.customId == "resume") {
-        if (queue) {
-          if (queue.paused == false) return i.channel.send({ content: ":x: | **The Music Is Not Paused**", ephemeral: true });
-          player.resume(interaction);
-          i.channel.send({ content: "▶ | **Music Has Resumed**", ephemeral: true });
+        try {
+          if (!getQueue) return;
+          if (queue) {
+            if (queue.paused == false) return i.channel.send({ content: ":x: | **The Music Is Not Paused**", ephemeral: true });
+            player.resume(interaction);
+            i.channel.send({ content: "▶ | **Music Has Resumed**", ephemeral: true });
+          }
+        } catch {
+          console.log('')
         }
       }
     });
@@ -146,48 +175,78 @@ module.exports = async (client, queue, song) => {
       // i.deferReply();
       // if (!interaction.member.voice.channel) return i.channel.send({ content: emojis.error + " | **You Have To Be On Voice Channel, **<@!" + i.user.id + ">", allowedMentions: false, ephemeral: true })
       if (i.customId == "stop") {
-        if (queue) {
-          let msgID = require('quick.db').fetch(`Delete_${interaction.channel.id}`);
-          msg.delete();
-          interaction.channel.messages.fetch(msgID).then(m => m.delete())
-          player.stop(interaction);
-          i.channel.send({ content: "🛑 | **تم أياف الموسيقى**", ephemeral: true })
+        try {
+          if (!getQueue) return;
+          if (queue) {
+            let msgID = require('quick.db').fetch(`Delete_${interaction.channel.id}`);
+            msg.delete();
+            interaction.channel.messages.fetch(msgID).then(m => m.delete())
+            player.stop(interaction);
+            i.channel.send({ content: "🛑 | **تم أياف الموسيقى**", ephemeral: true })
+          }
+        } catch {
+          console.log('')
         }
       } else if (i.customId == "loop") {
-        if (queue) {
-          player.setRepeatMode(interaction, parseInt(1));
-          i.channel.send({ content: "🔄 | **تم تقعيل وضع التكرار**", ephemeral: true })
+        try {
+          if (!getQueue) return;
+          if (queue) {
+            player.setRepeatMode(interaction, parseInt(1));
+            i.channel.send({ content: "🔄 | **تم تقعيل وضع التكرار**", ephemeral: true })
+          }
+        } catch {
+          console.log('')
         }
       } else if (i.customId == "lyrics") {
-        if (queue) {
-          let lyrics = await require('lyrics-finder')(song.name, song.name) || "Not Found!";
-          let lyr = new MessageEmbed()
-            .setAuthor(`📑 | Lyrics`, song.thumbnail, song.url)
-            .setColor('GREEN')
-            .setThumbnail(song.thumbnail)
-            .setDescription(lyrics)
-            .setFooter("Bot Made By: NIRO")
-          i.channel.send({ content: "📑 | ** كلمات الأغنية: **", embeds: [lyr], ephemeral: true })
+        try {
+          if (!getQueue) return;
+          if (queue) {
+            let lyrics = await require('lyrics-finder')(song.name, song.name) || "Not Found!";
+            let lyr = new MessageEmbed()
+              .setAuthor(`📑 | Lyrics`, song.thumbnail, song.url)
+              .setColor('GREEN')
+              .setThumbnail(song.thumbnail)
+              .setDescription(lyrics)
+              .setFooter("Bot Made By: NIRO")
+            i.channel.send({ content: "📑 | ** كلمات الأغنية: **", embeds: [lyr], ephemeral: true })
+          }
+        } catch {
+          console.log('')
         }
       } else if (i.customId == "skip") {
-        if (queue) {
-          if (queue.songs.map((song, i) => i).length == 1) return i.channel.send({ content: ":x: | **مفيش حاجه اسكب ليه هل ات عبيت**", ephemeral: true });
-          else {
-            player.skip(interaction);
-            i.channel.send({ content: "⏭ | **تم تخطي الغنيه**", ephemeral: true });
+        try {
+          if (!getQueue) return;
+          if (queue) {
+            if (queue.songs.map((song, i) => i).length == 1) return i.channel.send({ content: ":x: | **مفيش حاجه اسكب ليه هل ات عبيت**", ephemeral: true });
+            else {
+              player.skip(interaction);
+              i.channel.send({ content: "⏭ | **تم تخطي الغنيه**", ephemeral: true });
+            }
           }
+        } catch {
+          console.log('')
         }
       } else if (i.customId == "pause") {
-        if (queue) {
-          if (queue.paused == true) return i.channel.send({ content: ":x: | **والله الموسيقى وقفه متبقاش بضان و دوس تاني**", ephemeral: true });
-          player.pause(interaction);
-          i.channel.send({ content: "⏸ | **تم أيقاف الموسقى**", ephemeral: true });
+        try {
+          if (!getQueue) return;
+          if (queue) {
+            if (queue.paused == true) return i.channel.send({ content: ":x: | **والله الموسيقى وقفه متبقاش بضان و دوس تاني**", ephemeral: true });
+            player.pause(interaction);
+            i.channel.send({ content: "⏸ | **تم أيقاف الموسقى**", ephemeral: true });
+          }
+        } catch {
+          console.log('')
         }
       } else if (i.customId == "resume") {
-        if (queue) {
-          if (queue.paused == false) return i.channel.send({ content: ":x: | **لم يتم ايقاف الموسيى اصلا انت بتعمل ايه**", ephemeral: true });
-          player.resume(interaction);
-          i.channel.send({ content: "▶ | **تم أستكمال الموسيقى**", ephemeral: true });
+        try {
+          if (!getQueue) return;
+          if (queue) {
+            if (queue.paused == false) return i.channel.send({ content: ":x: | **لم يتم ايقاف الموسيى اصلا انت بتعمل ايه**", ephemeral: true });
+            player.resume(interaction);
+            i.channel.send({ content: "▶ | **تم أستكمال الموسيقى**", ephemeral: true });
+          }
+        } catch {
+          console.log('')
         }
       }
     });
