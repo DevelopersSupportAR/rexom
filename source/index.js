@@ -13,8 +13,6 @@ const client = new Client({
         repliedUser: true
     }
 });
-client.setMaxListeners(0)
-process.setMaxListeners(0)
 
 const DisTube = require('distube');
 const player = new DisTube.default(client, {
@@ -26,6 +24,10 @@ const player = new DisTube.default(client, {
     updateYouTubeDL: true,
     plugins: [new SoundCloudPlugin.default(), new SpotifyPlugin.default()]
 });
+
+client.setMaxListeners(0)
+process.setMaxListeners(0)
+player.setMaxListeners(0)
 
 client.slashCommands = new Collection();
 client.commands = commands;
