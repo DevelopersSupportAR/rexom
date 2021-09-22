@@ -41,7 +41,7 @@ module.exports = {
                 let collector = await channel.createMessageCollector({ filter, time: 0 });
                 collector.on("collect", async(collected) => {
                     if (collected.author.bot) return;
-                    if (!collected.member.voice.channel) return collected.followUp({ content: emojis.error + ' | please join a voice channel first!' })
+                    if (!collected.member.voice.channel) return collected.reply({ content: emojis.error + ' | please join a voice channel first!' })
                     collected.delete()
                     player.play(interaction, collected.content).then(() => {
                         setTimeout(() => {
@@ -123,4 +123,4 @@ module.exports = {
             });
         });
     },
-};
+}; 
