@@ -4,6 +4,8 @@
 
 <h3 align="center"> Play your favorite playlist with rexom 🎶 </h3>
 
+## 🤔 Why reXom??
 
-<h1 align="center" herf="https://replit.com/@NIR0/rexom-253"> Fork In Replit </h1>
-<h2 align="center">https://replit.com/@NIR0/rexom-253</h2>
+There are many advantages that make you use reXom!!
+
+#### Features ✨
