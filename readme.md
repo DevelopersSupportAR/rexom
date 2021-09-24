@@ -36,7 +36,7 @@ Make sure the `PRESENCE INTENT` and `SERVER MEMBERS INTENT` options are enabled
 then choose for navbar `OAuth2`
 scroll down and choose `bot` and `applications.commands` options then scroll down more and choose the bot permissions you won't but i suggest `Administrator` and copy the url(this is the bot invite url)
 
-2. make sure you have [Git](https://git-scm.com/downloads), [VS Code](https://code.visualstudio.com/download), [nodejs](https://nodejs.org/en/download/current/) in yur pc (this is only required if you using computer)
+2. make sure you have [Git](https://git-scm.com/downloads), [VS Code](https://code.visualstudio.com/download), [nodejs](https://nodejs.org/en/download/current/) in your pc (this is only required if you using computer)
 
 
 #### Get Started 🚀
