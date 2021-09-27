@@ -1,6 +1,32 @@
-<h1 align="center"><img src="https://media.discordapp.net/attachments/845107443573719112/859222529939210250/Screenshot_2021-06-29-02-03-02-63_3a637037d35f95c5dbcdcc75e697ce91.jpg"></h1>
 
- <h2><a href="https://discord.gg/developer-support" align="center"><img src="https://img.shields.io/discord/515071617815019520.svg?label=Discord&logo=Discord&colorB=7289da&style=for-the-badge" alt="Support"></a></h2>
+<div align="center">
+  <img src="https://media.discordapp.net/attachments/845107443573719112/859222529939210250/Screenshot_2021-06-29-02-03-02-63_3a637037d35f95c5dbcdcc75e697ce91.jpg" align="center">
+  <br>
+  <h1><strong><i>make your day with rexom 🎵</i></strong></h1>
+  <br>
+  <a href="#">
+    <img src="https://img.shields.io/github/v/tag/DevelopersSupportAR/rexom?color=red&label=rexom&logo=discord&style=for-the-badge" alt="Support">
+  <br>
+  <br>
+<br>
+  <a href="https://discord.gg/developer-support">
+    <img src="https://img.shields.io/discord/800447810864152596.svg?label=Discord&logo=Discord&colorB=7289da&style=for-the-badge" alt="Support">
+  </a>
+  <a href="#">
+    <img src="https://img.shields.io/node/v/lts?color=red&label=node&logo=javascript&logoColor=javascript&style=for-the-badge" alt="Support">
+    </a>
+    <a href="#">
+    <img src="https://img.shields.io/npm/v/distube?label=Distube&logo=npm&style=for-the-badge" alt="Support">
+    </a>
+    <a href="#">
+    <img src="https://img.shields.io/npm/v/discord.js?label=DISCORD.JS&logo=npm&style=for-the-badge" alt="Support">
+    <a href="#">
+    <img src="https://img.shields.io/github/issues/DevelopersSupportAR/rexom?logo=github&style=for-the-badge" alt="Support">
+    </a>
+    <a href="#">
+    <img src="https://img.shields.io/github/commit-activity/m/DevelopersSupportAR/rexom?logo=github&style=for-the-badge" alt="Support">
+    </a>
+</div>
 
 <h1 align="center"> rexom 🎶</h1>
 
