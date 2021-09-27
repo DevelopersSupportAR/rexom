@@ -13,7 +13,7 @@
     <img src="https://img.shields.io/discord/800447810864152596.svg?label=Discord&logo=Discord&colorB=7289da&style=for-the-badge" alt="Support">
   </a>
   <a href="#">
-    <img src="https://img.shields.io/node/v/lts?color=red&label=node&logo=javascript&logoColor=javascript&style=for-the-badge" alt="Support">
+    <img src="https://img.shields.io/node/v/discord.js?color=blue&label=node&logo=javascript&style=for-the-badge" alt="Support">
     </a>
     <a href="#">
     <img src="https://img.shields.io/npm/v/distube/beta?label=Distube&logo=npm&style=for-the-badge" alt="Support">
