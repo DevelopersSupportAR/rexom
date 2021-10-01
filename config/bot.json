@@ -1,0 +1,14 @@
+{
+    "activity": {
+        "name": "<The Bot Activity Name>",
+        "type": "<The Bot Activity Type>"
+    },
+    "status": "<The Bot Status>",
+
+    "domain": "<The Bot Website Domain>",
+    "clientID": "<The Bot Id>",
+    "clientSECRET": "<The Bot Secret>",
+
+    "mainPrefix": "<The Bot Prefix>",
+    "mainLang": "<The Bot Lang, only: ['ar', 'en']>"
+}
