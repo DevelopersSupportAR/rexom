@@ -14,144 +14,214 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+        <link rel="stylesheet" href="../public/index.css">
     </head>
 
-    <body style="background-color: #2f3136;">
-        <div align="center" style="color: white;">
-            <section>
-                <h1 style="font-size: 65px;color:#ffffff" class="display-3">
-                    <i class="fas fa-terminal"></i> commands
-                    <p class="display-5" style="margin-top: 5px;">all of the <b style="color: rgb(199, 32, 73);">reXom</b> commands!.</p>
-                </h1>
-                <div class="form-body">
-                    <div class="form-holder">
-                        <div class="form-content">
-                            <div class="form-items" style="margin-right: 50px;">
-                                <div class="form-items" style="margin-right: 100px;">
-                                    <h3><i class="fas fa-slash"></i> Slash commands is avilable!</h3>
-                                    <p>You can now interact with reXom by using / as a universal prefix.</p>
-                                </div>
-                                <br>
-                                <br>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>devs</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>dj</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>filter</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>help</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>info</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>join</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>jump</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>lang</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>leave</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>loop</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>lyrics</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>nowplaying</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>pause</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>play-playlist</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>play</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>prefix</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>queue</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>resume</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>save-playlist</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>say</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>search</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>seek</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>setup</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>shuffle</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>skip</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>volume</h5>
-                            </div>
-                            <div class="form-items">
-                                <div class="form-items" style="margin-right: 100px;">
-                                    <h3><i class="fas fa-scroll"></i> Command Description!</h3>
-                                    <p></p>
-                                </div>
-                                <br>
-                                <br>
-                                <br>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>perview the bot developer</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>choose the dj role to conrtrole the bot commands</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>make a filter on the playing music</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>perview the help list thats have all the bot orders</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>preview advaned information about the bot and the host</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>make the bot join the channel 24/7</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>jump to a specific music on the server queue</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>change the bot reply language to arabic or english</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>leave the voice channel and remove it from 24/7 option</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>just repeat the song or repeat the queue</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>preview the song lyrics </h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>preview what is playing now</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>pause the music temporary</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>play you saved playlist</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>play a music from any online music player website</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>change the bot prefix in your server</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>preview the server queue</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>resume the music that you paused temporary</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>save a playlist to bot database</h5>
-                                <h5>
-                                    <b style="color: red;">closed!</b></h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>search for a music</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>seek the music</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>setup a channel to play music in</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>shuffle the server queue</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>skip to the next song</h5>
-                                <h5>
-                                    <b style="color: greenyellow;"></b>change the bot volume</h5>
-                            </div>
-                        </div>
-                    </div>
+    <body style="background-color: #2f3136; color: black;">
+        <section class="main">
+            <div class="commands">
+                <div class="container">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <h2 class="title text-center"><i class="fas fa-terminal"></i>Commands</h2>
+                    <br>
+                    <br>
+                    <br>
+                    <table class="table" style="background: rgba( 255, 255, 255, 0.35 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 9px );
+    -webkit-backdrop-filter: blur( 9px );
+    border-radius: 10px;">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="background: linear-gradient(to right, #00d9ff, #00ffff, #f27121);
+          color: transparent;
+          -webkit-background-clip: text;
+          background-clip: text;
+          text-decoration: none;">Command</th>
+                                <th scope="col" style="background: linear-gradient(to right, #00d9ff, #00ffff, #f27121);
+          color: transparent;
+          -webkit-background-clip: text;
+          background-clip: text;
+          text-decoration: none;">Aliases</th>
+                                <th scope="col" style="background: linear-gradient(to right, #00d9ff, #00ffff, #f27121);
+          color: transparent;
+          -webkit-background-clip: text;
+          background-clip: text;
+          text-decoration: none;">Args</th>
+                                <th scope="col" style="background: linear-gradient(to right, #00d9ff, #00ffff, #f27121);
+          color: transparent;
+          -webkit-background-clip: text;
+          background-clip: text;
+          text-decoration: none;">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody style="color: black;">
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>devs</th>
+                                <td>dev</td>
+                                <td>[none]</td>
+                                <td>Preview The Bot Developers</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>dj</th>
+                                <td>set-dj</td>
+                                <td>[role] [toggle]</td>
+                                <td>Chnage The Dj Role And Dj Toggle</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>help</th>
+                                <td>h</td>
+                                <td>[none]</td>
+                                <td>Preview The Help List</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>info
+                                </th>
+                                <td>[none]</td>
+                                <td>[none]</td>
+                                <td>Preview an advanced information</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>join</th>
+                                <td>[none]</td>
+                                <td>[none]</td>
+                                <td>JOin the 24/7</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>jump</th>
+                                <td>j</td>
+                                <td>[song number]</td>
+                                <td>Jump to specific songs</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>lang</th>
+                                <td>set-lang</td>
+                                <td>[the lang]</td>
+                                <td>Chnage The Bot Reply Language</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>leave</th>
+                                <td>[none]</td>
+                                <td>[none]</td>
+                                <td>leave the 24/7 channel</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>loop</th>
+                                <td>repeat</td>
+                                <td>[the loop mode]</td>
+                                <td>Make the song/queue in a loop</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>lyrics</th>
+                                <td>[none]</td>
+                                <td>[none]</td>
+                                <td>Preview the song lyrics</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>nowplaying</th>
+                                <td>np</td>
+                                <td>[none]</td>
+                                <td>Preview what is playing now</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>pause</th>
+                                <td>p</td>
+                                <td>[none]</td>
+                                <td>Pasue the music temporary</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>play-playlist</th>
+                                <td>[none]</td>
+                                <td>[none]</td>
+                                <td>Play the saved playlist in your profile</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>play</th>
+                                <td>p</td>
+                                <td>[song name/url]</td>
+                                <td>Play a music</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>prefix</th>
+                                <td>set-prefix</td>
+                                <td>[new prefix]</td>
+                                <td>Change the bot prefix</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>queue</th>
+                                <td>[none]</td>
+                                <td>[none]</td>
+                                <td>Preview The Server Queue</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>resume</th>
+                                <td>[none]</td>
+                                <td>[none]</td>
+                                <td>Resume the music</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>save-playlist</th>
+                                <td>[none]</td>
+                                <td>[song name1, song name2, ...]</td>
+                                <td>Save a playlist</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>say</th>
+                                <td>[none]</td>
+                                <td>[the word]</td>
+                                <td>Make the bot say anything</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>search</th>
+                                <td>[none]</td>
+                                <td>[song name]</td>
+                                <td>Search for a music</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>seek</th>
+                                <td>[none]</td>
+                                <td>[time with sounds]</td>
+                                <td>Seek the music</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>setup</th>
+                                <td>[none]</td>
+                                <td>[none]</td>
+                                <td>Create a autoplay channel</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>shuffle</th>
+                                <td>[none]</td>
+                                <td>[none]</td>
+                                <td>Shuffle the server queue</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>skip</th>
+                                <td>[none]</td>
+                                <td>[none]</td>
+                                <td>Skip to the next music</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>volume</th>
+                                <td>[none]</td>
+                                <td>[the new vol]</td>
+                                <td>Change the bot volume</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                 </div>
-        </div>
+            </div>
+            </div>
         </section>
+    </body>
+
     </body>
     <footer>
 
