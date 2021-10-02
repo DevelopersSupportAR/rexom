@@ -1,0 +1,160 @@
+<%- include("includes/header") -%>
+
+    <html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <link rel="stylesheet" href="/index.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+    </head>
+
+    <body style="background-color: #2f3136;">
+        <div align="center" style="color: white;">
+            <section>
+                <h1 style="font-size: 65px;color:#ffffff" class="display-3">
+                    <i class="fas fa-terminal"></i> commands
+                    <p class="display-5" style="margin-top: 5px;">all of the <b style="color: rgb(199, 32, 73);">reXom</b> commands!.</p>
+                </h1>
+                <div class="form-body">
+                    <div class="form-holder">
+                        <div class="form-content">
+                            <div class="form-items" style="margin-right: 50px;">
+                                <div class="form-items" style="margin-right: 100px;">
+                                    <h3><i class="fas fa-slash"></i> Slash commands is avilable!</h3>
+                                    <p>You can now interact with reXom by using / as a universal prefix.</p>
+                                </div>
+                                <br>
+                                <br>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>devs</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>dj</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>filter</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>help</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>info</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>join</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>jump</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>lang</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>leave</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>loop</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>lyrics</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>nowplaying</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>pause</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>play-playlist</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>play</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>prefix</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>queue</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>resume</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>save-playlist</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>say</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>search</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>seek</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>setup</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>shuffle</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>skip</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"><%= botconfig.mainPrefix %></b>volume</h5>
+                            </div>
+                            <div class="form-items">
+                                <div class="form-items" style="margin-right: 100px;">
+                                    <h3><i class="fas fa-scroll"></i> Command Description!</h3>
+                                    <p></p>
+                                </div>
+                                <br>
+                                <br>
+                                <br>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>perview the bot developer</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>choose the dj role to conrtrole the bot commands</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>make a filter on the playing music</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>perview the help list thats have all the bot orders</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>preview advaned information about the bot and the host</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>make the bot join the channel 24/7</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>jump to a specific music on the server queue</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>change the bot reply language to arabic or english</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>leave the voice channel and remove it from 24/7 option</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>just repeat the song or repeat the queue</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>preview the song lyrics </h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>preview what is playing now</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>pause the music temporary</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>play you saved playlist</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>play a music from any online music player website</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>change the bot prefix in your server</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>preview the server queue</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>resume the music that you paused temporary</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>save a playlist to bot database</h5>
+                                <h5>
+                                    <b style="color: red;">closed!</b></h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>search for a music</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>seek the music</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>setup a channel to play music in</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>shuffle the server queue</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>skip to the next song</h5>
+                                <h5>
+                                    <b style="color: greenyellow;"></b>change the bot volume</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </section>
+    </body>
+    <footer>
+
+    </footer>
+
+    </html>
