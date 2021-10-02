@@ -16,7 +16,7 @@ let songse = [];
 module.exports = async (client, queue, song) => {
   module.exports.song = song;
   let lang = require('../slashCommands/play').guildLANG || require('../commands/play').guildLANG;
-  let interaction = require('../slashCommands/play').interactionGET || require('../commands/play').messageGET || require('../slashCommands/search').interactionGET || require('../commands/search').messageGET;
+  let interaction = require('../slashCommands/play').interactionGET || require('../commands/play').messageGET || require('../slashCommands/search').interactionGET || require('../commands/search').messageGET || require('../slashCommands/play-playlist').interactionGET || require('../commands/play-playlist').messageGET;
   let getQueue;
   try {
     getQueue = await player.getQueue(interaction);
@@ -326,6 +326,10 @@ module.exports = async (client, queue, song) => {
     });
   }
   if (interaction) {
+    try {
   player.setVolume(interaction, Number(db.fetch(`DefVol_${interaction.guild.id}`)) || 100);
+  } catch {
+    console.log('')
+  }
   }
 }
