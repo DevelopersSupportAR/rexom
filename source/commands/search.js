@@ -16,6 +16,7 @@ module.exports = {
      */
 
     run: async(client, message, args, prefix, lang) => {
+      module.exports.messageGET = message;
         let value = message.content.split(' ').slice(1).join(' ');
         if (lang == "en") {
             if (!value) return message.reply({
@@ -105,7 +106,7 @@ module.exports = {
                 type: 'video',
                 safeSearch: false
             }).then(async results => {
-                message.reply({
+                let msg1 = await message.reply({
                     embeds: [new MessageEmbed()
                         .setColor("GREEN")
                         .setDescription(results.map((song, i) => `**${i + 1}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``).join("\n"))
@@ -116,7 +117,7 @@ module.exports = {
                 let filter = m => m.author.id == message.author.id;
                 let collector = await message.channel.createMessageCollector({ filter, time: 0 });
                 collector.on("collect", async(collected) => {
-                    if (!isNaN(collected.content)) player.play(message, results.map((song, i) => song.url).slice(Number(collected.content) - 1, Number(collected.content))[0]) && collected.delete() && message.editReply({
+                    if (!isNaN(collected.content)) player.play(message, results.map((song, i) => song.url).slice(Number(collected.content) - 1, Number(collected.content))[0]) && collected.delete() && msg1.edit({
                         embeds: [new MessageEmbed()
                             .setColor("GREEN")
                             .setDescription(`🎶 | **__[${results.map((song, i) => song.name).slice(Number(collected.content) - 1, Number(collected.content))[0]}](${results.map((song, i) => song.url).slice(Number(collected.content) - 1, Number(collected.content))[0]})__ تعمل**\n**📽️ | صانع الموسقى: [${results.map((song, i) => song.uploader.name).slice(Number(collected.content) - 1, Number(collected.content))[0]}](${results.map((song, i) => song.uploader.url).slice(Number(collected.content) - 1, Number(collected.content))[0]})**`)
@@ -142,7 +143,7 @@ module.exports = {
                                     else player.pause(message)
                                 }
                             } else if (reaction.emoji.name == "⏹️") {
-                                message.editReply({
+                                msg1.edit({
                                     content: emojis.error + " | هذا الترك مغلق!.",
                                     embeds: [],
                                     ephemeral: true,
