@@ -16,8 +16,9 @@ module.exports = {
      */
 
     run: async(client, message, args, prefix, lang) => {
+      module.exports.messageGET = message;
         if (lang == "en") {
-            let data = db.get(`SDPL_${message.user.id}.data`);
+            let data = db.get(`SDPL_${message.author.id}.data`);
             if (data == null || data.includes('no')) return message.reply({ content: emojis.error + " | i cna't find any playlist in you account profile" });
 
             setTimeout(() => {
@@ -60,7 +61,7 @@ module.exports = {
 
             message.reply({ content: emojis.done + " | You Play List Is Playing!" })
         } else if (lang == "ar") {
-            let data = db.get(`SDPL_${message.user.id}.data`);
+            let data = db.get(`SDPL_${message.author.id}.data`);
             if (data == null || data.includes('no')) return message.reply({ content: emojis.error + " | ليس لديك اي قوائم تشغيل في حسابك" });
 
             setTimeout(() => {
