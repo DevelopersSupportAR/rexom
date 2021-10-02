@@ -320,5 +320,5 @@ module.exports = async(client, queue, song) => {
             }
         });
     }
-    player.setVolume(interaction, db.fetch(`DefVol_${interaction.guild.id}`) || 100);
+    player.setVolume(interaction, Number(db.fetch(`DefVol_${interaction.guild.id}`)) || 100);
 }
