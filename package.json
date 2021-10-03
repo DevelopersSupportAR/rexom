@@ -4,6 +4,7 @@
     "description": "Play your favorite playlist with rexom",
     "main": "./source/index.js",
     "scripts": {
+        "build": "npm install && npx node ./source/index.js",
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "npx node@latest ./source/index.js",
         "dev": "nodemon ./source/index.js"
