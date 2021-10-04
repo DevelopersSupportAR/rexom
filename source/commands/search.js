@@ -34,7 +34,7 @@ module.exports = {
                 type: 'video',
                 safeSearch: false
             }).then(async results => {
-                message.reply({
+                let msg = await message.reply({
                     embeds: [new MessageEmbed()
                         .setColor("GREEN")
                         .setDescription(results.map((song, i) => `**${i + 1}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``).join("\n"))
@@ -45,7 +45,7 @@ module.exports = {
                 let filter = m => m.author.id == message.author.id;
                 let collector = await message.channel.createMessageCollector({ filter, time: 0 });
                 collector.on("collect", async(collected) => {
-                    if (!isNaN(collected.content)) player.play(message, results.map((song, i) => song.url).slice(Number(collected.content) - 1, Number(collected.content))[0]) && collected.delete() && message.editReply({
+                    if (!isNaN(collected.content)) player.play(message, results.map((song, i) => song.url).slice(Number(collected.content) - 1, Number(collected.content))[0]) && collected.delete() && msg.edit({
                         embeds: [new MessageEmbed()
                             .setColor("GREEN")
                             .setDescription(`🎶 | **__[${results.map((song, i) => song.name).slice(Number(collected.content) - 1, Number(collected.content))[0]}](${results.map((song, i) => song.url).slice(Number(collected.content) - 1, Number(collected.content))[0]})__ Is Playing**\n**📽️ | Music Made By: [${results.map((song, i) => song.uploader.name).slice(Number(collected.content) - 1, Number(collected.content))[0]}](${results.map((song, i) => song.uploader.url).slice(Number(collected.content) - 1, Number(collected.content))[0]})**`)
@@ -71,7 +71,7 @@ module.exports = {
                                     else player.pause(message)
                                 }
                             } else if (reaction.emoji.name == "⏹️") {
-                                message.editReply({
+                                msg.edit({
                                     content: emojis.error + " | This Trak Has Closed!.",
                                     embeds: [],
                                     ephemeral: true,
@@ -106,7 +106,7 @@ module.exports = {
                 type: 'video',
                 safeSearch: false
             }).then(async results => {
-                let msg1 = await message.reply({
+                let msg = await message.reply({
                     embeds: [new MessageEmbed()
                         .setColor("GREEN")
                         .setDescription(results.map((song, i) => `**${i + 1}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``).join("\n"))
