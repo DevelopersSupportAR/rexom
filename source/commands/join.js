@@ -31,10 +31,7 @@ module.exports = {
             connection;
             db.set(`Voice_Channel_${message.guild.id}`, voiceChannel.id);
             message.reply({
-                embeds: [new MessageEmbed()
-                    .setColor('GREEN')
-                    .setDescription(`🗃️ | تم التثبيت في <#${voiceChannel.id}>`)
-                ],
+                content: `🗃️ | تم التثبيت في <#${voiceChannel.id}>`,
                 ephemeral: true,
                 allowedMentions: false
             });
@@ -53,10 +50,7 @@ module.exports = {
             connection;
             db.set(`Voice_Channel_${message.guild.id}`, voiceChannel.id);
             message.reply({
-                embeds: [new MessageEmbed()
-                    .setColor('GREEN')
-                    .setDescription(`🗃️ | Done Joined <#${voiceChannel.id}>`)
-                ],
+                content: `🗃️ | Done Joined <#${voiceChannel.id}>`,
                 ephemeral: true,
                 allowedMentions: false
             });

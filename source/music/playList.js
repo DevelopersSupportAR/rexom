@@ -8,6 +8,33 @@ const { Client, MessageEmbed, Message } = require('discord.js');
 
 module.exports = async(client, queue, playlist, song) => {
     let lang = require('../slashCommands/play').guildLANG || require('../commands/play').guildLANG;
+    let interaction = require('../slashCommands/play').interactionGET || require('../commands/play').messageGET || require('../slashCommands/search').interactionGET || require('../commands/search').messageGET || require('../slashCommands/play-playlist').interactionGET || require('../commands/play-playlist').messageGET;
+    try {
+        getQueue = await player.getQueue(interaction);
+    } catch (err) {
+        console.log(' ')
+    }
+    setInterval(() => {
+        try {
+            let data = queue.repeatMode;
+            if (data == 0) repeatModee = "Disabled";
+            else if (data == 1) repeatModee = "Song";
+            else if (data == 2) repeatModee = "Queue";
+            else repeatModee = "Disabled";
+            let data2 = queue.paused;
+            if (data2 == true) pausee = "Paused";
+            else if (data2 == false) pausee = "Running";
+            else pausee = "Empty";
+        } catch (err) {
+            db.delete(`SongDashData_${interaction.guild.id}`)
+        }
+        if (queue.songs.map((song, id) => id + 1).length == 0) return db.delete(`SongDashData_${interaction.guild.id}`);
+        db.set(`SongDashData_${interaction.guild.id}`, {
+            repeat: repeatModee,
+            pause: pausee,
+            songs: queue.songs.map((song, id) => id + 1).length
+        });
+    }, 2500)
     if (lang == "en") {
         queue.textChannel.send({
             embeds: [

@@ -33,13 +33,7 @@ module.exports = {
             if (['3d', 'bassboost', 'echo', 'karaoke', 'nightcore', 'vaporwave', 'flanger', 'gate', 'haas', 'reverse', 'surround', 'mcompand', 'phaser', 'tremolo', 'earwax'].includes(value)) {
                 player.setFilter(message, args[0]);
                 message.reply({
-                    embeds: [
-                        new MessageEmbed()
-                        .setAuthor(`🎭 | Filters`, client.user.avatarURL({ dynamic: true }), `https://discord.gg/developer-support`)
-                        .setColor('GREEN')
-                        .setDescription(`🎭 | queue filter has been changed to \`${value}\``)
-                        .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
-                    ],
+                    content: `🎭 | تم تغير فلتر الصوت الخاص بطابور العرض الى \`${value}\``,
                     ephemeral: true,
                     allowedMentions: false
                 });
@@ -64,13 +58,7 @@ module.exports = {
             if (['3d', 'bassboost', 'echo', 'karaoke', 'nightcore', 'vaporwave', 'flanger', 'gate', 'haas', 'reverse', 'surround', 'mcompand', 'phaser', 'tremolo', 'earwax'].includes(value)) {
                 player.setFilter(message, args[0]);
                 message.reply({
-                    embeds: [
-                        new MessageEmbed()
-                        .setAuthor(`🎭 | Filters`, client.user.avatarURL({ dynamic: true }), `https://discord.gg/developer-support`)
-                        .setColor('GREEN')
-                        .setDescription(`🎭 | queue filter has been changed to \`${value}\``)
-                        .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
-                    ],
+                    content: `🎭 | queue filter has been changed to \`${value}\``,
                     ephemeral: true,
                     allowedMentions: false
                 });

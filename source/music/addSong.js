@@ -18,6 +18,10 @@ module.exports = async(client, queue, song) => {
                 .setFooter(song.formattedDuration + ` | ${song.likes}👍 ${song.dislikes}👎`)
             ],
             allowedMentions: { repliedUser: false }
+        }).then(m => {
+            setTimeout(() => {
+                m.delete()
+            }, 5000);
         });
     } else if (lang == "ar") {
         queue.textChannel.send({
@@ -29,6 +33,10 @@ module.exports = async(client, queue, song) => {
                 .setFooter(song.formattedDuration + ` | ${song.likes}👍 ${song.dislikes}👎`)
             ],
             allowedMentions: { repliedUser: false }
+        }).then(m => {
+            setTimeout(() => {
+                m.delete()
+            }, 5000);
         });
     }
 }

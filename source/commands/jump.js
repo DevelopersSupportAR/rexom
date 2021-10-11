@@ -41,12 +41,7 @@ module.exports = {
                 throw err;
             }
             message.reply({
-                embeds: [new MessageEmbed()
-                    .setAuthor(`⤵ | Jump`, client.user.avatarURL({ dynamic: true }), `https://discord.gg/developer-support`)
-                    .setColor('GREEN')
-                    .setDescription(`⤵ | تم القفظ الى الأغنيه صاحبة الرقم: \`${parseInt(value)}\``)
-                    .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
-                ],
+                content: `⤵ | تم القفظ الى الأغنيه صاحبة الرقم: \`${parseInt(value)}\``,
                 ephemeral: true,
                 allowedMentions: false
             });
@@ -74,12 +69,7 @@ module.exports = {
                 throw err;
             }
             message.reply({
-                embeds: [new MessageEmbed()
-                    .setAuthor(`⤵ | Jump`, client.user.avatarURL({ dynamic: true }), `https://discord.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=6479507312`)
-                    .setColor('GREEN')
-                    .setDescription(`⤵ | done jumped to song number \`${parseInt(value)}\``)
-                    .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
-                ],
+                content: `⤵ | done jumped to song number \`${parseInt(value)}\``,
                 ephemeral: true,
                 allowedMentions: false
             });

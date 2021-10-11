@@ -43,13 +43,7 @@ module.exports = {
             });
             player.setRepeatMode(interaction, parseInt(modeler));
             interaction.followUp({
-                embeds: [
-                    new MessageEmbed()
-                    .setAuthor(`🔄 | Repeating`, client.user.avatarURL({ dynamic: true }), `https://discord.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=6479507312`)
-                    .setColor('GREEN')
-                    .setDescription(`🔄 | repeating mode has changed to: ${mode}`)
-                    .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
-                ],
+                content: `🔄 | تم تغير وضع التكرار الي: \`${mode}\``,
                 ephemeral: true,
                 allowedMentions: false
             });
@@ -73,13 +67,7 @@ module.exports = {
             });
             player.setRepeatMode(interaction, parseInt(modeler));
             interaction.followUp({
-                embeds: [
-                    new MessageEmbed()
-                    .setAuthor(`🔄 | Repeating`, client.user.avatarURL({ dynamic: true }), `https://discord.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=6479507312`)
-                    .setColor('GREEN')
-                    .setDescription(`🔄 | repeating mode has changed to: ${mode}`)
-                    .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
-                ],
+                content: `🔄 | repeating mode has changed to: \`${mode}\``,
                 ephemeral: true,
                 allowedMentions: false
             });

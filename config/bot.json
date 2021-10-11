@@ -10,5 +10,7 @@
     "clientSECRET": "<The Bot Secret>",
 
     "mainPrefix": "<The Bot Prefix>",
-    "mainLang": "<The Bot Lang, only: ['ar', 'en']>"
+    "mainLang": "<The Bot Lang, only: ['ar', 'en']>",
+
+    "panelType": "<panel type: ['buttons', 'reactions', 'none']>"
 }
