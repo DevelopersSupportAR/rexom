@@ -19,32 +19,34 @@ module.exports = async(client, queue, song) => {
     let interaction = require('../slashCommands/play').interactionGET || require('../commands/play').messageGET || require('../slashCommands/search').interactionGET || require('../commands/search').messageGET || require('../slashCommands/play-playlist').interactionGET || require('../commands/play-playlist').messageGET;
     let noMessage = require('../slashCommands/search').noMessage || require('../commands/search').noMessage;
     let getQueue;
-    try {
-        getQueue = await player.getQueue(interaction);
-    } catch (err) {
-        console.log(' ')
-    }
-    setInterval(() => {
+    if (interaction) {
         try {
-            let data = queue.repeatMode;
-            if (data == 0) repeatModee = "Disabled";
-            else if (data == 1) repeatModee = "Song";
-            else if (data == 2) repeatModee = "Queue";
-            else repeatModee = "Disabled";
-            let data2 = queue.paused;
-            if (data2 == true) pausee = "Paused";
-            else if (data2 == false) pausee = "Running";
-            else pausee = "Empty";
+            getQueue = await player.getQueue(interaction);
         } catch (err) {
-            db.delete(`SongDashData_${interaction.guild.id}`)
+            console.log(' ')
         }
-        if (queue.songs.map((song, id) => id + 1).length == 0) return db.delete(`SongDashData_${interaction.guild.id}`);
-        db.set(`SongDashData_${interaction.guild.id}`, {
-            repeat: repeatModee,
-            pause: pausee,
-            songs: queue.songs.map((song, id) => id + 1).length
-        });
-    }, 2500)
+        setInterval(() => {
+            try {
+                let data = queue.repeatMode;
+                if (data == 0) repeatModee = "Disabled";
+                else if (data == 1) repeatModee = "Song";
+                else if (data == 2) repeatModee = "Queue";
+                else repeatModee = "Disabled";
+                let data2 = queue.paused;
+                if (data2 == true) pausee = "Paused";
+                else if (data2 == false) pausee = "Running";
+                else pausee = "Empty";
+            } catch (err) {
+                db.delete(`SongDashData_${interaction.guild.id}`)
+            }
+            if (queue.songs.map((song, id) => id + 1).length == 0) return db.delete(`SongDashData_${interaction.guild.id}`);
+            db.set(`SongDashData_${interaction.guild.id}`, {
+                repeat: repeatModee,
+                pause: pausee,
+                songs: queue.songs.map((song, id) => id + 1).length
+            });
+        }, 2500)
+    }
     if (noMessage !== "off") {
         if (lang == "en") {
             let embed = new MessageEmbed()
@@ -98,13 +100,12 @@ module.exports = async(client, queue, song) => {
                     .addComponents(btn1, btn2, btn3);
                 let row2 = new MessageActionRow()
                     .addComponents(btn4, btn5, btn6);
-                let msg = await queue.textChannel.send({ content: `**🔍 | Found:** \`${song.name}\`\n**Played By: \`${song.user.username}\`**`, embeds: [embed], components: [row, row2] })
-                const filter = i => i.user.id == song.user.id && i.member.voice.channel.id == song.member.voice.channel.id;
+                let msg = await queue.textChannel.send({ content: `**🔍 | Found:** \`${song.name}\`\n**Played By: \`${song.user.username}\`**`, embeds: [embed], components: [row, row2] });
+                const filter = i => i.user.id == song.user.id;
                 let collector = msg.createMessageComponentCollector(filter, { time: 0 });
 
                 collector.on('collect', async i => {
-                    // i.deferReply();
-                    if (!interaction.member.voice.channel) return i.channel.send({ content: emojis.error + " | **You Have To Be On Voice Channel, **<@!" + i.user.id + ">", allowedMentions: false, ephemeral: true })
+                    if (user.id !== i.user.id) queue.textChannel.send({ content: emojis.error + ' | **only song player can use the panel**!' })
                     if (i.customId == "stop") {
                         try {
                             if (!getQueue) return;
@@ -205,24 +206,32 @@ module.exports = async(client, queue, song) => {
                 });
             } else if (panelType == "reactions") {
                 let msg = await queue.textChannel.send({ content: `**🔍 | Found:** \`${song.name}\`\n**Played By: \`${song.user.username}\`**`, embeds: [embed] })
-                const filter = (reaction, user) => user.id == song.user.id && interaction.member(user).member.voice.channel.id == song.member.voice.channel.id;
+                msg.react('⏹️')
+                msg.react('⏭️')
+                msg.react('⏯️')
+                msg.react('🔄')
+                msg.react('🔀')
+                msg.react('🔉')
+                msg.react('🔊')
+                const filter = (reaction, user) => user.id == song.user.id;
                 let collector = await msg.createReactionCollector({
                     filter: filter,
                     time: 0
                 });
                 collector.on("collect", async(reaction, user) => {
-                    if (!interaction.guild.members.cache.get(user.id).voice.channel) queue.textChannel.send({ content: emojis.error + ' | please join a voice channel first!' })
                     if (user.partial) await user.fetch();
                     if (reaction.partial) await reaction.fetch();
                     if (reaction.message.partial) await reaction.message.fetch();
                     if (user.bot) return;
-                    let queue = player.getQueue(message);
+                    reaction.users.remove(user.id);
+                    if (user.id !== song.user.id) return;
+                    let queue = player.getQueue(interaction);
                     if (reaction.emoji.name == "⏯️") {
                         try {
                             reaction.users.remove(user.id)
                             if (queue) {
-                                if (queue.paused == true) player.resume(message)
-                                else player.pause(message)
+                                if (queue.paused == true) player.resume(interaction)
+                                else player.pause(interaction)
                             }
                         } catch {
                             console.log('')
@@ -230,7 +239,7 @@ module.exports = async(client, queue, song) => {
                     } else if (reaction.emoji.name == "⏹️") {
                         try {
                             reaction.users.remove(user.id)
-                            player.stop(message)
+                            player.stop(interaction)
                         } catch {
                             console.log('')
                         }
@@ -239,7 +248,7 @@ module.exports = async(client, queue, song) => {
                             if (queue) {
                                 reaction.users.remove(user.id)
                                 if (queue.songs.map((song, i) => i).length == 1) return;
-                                player.skip(message)
+                                player.skip(interaction)
                             }
                         } catch {
                             console.log('')
@@ -248,8 +257,8 @@ module.exports = async(client, queue, song) => {
                         try {
                             reaction.users.remove(user.id)
                             if (queue) {
-                                if (queue.repeatMode == 0) player.setRepeatMode(message, parseInt(1))
-                                if (queue.repeatMode == 1) player.setRepeatMode(message, parseInt(0))
+                                if (queue.repeatMode == 0) player.setRepeatMode(interaction, parseInt(1))
+                                if (queue.repeatMode == 1) player.setRepeatMode(interaction, parseInt(0))
                             }
                         } catch {
                             console.log('')
@@ -258,7 +267,7 @@ module.exports = async(client, queue, song) => {
                         try {
                             reaction.users.remove(user.id)
                             if (queue) {
-                                player.shuffle(message)
+                                player.shuffle(interaction)
                             }
                         } catch {
                             console.log('')
@@ -268,7 +277,7 @@ module.exports = async(client, queue, song) => {
                             reaction.users.remove(user.id)
                             if (queue) {
                                 let vol = queue.volume;
-                                player.setVolume(message, Number(vol) - 10)
+                                player.setVolume(interaction, Number(vol) - 10)
                             }
                         } catch {
                             console.log('')
@@ -278,13 +287,15 @@ module.exports = async(client, queue, song) => {
                             reaction.users.remove(user.id)
                             if (queue) {
                                 let vol = queue.volume;
-                                player.setVolume(message, Number(vol) + 10)
+                                player.setVolume(interaction, Number(vol) + 10)
                             }
                         } catch {
                             console.log('')
                         }
                     }
                 });
+            } else if (panelType == "none") {
+                queue.textChannel.send({ content: `**🔍 | Found:** \`${song.name}\`\n**Played By: \`${song.user.username}\`**`, embeds: [embed] });
             }
         } else if (lang == "ar") {
             let embed = new MessageEmbed()
@@ -339,12 +350,12 @@ module.exports = async(client, queue, song) => {
                 let row2 = new MessageActionRow()
                     .addComponents(btn4, btn5, btn6);
                 let msg = await queue.textChannel.send({ content: `**🔍 | :تم العثور على** \`${song.name}\`\n**تم التشغيل عن طريق: \`${song.user.username}\`**`, embeds: [embed], components: [row, row2] })
-                const filter = i => i.user.id == song.user.id && i.member.voice.channel.id == song.member.voice.channel.id;
+                const filter = i => i.user.id == song.user.id;
                 let collector = msg.createMessageComponentCollector(filter, { time: 0 });
 
                 collector.on('collect', async i => {
                     // i.deferReply();
-                    if (!interaction.member.voice.channel) return i.channel.send({ content: emojis.error + " | **You Have To Be On Voice Channel, **<@!" + i.user.id + ">", allowedMentions: false, ephemeral: true })
+                    if (user.id !== i.user.id) i.channel.send({ content: emojis.error + ' | **only song player can use the panel**!' })
                     if (i.customId == "stop") {
                         try {
                             if (!getQueue) return;
@@ -447,24 +458,25 @@ module.exports = async(client, queue, song) => {
                 });
             } else if (panelType == "reactions") {
                 let msg = await queue.textChannel.send({ content: `**🔍 | Found:** \`${song.name}\`\n**Played By: \`${song.user.username}\`**`, embeds: [embed] })
-                const filter = (reaction, user) => user.id == song.user.id && interaction.member(user).member.voice.channel.id == song.member.voice.channel.id;
+                const filter = (reaction, user) => user.id == song.user.id;
                 let collector = await msg.createReactionCollector({
                     filter: filter,
                     time: 0
                 });
                 collector.on("collect", async(reaction, user) => {
-                    if (!interaction.guild.members.cache.get(user.id).voice.channel) queue.textChannel.send({ content: emojis.error + ' | please join a voice channel first!' })
                     if (user.partial) await user.fetch();
                     if (reaction.partial) await reaction.fetch();
                     if (reaction.message.partial) await reaction.message.fetch();
                     if (user.bot) return;
-                    let queue = player.getQueue(message);
+                    reaction.users.remove(user.id);
+                    if (user.id !== song.user.id) return;
+                    let queue = player.getQueue(interaction);
                     if (reaction.emoji.name == "⏯️") {
                         try {
                             reaction.users.remove(user.id)
                             if (queue) {
-                                if (queue.paused == true) player.resume(message)
-                                else player.pause(message)
+                                if (queue.paused == true) player.resume(interaction)
+                                else player.pause(interaction)
                             }
                         } catch {
                             console.log('')
@@ -472,7 +484,7 @@ module.exports = async(client, queue, song) => {
                     } else if (reaction.emoji.name == "⏹️") {
                         try {
                             reaction.users.remove(user.id)
-                            player.stop(message)
+                            player.stop(interaction)
                         } catch {
                             console.log('')
                         }
@@ -481,7 +493,7 @@ module.exports = async(client, queue, song) => {
                             if (queue) {
                                 reaction.users.remove(user.id)
                                 if (queue.songs.map((song, i) => i).length == 1) return;
-                                player.skip(message)
+                                player.skip(interaction)
                             }
                         } catch {
                             console.log('')
@@ -489,10 +501,8 @@ module.exports = async(client, queue, song) => {
                     } else if (reaction.emoji.name == "🔄") {
                         try {
                             reaction.users.remove(user.id)
-                            if (queue) {
-                                if (queue.repeatMode == 0) player.setRepeatMode(message, parseInt(1))
-                                if (queue.repeatMode == 1) player.setRepeatMode(message, parseInt(0))
-                            }
+                            if (queue.repeatMode == 0) player.setRepeatMode(interaction, parseInt(1))
+                            if (queue.repeatMode == 1) player.setRepeatMode(interaction, parseInt(0))
                         } catch {
                             console.log('')
                         }
@@ -500,7 +510,7 @@ module.exports = async(client, queue, song) => {
                         try {
                             reaction.users.remove(user.id)
                             if (queue) {
-                                player.shuffle(message)
+                                player.shuffle(interaction)
                             }
                         } catch {
                             console.log('')
@@ -510,7 +520,7 @@ module.exports = async(client, queue, song) => {
                             reaction.users.remove(user.id)
                             if (queue) {
                                 let vol = queue.volume;
-                                player.setVolume(message, Number(vol) - 10)
+                                player.setVolume(interaction, Number(vol) - 10)
                             }
                         } catch {
                             console.log('')
@@ -520,13 +530,15 @@ module.exports = async(client, queue, song) => {
                             reaction.users.remove(user.id)
                             if (queue) {
                                 let vol = queue.volume;
-                                player.setVolume(message, Number(vol) + 10)
+                                player.setVolume(interaction, Number(vol) + 10)
                             }
                         } catch {
                             console.log('')
                         }
                     }
                 });
+            } else if (panelType == "none") {
+                queue.textChannel.send({ content: `**🔍 | :تم العثور على** \`${song.name}\`\n**تم التشغيل عن طريق: \`${song.user.username}\`**`, embeds: [embed] });
             }
         }
     }

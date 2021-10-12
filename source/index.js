@@ -6,6 +6,7 @@ const player = require('./client/player');
 const commands = new Collection();
 const slashCommands = new Collection();
 
+
 module.exports = {
     commands: commands,
     slashCommands: slashCommands,
