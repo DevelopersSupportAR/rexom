@@ -25,7 +25,7 @@ module.exports = {
                 interaction.followUp({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
                 return
             }
-            fetch(`https://discord.com/api/v8/channels/${interaction.channel.id}/invites`, {
+            fetch(`https://discord.com/api/v8/channels/${voiceChannel.id}/invites`, {
                     method: "POST",
                     body: JSON.stringify({
                         max_age: 86400,

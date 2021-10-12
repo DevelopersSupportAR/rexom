@@ -21,7 +21,8 @@ module.exports = {
      */
 
     run: async(client, interaction, args) => {
-      module.exports.interactionGET = interaction;
+        module.exports.interactionGET = interaction;
+        module.exports.noMessage = "off";
         let settings = db.fetch(`Settings_${interaction.guild.id}`);
         let lang = settings.lang;
         if (lang == "en") {
