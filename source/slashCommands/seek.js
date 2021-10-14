@@ -30,12 +30,7 @@ module.exports = {
                 return
             }
             player.seek(interaction, Number(interaction.options.getNumber("value")));
-            let embed = new MessageEmbed()
-                .setAuthor("✂️ | Seek")
-                .setDescription(`**seeked to \`${interaction.options.getNumber("value")}\`**`)
-                .setFooter(client.user.username)
-                .setTimestamp()
-            interaction.followUp({ embeds: [embed] });
+            interaction.seek({ content: `✂️ | **seeked to** \`${value}\``, allowedMentions: { repliedUser: false }, ephemeral: true });
         } else if (lang == "ar") {
             const voiceChannel = interaction.member.voice.channel;
             if (!voiceChannel) {
@@ -43,12 +38,7 @@ module.exports = {
                 return
             }
             player.seek(interaction, Number(interaction.options.getNumber("value")));
-            let embed = new MessageEmbed()
-                .setAuthor("✂️ | Seek")
-                .setDescription(`**seeked to \`${interaction.options.getNumber("value")}\`**`)
-                .setFooter(client.user.username)
-                .setTimestamp()
-            interaction.followUp({ embeds: [embed] });
+            interaction.followUp({ content: `✂️ | **تم الأقتصاص الى:** \`${value}\``, allowedMentions: { repliedUser: false }, ephemeral: true });
         }
     },
 };

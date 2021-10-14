@@ -3,7 +3,7 @@
  * #انا_اتفشخت_فيه
  */
 
-// const { APIMessage, Structures } = require("discord.js");
+// const { APIMessage, Structures } = require("discord.js@12.5.3");
 
 // class Message extends Structures.get("Message") {
 //     async IntractionReply(content, options) {

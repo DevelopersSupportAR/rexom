@@ -100,7 +100,6 @@ module.exports = {
             for (let num = 0; num < 10; num++) {
                 const element = data.split(',')[num];
                 if (element == undefined) continue;
-                console.log(element)
                 array.push(element)
             }
             db.set(`SDPL_${message.author.id}.data`, array);

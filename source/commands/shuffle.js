@@ -23,12 +23,7 @@ module.exports = {
                 return
             }
             player.shuffle(message);
-            let embed = new MessageEmbed()
-                .setAuthor("🔀 | Shuffle")
-                .setDescription(`**server queue has shuffled**`)
-                .setFooter(client.user.username)
-                .setTimestamp()
-            message.reply({ embeds: [embed] });
+            message.reply({ content: "🔀 | **server queue has shuffled**", allowedMentions: false, ephemeral: true });
         } else if (lang == "ar") {
             const voiceChannel = message.member.voice.channel;
             if (!voiceChannel) {
@@ -36,12 +31,7 @@ module.exports = {
                 return
             }
             player.shuffle(message);
-            let embed = new MessageEmbed()
-                .setAuthor("🔀 | Shuffle")
-                .setDescription(`**server queue has shuffled**`)
-                .setFooter(client.user.username)
-                .setTimestamp()
-            message.reply({ embeds: [embed] });
+            message.reply({ content: "🔀 | **تمت اعادة ترتيب قائمة التشغيل**", allowedMentions: false, ephemeral: true });
         }
     }
 };

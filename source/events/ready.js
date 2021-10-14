@@ -13,7 +13,7 @@ module.exports = async(client) => {
     const url = 'https://api.github.com/repos/' + gitHubPath + '/tags';
     const response = await fetch(url);
     const data = await response.json();
-    if (data[0].name !== "2.7.9") {
+    if (data[0].name !== "2.8.2") {
         client.guilds.cache.forEach(guild => {
             let user = client.users.cache.get(guild.ownerId);
             user.send(`**reXom Have a new update!! :tada:**\n\`${data[0].name}\` is naw available on https://github.com/DevelopersSupportAR/rexom`).catch(() => {})

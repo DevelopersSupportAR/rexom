@@ -16,7 +16,8 @@ module.exports = {
      */
 
     run: async(client, message, args, prefix, lang) => {
-      module.exports.messageGET = message;
+        module.exports.messageGET = message;
+        module.exports.noMessage = "off";
         let value = message.content.split(' ').slice(1).join(' ');
         if (lang == "en") {
             if (!value) return message.reply({

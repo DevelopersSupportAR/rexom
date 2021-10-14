@@ -58,7 +58,7 @@ module.exports = {
                 let filter2;
                 let emcoll = await msg.createReactionCollector({ filter2, time: 0 });
                 emcoll.on("collect", async(reaction, user) => {
-                    //if (!message.guild.members.cache.get(user.id).voice.channel) user.reply({ content: emojis.error + ' | please join a voice channel first!' })
+                    if (!message.guild.members.cache.get(user.id).voice.channel) message.channel.send({ content: emojis.error + ' | please join a voice channel first!' })
                     if (user.partial) await user.fetch();
                     if (reaction.partial) await reaction.fetch();
                     if (reaction.message.partial) await reaction.message.fetch();

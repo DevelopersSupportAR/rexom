@@ -29,13 +29,7 @@ module.exports = {
                 return
             }
             player.seek(message, Number(value));
-            let embed = new MessageEmbed()
-                .setAuthor("✂️ | Seek")
-                .setDescription(`**seeked to \`${value}\`**`)
-                .setFooter(client.user.username)
-                .setColor("GREEN")
-                .setTimestamp()
-            message.reply({ embeds: [embed] });
+            message.reply({ content: `✂️ | **seeked to** \`${value}\``, allowedMentions: { repliedUser: false }, ephemeral: true });
         } else if (lang == "ar") {
             if (!value) return message.reply({
                 content: emojis.error + ` | يرجى كتابة الوقت المراد تخطيه بالثواني`,
@@ -48,13 +42,7 @@ module.exports = {
                 return
             }
             player.seek(message, Number(value));
-            let embed = new MessageEmbed()
-                .setAuthor("✂️ | Seek")
-                .setDescription(`**seeked to \`${value}\`**`)
-                .setFooter(client.user.username)
-                .setColor("GREEN")
-                .setTimestamp()
-            message.reply({ embeds: [embed] });
+            message.reply({ content: `✂️ | **تم الأقتصاص الى:** \`${value}\``, allowedMentions: { repliedUser: false }, ephemeral: true });
         }
     }
 };

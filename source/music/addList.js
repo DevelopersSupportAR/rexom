@@ -16,6 +16,10 @@ module.exports = async(client, queue, playlist) => {
                 .setDescription(`__**[${playlist.name}](${playlist.url})**__ playlist has  __**${playlist.total_items}**__ songs has add in the queue`)
             ],
             allowedMentions: { repliedUser: false }
+        }).then(m => {
+            setTimeout(() => {
+                m.delete()
+            }, 5000);
         });
     } else if (lang == "ar") {
         queue.textChannel.send({
@@ -25,6 +29,10 @@ module.exports = async(client, queue, playlist) => {
                 .setDescription(`قائمة التشغيل __**[${playlist.name}](${playlist.url})**__ تحتوي على __**${playlist.total_items}**__ أغنيه, تمت أضافتهم لطابور العرض`)
             ],
             allowedMentions: { repliedUser: false }
+        }).then(m => {
+            setTimeout(() => {
+                m.delete()
+            }, 5000);
         });
     }
 }

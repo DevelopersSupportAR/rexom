@@ -24,10 +24,7 @@ module.exports = {
             }
             db.delete(`Voice_Channel_${interaction.guild.id}`);
             interaction.followUp({
-                embeds: [new MessageEmbed()
-                    .setColor('GREEN')
-                    .setDescription(`🗃️ | تمت ازالة التثبيت من: <#${voiceChannel.id}>`)
-                ],
+                content: `🗃️ | تمت ازالة التثبيت من: <#${voiceChannel.id}>`,
                 ephemeral: true,
                 allowedMentions: false
             });
@@ -39,10 +36,7 @@ module.exports = {
             }
             db.delete(`Voice_Channel_${interaction.guild.id}`);
             interaction.followUp({
-                embeds: [new MessageEmbed()
-                    .setColor('GREEN')
-                    .setDescription(`🗃️ | Done Leaved <#${voiceChannel.id}>`)
-                ],
+                content: `🗃️ | Done Leaved <#${voiceChannel.id}>`,
                 ephemeral: true,
                 allowedMentions: false
             });

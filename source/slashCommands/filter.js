@@ -34,13 +34,7 @@ module.exports = {
             if (['3d', 'bassboost', 'echo', 'karaoke', 'nightcore', 'vaporwave', 'flanger', 'gate', 'haas', 'reverse', 'surround', 'mcompand', 'phaser', 'tremolo', 'earwax'].includes(interaction.options.getString("value"))) {
                 player.setFilter(interaction, args[0]);
                 interaction.followUp({
-                    embeds: [
-                        new MessageEmbed()
-                        .setAuthor(`🎭 | Filters`, client.user.avatarURL({ dynamic: true }), `https://discord.gg/developer-support`)
-                        .setColor('GREEN')
-                        .setDescription(`🎭 | queue filter has been changed to \`${interaction.options.getString("value")}\``)
-                        .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
-                    ],
+                    content: `🎭 | تم تغير فلتر الصوت الخاص بطابور العرض الى \`${value}\``,
                     ephemeral: true,
                     allowedMentions: false
                 });
@@ -60,13 +54,7 @@ module.exports = {
             if (['3d', 'bassboost', 'echo', 'karaoke', 'nightcore', 'vaporwave', 'flanger', 'gate', 'haas', 'reverse', 'surround', 'mcompand', 'phaser', 'tremolo', 'earwax'].includes(interaction.options.getString("value"))) {
                 player.setFilter(interaction, args[0]);
                 interaction.followUp({
-                    embeds: [
-                        new MessageEmbed()
-                        .setAuthor(`🎭 | Filters`, client.user.avatarURL({ dynamic: true }), `https://discord.gg/developer-support`)
-                        .setColor('GREEN')
-                        .setDescription(`🎭 | queue filter has been changed to \`${interaction.options.getString("value")}\``)
-                        .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
-                    ],
+                    content: `🎭 | queue filter has been changed to \`${value}\``,
                     ephemeral: true,
                     allowedMentions: false
                 });
