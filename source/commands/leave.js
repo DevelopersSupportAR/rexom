@@ -1,6 +1,7 @@
 const { Client, Message, MessageEmbed, Permissions } = require("discord.js");
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
+const embed = require('../structures/embeds');
 
 module.exports = {
     name: "leave",
@@ -17,28 +18,14 @@ module.exports = {
     run: async(client, message, args, prefix, lang) => {
         if (lang == "ar") {
             const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) {
-                message.reply({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(message, lang);
             db.delete(`Voice_Channel_${message.guild.id}`);
-            message.reply({
-                content: `🗃️ | تمت ازالة التثبيت من: <#${voiceChannel.id}>`,
-                ephemeral: true,
-                allowedMentions: false
-            });
+            embed.done(message, `**تمت ازالة التثبيت من: <#${voiceChannel.id}>**`);
         } else if (lang == "en") {
             const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) {
-                message.reply({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(message, lang);
             db.delete(`Voice_Channel_${message.guild.id}`);
-            message.reply({
-                content: `🗃️ | Done Leaved <#${voiceChannel.id}>`,
-                ephemeral: true,
-                allowedMentions: false
-            });
+            embed.done(message, `**Done Leaved <#${voiceChannel.id}>**`);
         }
     }
 };

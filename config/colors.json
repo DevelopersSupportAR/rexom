@@ -1,0 +1,6 @@
+{
+    "loading": "#F3FF00",
+    "error": "#FF003A",
+    "done": "#00A6FF",
+    "warn": "#FF6C00"
+}

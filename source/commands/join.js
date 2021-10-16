@@ -2,6 +2,7 @@ const { Client, Message, MessageEmbed } = require("discord.js");
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
 const { joinVoiceChannel } = require('@discordjs/voice');
+const embed = require('../structures/embeds');
 
 module.exports = {
     name: "join",
@@ -18,10 +19,7 @@ module.exports = {
     run: async(client, message, args, prefix, lang) => {
         if (lang == "ar") {
             const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) {
-                message.reply({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(message, lang);
             let channel = client.channels.cache.find(c => c.id == voiceChannel.id);
             const connection = joinVoiceChannel({
                 channelId: channel.id,
@@ -30,17 +28,10 @@ module.exports = {
             });
             connection;
             db.set(`Voice_Channel_${message.guild.id}`, voiceChannel.id);
-            message.reply({
-                content: `🗃️ | تم التثبيت في <#${voiceChannel.id}>`,
-                ephemeral: true,
-                allowedMentions: false
-            });
+            embed.done(message, `**تم التثبيت في <#${voiceChannel.id}>**`)
         } else if (lang == "en") {
             const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) {
-                message.reply({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(message, lang);
             let channel = client.channels.cache.find(c => c.id == voiceChannel.id);
             const connection = joinVoiceChannel({
                 channelId: channel.id,
@@ -49,11 +40,7 @@ module.exports = {
             });
             connection;
             db.set(`Voice_Channel_${message.guild.id}`, voiceChannel.id);
-            message.reply({
-                content: `🗃️ | Done Joined <#${voiceChannel.id}>`,
-                ephemeral: true,
-                allowedMentions: false
-            });
+            embed.done(message, `**Done Joined <#${voiceChannel.id}>**`)
         }
     }
 };

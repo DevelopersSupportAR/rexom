@@ -2,6 +2,7 @@ const { Client, Message, MessageEmbed } = require("discord.js");
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
 const { player } = require('../index');
+const embed = require('../structures/embeds');
 
 module.exports = {
     name: "jump",
@@ -18,61 +19,31 @@ module.exports = {
     run: async(client, message, args, prefix, lang) => {
         let value = args[1]
         if (lang == "ar") {
-            if (!value) return message.reply({
-                content: emojis.error + ` | يجب تحديد رقم الأغنيه في طابور العرض`,
-                ephemeral: true,
-                allowedMentions: false
-            });
+            if (!value) return embed.warn(message, "**يجب تحديد رقم الأغنيه في طابور العرض**")
             const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) {
-                message.reply({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(message, lang)
             const queue = player.getQueue(message);
-            if (!queue) return message.reply({ content: emojis.error + " | **لم يتم تشغيل اي أغنيه اصلا**", allowedMentions: false, ephemeral: true })
+            if (!queue) return embed.notInVoice(message, lang)
             try {
                 player.jump(message, parseInt(value))
             } catch (err) {
-                message.reply({
-                    content: "لا يمكن العثور على رقم الأغنيه في طابور عرض الموسيقى",
-                    ephemeral: true,
-                    allowedMentions: false
-                })
+                embed.err(message, "**لا يمكن العثور على رقم الأغنيه في طابور عرض الموسيقى**")
                 throw err;
             }
-            message.reply({
-                content: `⤵ | تم القفظ الى الأغنيه صاحبة الرقم: \`${parseInt(value)}\``,
-                ephemeral: true,
-                allowedMentions: false
-            });
+            embed.done(message, `**تم القفظ الى الأغنيه صاحبة الرقم: \`${parseInt(value)}\`**`)
         } else if (lang == "en") {
-            if (!value) return message.reply({
-                content: emojis.error + ` | You Music Specify The Song Number On Server Queue`,
-                ephemeral: true,
-                allowedMentions: false
-            });
+            if (!value) return embed.warn(message, "**You Music Specify The Song Number On Server Queue**");
             const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) {
-                message.reply({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(message, lang)
             const queue = player.getQueue(message);
-            if (!queue) return message.reply({ content: emojis.error + " | **Thare are no music in the queue**", allowedMentions: false, ephemeral: true })
+            if (!queue) return embed.notInVoice(message, lang)
             try {
                 player.jump(message, parseInt(value))
             } catch (err) {
-                message.reply({
-                    content: "the bot can't find this song number on the server queue",
-                    ephemeral: true,
-                    allowedMentions: false
-                })
+                embed.err(message, "**the bot can't find this song number on the server queue**")
                 throw err;
             }
-            message.reply({
-                content: `⤵ | done jumped to song number \`${parseInt(value)}\``,
-                ephemeral: true,
-                allowedMentions: false
-            });
+            embed.done(message, `**done jumped to song number \`${parseInt(value)}\`**`)
         }
     }
 };

@@ -14,7 +14,7 @@ const session = require("express-session");
 const memorystore = require('memorystore')(session);
 const PORT = process.env.PORT || settings.config.port;
 const botConfig = require('../../config/bot.json');
-const client = require('../index').client;
+const client = require('../client/discord').client;
 
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((obj, done) => done(null, obj));

@@ -355,7 +355,7 @@ module.exports = async(client, queue, song) => {
 
                 collector.on('collect', async i => {
                     // i.deferReply();
-                    if (user.id !== i.user.id) i.channel.send({ content: emojis.error + ' | **only song player can use the panel**!' })
+                    if (song.user.id !== i.user.id) i.channel.send({ content: emojis.error + ' | **only song player can use the panel**!' })
                     if (i.customId == "stop") {
                         try {
                             if (!getQueue) return;
@@ -458,6 +458,13 @@ module.exports = async(client, queue, song) => {
                 });
             } else if (panelType == "reactions") {
                 let msg = await queue.textChannel.send({ content: `**🔍 | Found:** \`${song.name}\`\n**Played By: \`${song.user.username}\`**`, embeds: [embed] })
+                msg.react('⏹️')
+                msg.react('⏭️')
+                msg.react('⏯️')
+                msg.react('🔄')
+                msg.react('🔀')
+                msg.react('🔉')
+                msg.react('🔊')
                 const filter = (reaction, user) => user.id == song.user.id;
                 let collector = await msg.createReactionCollector({
                     filter: filter,
@@ -501,8 +508,10 @@ module.exports = async(client, queue, song) => {
                     } else if (reaction.emoji.name == "🔄") {
                         try {
                             reaction.users.remove(user.id)
-                            if (queue.repeatMode == 0) player.setRepeatMode(interaction, parseInt(1))
-                            if (queue.repeatMode == 1) player.setRepeatMode(interaction, parseInt(0))
+                            if (queue) {
+                                if (queue.repeatMode == 0) player.setRepeatMode(interaction, parseInt(1))
+                                if (queue.repeatMode == 1) player.setRepeatMode(interaction, parseInt(0))
+                            }
                         } catch {
                             console.log('')
                         }

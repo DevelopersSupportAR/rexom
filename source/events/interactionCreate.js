@@ -1,5 +1,5 @@
 const { Client, CommandInteraction } = require('discord.js');
-const { slashCommands } = require('../index');
+const { slashCommandsMap } = require('../models/slashCommands/loader');
 const db = require('quick.db');
 const emojis = require('../../config/emojis.json');
 
@@ -11,6 +11,7 @@ const emojis = require('../../config/emojis.json');
  */
 
 module.exports = async(client, interaction) => {
+    let slashCommands = slashCommandsMap
     await interaction.deferReply().catch(() => {});
     let settings = db.fetch(`Settings_${interaction.guild.id}`);
     if (settings == null) return db.set(`Settings_${interaction.guild.id}`, {

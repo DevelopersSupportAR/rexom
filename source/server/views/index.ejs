@@ -13,9 +13,9 @@
 
     <body style="background-color: #2f3136;">
         <div align="center" style="color: white;">
-            <img src="https://t4.ftcdn.net/jpg/03/03/86/25/240_F_303862557_fqPo9RFHohaJdV0cVqEeuQLsxk9qfUAA.jpg" style="margin-top: 100px; width: 250px; height: 250px; border-radius: 50%;">
+            <img src="https://media.discordapp.net/attachments/762519731420659712/898300610573664297/unknown.png" style="margin-top: 100px; width: 250px; height: 250px; border-radius: 50%;">
             <h1 class="display-3" style="margin-top: 30px;">re<b style="color: red;">X</b>om</h1>
-            <button type="button" class="btn btn-primary btn-lg" onclick="location.href='https://discord.com/api/oauth2/authorize?client_id=<%= bot.user.id %>&permissions=6747975000&redirect_uri=<%= collback %>&scope=bot%20applications.commands'">Invite</button>
+            <button type="button" class="btn btn-primary btn-lg" onclick="location.href='https://discord.com/api/oauth2/authorize?response_type=code&client_id=<%= bot.user.id %>&permissions=6747975000&redirect_uri=https%3A%2F%2Fdiscord.music-rexom.ml%2Fcallback&scope=bot%20applications.commands'">Invite</button>
             <% if (user && user.id) {%>
                 <button type="button" class="btn btn-secondary btn-lg" onclick="location.href='/dashboard'">Dashboard</button>
                 <% } else {%>
@@ -29,7 +29,7 @@
             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Developer Info
               </button>
-            <div class="modal fade" id="exampleModal" kk="<%= bot.token %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
