@@ -2,6 +2,7 @@ const { Client, Message, MessageEmbed, MessageActionRow, MessageButton } = requi
 const { player } = require('../index');
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
+const embed = require("../structures/embeds");
 
 module.exports = {
     name: "seek",
@@ -18,31 +19,17 @@ module.exports = {
     run: async(client, message, args, prefix, lang) => {
         let value = message.content.split(' ').slice(1).join(' ');
         if (lang == "en") {
-            if (!value) return message.reply({
-                content: emojis.error + ` | please Type The Skip Time Number`,
-                ephemeral: true,
-                allowedMentions: false
-            });
+            if (!value) return embed.warn(message, "**please Type The Skip Time Number**")
             const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) {
-                message.reply({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(message, lang);
             player.seek(message, Number(value));
-            message.reply({ content: `✂️ | **seeked to** \`${value}\``, allowedMentions: { repliedUser: false }, ephemeral: true });
+            embed.done(message, `**seeked to** \`${value}\``)
         } else if (lang == "ar") {
-            if (!value) return message.reply({
-                content: emojis.error + ` | يرجى كتابة الوقت المراد تخطيه بالثواني`,
-                ephemeral: true,
-                allowedMentions: false
-            });
+            if (!value) return embed.warn(message, "**يرجى كتابة الوقت المراد تخطيه بالثواني**")
             const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) {
-                message.reply({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(message, lang);
             player.seek(message, Number(value));
-            message.reply({ content: `✂️ | **تم الأقتصاص الى:** \`${value}\``, allowedMentions: { repliedUser: false }, ephemeral: true });
+            embed.done(message, `**تم الأقتصاص الى:** \`${value}\``)
         }
     }
 };

@@ -2,6 +2,7 @@ const { Client, Message, MessageEmbed, MessageActionRow, MessageButton } = requi
 const { player } = require('../index');
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
+const embed = require("../structures/embeds");
 
 module.exports = {
     name: "stop",
@@ -19,24 +20,18 @@ module.exports = {
         if (lang == "en") {
             module.exports.guildID = message.guild.id;
             const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) {
-                message.reply({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(message, lang);
             const queue = player.getQueue(message);
-            if (!queue) return message.reply({ content: emojis.error + " | **Thare are no music in the queue**", allowedMentions: false, ephemeral: true })
+            if (!queue) return embed.notQueue(message, lang);
             player.stop(message);
-            message.reply({ content: `**🛑 | The Music Has Stoped**`, allowedMentions: false, ephemeral: true })
+            embed.done(message, "**The Music Has Stoped**");
         } else if (lang == "ar") {
             const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) {
-                message.reply({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(message, lang);
             const queue = player.getQueue(message);
-            if (!queue) return message.reply({ content: emojis.error + " | **لم يتم تشغيل اي أغنيه اصلا**", allowedMentions: false, ephemeral: true })
-            player.stop(message)
-            message.reply({ content: `**🛑 | تم ايقاف الموسقى**`, allowedMentions: false, ephemeral: true })
+            if (!queue) return embed.notQueue(message, lang);
+            player.stop(message);
+            embed.done(message, "**تم ايقاف الموسقى**");
         }
     }
 };

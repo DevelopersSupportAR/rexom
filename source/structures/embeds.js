@@ -51,8 +51,8 @@ module.exports = {
         if (lang == "en") msg = "**You Have To Be On Voice Channel**";
         if (lang == "ar") msg = "**يجب انت تكون في غرفه صوتيه**";
         let embed = new MessageEmbed()
-            .setColor(colors.error)
-            .setDescription(emojis.error + " | " + msg);
+            .setColor(colors.warn)
+            .setDescription(emojis.warn + " | " + msg);
 
         message.reply({ embeds: [embed], allowedMentions: { repliedUser: false }, ephemeral: false }).catch(() => {
             message.channel.sned({ embeds: [embed], allowedMentions: { repliedUser: false }, ephemeral: false });
@@ -63,8 +63,8 @@ module.exports = {
         if (lang == "en") msg = "**Thare are no music in the queue**";
         if (lang == "ar") msg = "**لم يتم تشغيل اي أغنيه اصلا**";
         let embed = new MessageEmbed()
-            .setColor(colors.error)
-            .setDescription(emojis.error + " | " + msg);
+            .setColor(colors.warn)
+            .setDescription(emojis.warn + " | " + msg);
 
         message.reply({ embeds: [embed], allowedMentions: { repliedUser: false }, ephemeral: false }).catch(() => {
             message.channel.sned({ embeds: [embed], allowedMentions: { repliedUser: false }, ephemeral: false });

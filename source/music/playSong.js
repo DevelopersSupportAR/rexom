@@ -1,5 +1,6 @@
 const { Client, MessageEmbed, MessageButton, MessageActionRow } = require('discord.js');
 const { Song, Queue } = require('distube');
+const emojis = require('../../config/emojis.json');
 const { player } = require('../index');
 const { panelType } = require('../../config/bot.json');
 const db = require('quick.db');

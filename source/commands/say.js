@@ -3,6 +3,7 @@ const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
 const { joinVoiceChannel } = require('@discordjs/voice');
 const discordTTS = require('discord-tts');
+const embed = require("../structures/embeds");
 
 module.exports = {
     name: "say",
@@ -19,18 +20,12 @@ module.exports = {
     run: async(client, message, args, prefix, lang) => {
         if (lang == "en") {
             const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) {
-                message.reply({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
-                return
-            }
-            message.reply({ content: emojis.error + " | هذا الأمر م يعمل على هذا الأصدار من البوت" });
+            if (!voiceChannel) return embed.notInVoice(message, lang);
+            embed.err(message, "**هذا الأمر م يعمل على هذا الأصدار من البوت**")
         } else if (lang == "ar") {
             const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) {
-                message.reply({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: false, ephemeral: true })
-                return
-            }
-            message.reply({ content: emojis.error + " | this command is will not run in this version" });
+            if (!voiceChannel) return embed.notInVoice(message, lang);
+            embed.err(message, "**this command is will not run in this version**")
         }
     }
 };
