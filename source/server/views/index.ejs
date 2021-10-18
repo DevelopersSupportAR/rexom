@@ -1,0 +1,152 @@
+<%- include("includes/header") -%>
+
+    <html>
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <link rel="stylesheet" href="/index.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    </head>
+
+    <body style="background-color: #2f3136;">
+        <div align="center" style="color: white;">
+            <img src="https://media.discordapp.net/attachments/762519731420659712/898300610573664297/unknown.png" style="margin-top: 100px; width: 250px; height: 250px; border-radius: 50%;">
+            <h1 class="display-3" style="margin-top: 30px;">re<b style="color: red;">X</b>om</h1>
+            <button type="button" class="btn btn-primary btn-lg" onclick="location.href='https://discord.com/api/oauth2/authorize?response_type=code&client_id=<%= bot.user.id %>&permissions=6747975000&redirect_uri=https%3A%2F%2Fdiscord.music-rexom.ml%2Fcallback&scope=bot%20applications.commands'">Invite</button>
+            <% if (user && user.id) {%>
+                <button type="button" class="btn btn-secondary btn-lg" onclick="location.href='/dashboard'">Dashboard</button>
+                <% } else {%>
+                    <button type="button" class="btn btn-secondary btn-lg" onclick="location.href='/login'">Login</button>
+                    <% } %>
+                        <br>
+                        <br>
+                        <h1></h1>
+        </div>
+        <div align="center">
+            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Developer Info
+              </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h1 style="color: yellowgreen;" align="center">Developer Info</h1>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="location.href='https://discord.gg/developer-support'">Developer Server</button>
+                            <button type="button" class="btn btn-primary" onclick="location.href='https://github.com/DevelopersSupportAR/rexom'">Soucre Code</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <center style="height: 500px; width: 500px;">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <h1 style="color: white;">Servers: <b style="color: red;"><%= bot.guilds.cache.size %></b></h1>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                        </div>
+                        <div class="carousel-item">
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <h1 style="color: white;">Users: <b style="color: red;"><%= bot.users.cache.size %></b></h1>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                        </div>
+                        <div class="carousel-item">
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <h1 style="color: white;">Channels: <b style="color: red;"><%= bot.channels.cache.size %></b></h1>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </center>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+    </body>
+    <footer>
+    </footer>
+
+    </html>
