@@ -2,6 +2,7 @@ const { Client, CommandInteraction, MessageEmbed, Message } = require("discord.j
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
 const { player } = require('../index');
+const embed = require("../structures/embeds");
 
 module.exports = {
     name: "loop",
@@ -25,52 +26,30 @@ module.exports = {
         let lang = settings.lang;
         if (lang == "ar") {
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
             const queue = player.getQueue(interaction);
-            if (!queue) return interaction.followUp({ content: emojis.error + " | **لم يتم تشغيل اي أغنيه اصلا**", allowedMentions: false, ephemeral: true })
+            if (!queue) return embed.notQueue(interaction, lang, "/");
             var mode = interaction.options.getString('value');
             var modeler;
             if (mode == "off") modeler = 0;
             else if (mode == "repeat song") modeler = 1;
             else if (mode == "repeat queue") modeler = 2;
-            else return interaction.followUp({
-                content: "you have to type the repeating mode type like <off/repeat song/repeat queue>",
-                allowedMentions: false,
-                ephemeral: true
-            });
+            else return embed.warn(interaction, "**you have to type the repeating mode type like <off/repeat song/repeat queue>**", "/");
             player.setRepeatMode(interaction, parseInt(modeler));
-            interaction.followUp({
-                content: `🔄 | تم تغير وضع التكرار الي: \`${mode}\``,
-                ephemeral: true,
-                allowedMentions: false
-            });
+            embed.done(interaction, `**تم تغير وضع التكرار الي: \`${mode}\`**`);
         } else if (lang == "en") {
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
             const queue = player.getQueue(interaction);
-            if (!queue) return interaction.followUp({ content: emojis.error + " | **Thare are no music in the queue**", allowedMentions: false, ephemeral: true })
+            if (!queue) return embed.notQueue(interaction, lang, "/");
             var mode = interaction.options.getString('value') || "repeat song";
             var modeler;
             if (mode == "off") modeler = 0;
             else if (mode == "repeat song") modeler = 1;
             else if (mode == "repeat queue") modeler = 2;
-            else return interaction.followUp({
-                content: "you have to type the repeating mode type like <off/repeat song/repeat queue>",
-                allowedMentions: false,
-                ephemeral: true
-            });
+            else return embed.warn(interaction, "**you have to type the repeating mode type like <off/repeat song/repeat queue>**", "/");
             player.setRepeatMode(interaction, parseInt(modeler));
-            interaction.followUp({
-                content: `🔄 | repeating mode has changed to: \`${mode}\``,
-                ephemeral: true,
-                allowedMentions: false
-            });
+            embed.done(interaction, `**repeating mode has changed to: \`${mode}\`**`);
         }
     },
 };

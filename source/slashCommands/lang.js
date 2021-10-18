@@ -1,6 +1,7 @@
 const { Client, CommandInteraction, MessageEmbed, Permissions } = require("discord.js");
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
+const embed = require("../structures/embeds");
 
 module.exports = {
     name: "lang",
@@ -25,46 +26,22 @@ module.exports = {
         let lang = settings.lang;
         if (lang == "en") {
             if (interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR]) || interaction.member.roles.cache.find(role => role.id == db.fetch(`DJ_${interaction.guild.id}`))) {
-                if (!["en", "ar"].includes(interaction.options.getString("value"))) return interaction.followUp({
-                    content: emojis.error + ` | only ['ar', 'en'] lang is allowed`,
-                    ephemeral: true,
-                    allowedMentions: false
-                });
+                if (!["en", "ar"].includes(interaction.options.getString("value"))) return embed.warn(interaction, "**only ['ar', 'en'] lang is allowed**", "/");
                 db.set(`Settings_${interaction.guild.id}`, {
                     prefix: settings.prefix,
                     lang: interaction.options.getString("value")
                 });
-                interaction.followUp({
-                    content: emojis.done + " | The Lang Has Changed In **" + interaction.guild.name + "** to: `" + interaction.options.getString("value") + "`",
-                    ephemeral: true,
-                    allowedMentions: false
-                });
-            } else interaction.followUp({
-                content: emojis.error + ` | You Need To Get \"DJ\" role or get adminstrator permissions`,
-                ephemeral: true,
-                allowedMentions: false
-            });
+                embed.done(interaction, "The Lang Has Changed In **" + interaction.guild.name + "** to: `" + interaction.options.getString("value") + "`", "/");
+            } else embed.err(interaction, "**You Need To Get \"DJ\" role or get adminstrator permissions**", "/");
         } else if (lang == "ar") {
             if (interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR]) || interaction.member.roles.cache.find(role => role.id == db.fetch(`DJ_${interaction.guild.id}`))) {
-                if (!["en", "ar"].includes(interaction.options.getString("value"))) return interaction.followUp({
-                    content: emojis.error + ` | فقط لغة ['ar', 'en'] مسموحه`,
-                    ephemeral: true,
-                    allowedMentions: false
-                });
+                if (!["en", "ar"].includes(interaction.options.getString("value"))) return embed.done(interaction, "**فقط لغة ['ar', 'en'] مسموحه**", "/");
                 db.set(`Settings_${interaction.guild.id}`, {
                     prefix: settings.prefix,
                     lang: interaction.options.getString("value")
                 });
-                interaction.followUp({
-                    content: emojis.done + " | تمت تغير لغة البوت في **" + interaction.guild.name + "** لـ: `" + interaction.options.getString("value") + "`",
-                    ephemeral: true,
-                    allowedMentions: false
-                });
-            } else interaction.followUp({
-                content: emojis.error + ` | يجب انت تحصل على رتبة \"DJ\" او صلحيات الأدمنستناتور`,
-                ephemeral: true,
-                allowedMentions: false
-            });
+                embed.done(interaction, "تمت تغير لغة البوت في **" + interaction.guild.name + "** لـ: `" + interaction.options.getString("value") + "`", "/");
+            } else embed.err(interaction, "**يجب انت تحصل على رتبة \"DJ\" او صلحيات الأدمنستناتور**", "/");
         }
     },
 };

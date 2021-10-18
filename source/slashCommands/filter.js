@@ -2,6 +2,7 @@ const { Client, CommandInteraction, MessageEmbed, Message } = require("discord.j
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
 const { player } = require('../index');
+const embed = require("../structures/embeds");
 
 module.exports = {
     name: "filter",
@@ -25,44 +26,22 @@ module.exports = {
         let lang = settings.lang;
         if (lang == "ar") {
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) embed.notInVoice(interaction, lang, "/")
             const queue = player.getQueue(interaction);
-            if (!queue) return interaction.followUp({ content: emojis.error + " | **لم يتم تشغيل اي أغنيه اصلا**", allowedMentions: false, ephemeral: true })
+            if (!queue) return embed.notQueue(interaction, lang, "/")
             if (['3d', 'bassboost', 'echo', 'karaoke', 'nightcore', 'vaporwave', 'flanger', 'gate', 'haas', 'reverse', 'surround', 'mcompand', 'phaser', 'tremolo', 'earwax'].includes(interaction.options.getString("value"))) {
                 player.setFilter(interaction, args[0]);
-                interaction.followUp({
-                    content: `🎭 | تم تغير فلتر الصوت الخاص بطابور العرض الى \`${value}\``,
-                    ephemeral: true,
-                    allowedMentions: false
-                });
-            } else interaction.followUp({
-                content: emojis.error + " | لا يمكنني العثور على هذا الأسم يمكنك الأختيار من هذه القائمه: ['3d', 'bassboost', 'echo', 'karaoke', 'nightcore', 'vaporwave', 'flanger', 'gate', 'haas', 'reverse', 'surround', 'mcompand', 'phaser', 'tremolo', 'earwax']",
-                ephemeral: true,
-                allowedMentions: false
-            });
+                embed.done(interaction, `**تم تغير فلتر الصوت الخاص بطابور العرض الى \`${value}\`**`, "/");
+            } else return embed.warn(interaction, `لا يمكنني العثور على هذا الأسم يمكنك الأختيار من هذه القائمه: **['3d', 'bassboost', 'echo', 'karaoke', 'nightcore', 'vaporwave', 'flanger', 'gate', 'haas', 'reverse', 'surround', 'mcompand', 'phaser', 'tremolo', 'earwax']**`, "/");
         } else if (lang == "en") {
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) embed.notInVoice(interaction, lang, "/")
             const queue = player.getQueue(interaction);
-            if (!queue) return interaction.followUp({ content: emojis.error + " | **Thare are no music in the queue**", allowedMentions: false, ephemeral: true })
+            if (!queue) return embed.notQueue(interaction, lang, "/")
             if (['3d', 'bassboost', 'echo', 'karaoke', 'nightcore', 'vaporwave', 'flanger', 'gate', 'haas', 'reverse', 'surround', 'mcompand', 'phaser', 'tremolo', 'earwax'].includes(interaction.options.getString("value"))) {
                 player.setFilter(interaction, args[0]);
-                interaction.followUp({
-                    content: `🎭 | queue filter has been changed to \`${value}\``,
-                    ephemeral: true,
-                    allowedMentions: false
-                });
-            } else interaction.followUp({
-                content: emojis.error + " | i can't find this filter name in my list, choose from thare: ['3d', 'bassboost', 'echo', 'karaoke', 'nightcore', 'vaporwave', 'flanger', 'gate', 'haas', 'reverse', 'surround', 'mcompand', 'phaser', 'tremolo', 'earwax']",
-                ephemeral: true,
-                allowedMentions: false
-            });
+                embed.done(interaction, `**queue filter has been changed to \`${value}\`**`, "/");
+            } else return embed.warn(interaction, `i can't find this filter name in my list, choose from thare: **['3d', 'bassboost', 'echo', 'karaoke', 'nightcore', 'vaporwave', 'flanger', 'gate', 'haas', 'reverse', 'surround', 'mcompand', 'phaser', 'tremolo', 'earwax']**`, "/");
         }
     },
 };

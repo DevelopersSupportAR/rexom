@@ -2,6 +2,7 @@ const { Client, MessageEmbed, ContextMenuInteraction } = require("discord.js");
 const { player } = require('../index');
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
+const embed = require("../structures/embeds");
 
 module.exports = {
     name: "add-to-queue",
@@ -29,18 +30,10 @@ module.exports = {
         if (queue) {
             player.play(interaction, message.content);
             if (lang == "ar") {
-                interaction.followUp({
-                    content: emojis.done + " | تمت أضافة **" + message.content + "** الي طابور عرض السيرفر",
-                    ephemeral: true,
-                    allowedMentions: false
-                });
+                embed.done(interaction, "تمت أضافة **" + message.content + "** الي طابور عرض السيرفر", "/")
             } else if (lang == "en") {
-                interaction.followUp({
-                    content: emojis.done + " | **" + message.content + "** Has Add To Server Queue!.",
-                    ephemeral: true,
-                    allowedMentions: false
-                });
+                embed.done(interaction, "**" + message.content + "** Has Add To Server Queue!.", "/");
             }
-        } else interaction.followUp({ content: emojis.error + ` | **${msg}**`, ephemeral: true })
+        } else embed.notQueue(interaction, lang, "/")
     },
 };

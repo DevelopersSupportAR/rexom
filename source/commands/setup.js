@@ -3,6 +3,7 @@ const { Song } = require('distube')
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
 const { player } = require('../index');
+const embed = require("../structures/embeds");
 
 module.exports = {
     name: "setup",
@@ -17,12 +18,12 @@ module.exports = {
      */
 
     run: async(client, message, args, prefix, lang) => {
-        if (!message.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])) return message.reply({ content: emojis.error })
+        if (!message.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])) return message.react(emojis.error);
         message.guild.channels.create('rexom-🎶', {
             type: "GUILD_TEXT",
             topic: "Play your favorite playlist with ReXom :notes:"
         }).then(async channel => {
-            message.reply({ content: emojis.done + " | **reXom Channel Has Setup Here**: <#" + channel.id + ">", ephemeral: true });
+            embed.done(message, "**reXom Channel Has Setup Here**: <#" + channel.id + ">");
             channel.send({
                 embeds: [
                     new MessageEmbed()

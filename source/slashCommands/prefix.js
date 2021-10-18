@@ -1,6 +1,7 @@
 const { Client, CommandInteraction, MessageEmbed, Permissions } = require("discord.js");
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
+const embed = require("../structures/embeds");
 
 module.exports = {
     name: "prefix",
@@ -29,32 +30,16 @@ module.exports = {
                     prefix: interaction.options.getString("value"),
                     lang: settings.lang
                 });
-                interaction.followUp({
-                    content: emojis.done + " | The Prefix Has Changed In **" + interaction.guild.name + "** to: `" + interaction.options.getString("value") + "`",
-                    ephemeral: true,
-                    allowedMentions: false
-                });
-            } else interaction.followUp({
-                content: emojis.error + ` | You Need To Get \"DJ\" role or get adminstrator permissions`,
-                ephemeral: true,
-                allowedMentions: false
-            });
+                embed.done(interaction, "The Prefix Has Changed In **" + interaction.guild.name + "** to: `" + interaction.options.getString("value") + "`", "/");
+            } else embed.err(interaction, "**You Need To Get \"DJ\" role or get adminstrator permissions**", "/")
         } else if (lang == "ar") {
             if (interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR]) || interaction.member.roles.cache.find(role => role.id == db.fetch(`DJ_${interaction.guild.id}`))) {
                 db.set(`Settings_${interaction.guild.id}`, {
                     prefix: interaction.options.getString("value"),
                     lang: settings.lang
                 });
-                interaction.followUp({
-                    content: emojis.done + " | تمت تغير برفكس البوت في **" + interaction.guild.name + "** لـ: `" + interaction.options.getString("value") + "`",
-                    ephemeral: true,
-                    allowedMentions: false
-                });
-            } else interaction.followUp({
-                content: emojis.error + ` | يجب انت تحصل على رتبة \"DJ\" او صلحيات الأدمنستناتور`,
-                ephemeral: true,
-                allowedMentions: false
-            });
+                embed.done(interaction, "تمت تغير برفكس البوت في **" + interaction.guild.name + "** لـ: `" + interaction.options.getString("value") + "`", "/");
+            } else embed.err(interaction, "يجب انت تحصل على رتبة \"DJ\" او صلحيات الأدمنستناتور", "/");
         }
     },
 };

@@ -41,7 +41,7 @@
 
                                         <% }else {  %>
                                             <p class="card-text" style="font-size: 12px;font-style:italic;color: #b3b3b3">reXom is not joined to <b><%= guild.name %></b> please invite him first!</p>
-                                            <a style="font-size: 25px" href="<%= `https://discord.com/api/oauth2/authorize?client_id=${bot.user.id}&guild_id=${guild.id}&permissions=6747975000&scope=bot%20applications.commands`%>" class="mt-auto btn btn-lg btn-block btn-primary">Invite!</a>
+                                            <a style="font-size: 25px" href="<%= `https://discord.com/api/oauth2/authorize?response_type=code&client_id=${bot.user.id}&guild_id=${guild.id}&permissions=6747975000&redirect_uri=https%3A%2F%2Fdiscord.music-rexom.ml%2Fcallback&scope=bot%20applications.commands`%>" class="mt-auto btn btn-lg btn-block btn-primary">Invite!</a>
 
                                             <% } %>
                                 </div>

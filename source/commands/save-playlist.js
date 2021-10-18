@@ -2,6 +2,7 @@ const { Client, Message, MessageEmbed, MessageActionRow, MessageButton } = requi
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
 const { player } = require('../index');
+const embed = require("../structures/embeds");
 
 module.exports = {
     name: "save-playlist",
@@ -18,14 +19,10 @@ module.exports = {
     run: async(client, message, args, prefix, lang) => {
         let value = message.content.split(' ').slice(1).join(' ');
         if (lang == "en") {
-            if (!value) return message.reply({
-                content: emojis.error + ` | Wrong Use: /save-playlist songs: song1, song2`,
-                ephemeral: true,
-                allowedMentions: false
-            });
+            if (!value) return embed.warn(message, "**Wrong Use: /save-playlist song1, song2**")
             let data = value;
             let checker = db.get(`SDPL_${message.author.id}.data`);
-            if (checker == null) return db.set(`SDPL_${message.author.id}`, { data: ['no'] }) && message.reply({ content: emojis.warn + " | Your New Profile Has Setuped Please use the command again!.", ephemeral: false, components: [] });
+            if (checker == null) return db.set(`SDPL_${message.author.id}`, { data: ['no'] }) && embed.done(message, "**Your New Profile Has Setuped Please use the command again!.**")
             else if (!checker.includes('no')) {
                 let btn = new MessageButton()
                     .setEmoji(emojis.done)
@@ -38,20 +35,20 @@ module.exports = {
                 let row = new MessageActionRow()
                     .addComponents(btn, cancel);
                 let filter = i => i.user.id == message.author.id;
-                let msg = await message.reply({ content: emojis.warn + " | you have a saved playlist on your profile,\n you can't add more playlist but you can delete the last playlist!", ephemeral: false, components: [row] });
+                let msg = await message.reply({ content: emojis.warn + " | **you have a saved playlist on your profile,\n you can't add more playlist but you can delete the last playlist!**", ephemeral: false, components: [row] });
                 let collector = await msg.createMessageComponentCollector(filter, { time: 0 });
 
                 collector.on("collect", async(i) => {
                     if (i.customId == "a") {
                         db.delete(`SDPL_${message.author.id}`)
-                        return message.edit({ content: emojis.done + " | Your Old Playlist Has Removed", ephemeral: true, components: [] })
+                        return message.edit({ content: emojis.done + " | **Your Old Playlist Has Removed**", ephemeral: true, components: [] })
                     } else if (i.customId == "c") {
-                        return message.edit({ content: emojis.done + " | Your Old Playlist Is Still Working", ephemeral: true, components: [] })
+                        return message.edit({ content: emojis.done + " | **Your Old Playlist Is Still Working**", ephemeral: true, components: [] })
                     }
                 });
                 return;
             }
-            if (!data.includes(',')) return message.reply({ content: emojis.error + " | Wrong Use: /save-playlist songs: song1, song2", ephemeral: true });
+            if (!data.includes(',')) return embed.warn(message, "**Wrong Use: /save-playlist song1, song2**");
             let array = []
             for (let num = 0; num < 10; num++) {
                 const element = data.split(',')[num];
@@ -60,16 +57,12 @@ module.exports = {
                 array.push(element)
             }
             db.set(`SDPL_${message.author.id}.data`, array);
-            message.reply({ content: emojis.done + " | You Have Saved A Playlist on **reXom** Check The Songs That You Add! ==> " + array, ephemeral: true, components: [] })
+            embed.done(message, " | You Have Saved A Playlist on **reXom** Check The Songs That You Add! ==> " + array);
         } else if (lang == "ar") {
-            if (!value) return message.reply({
-                content: emojis.error + ` | أستخدام خاطأ: /save-playlist songs: song1, song2`,
-                ephemeral: true,
-                allowedMentions: false
-            });
+            if (!value) return embed.warn(message, "**أستخدام خاطأ: /save-playlist song1, song2**")
             let data = value;
             let checker = db.get(`SDPL_${message.author.id}.data`);
-            if (checker == null) return db.set(`SDPL_${message.author.id}`, { data: ['no'] }) && message.reply({ content: emojis.warn + " | تم تجهيز حسابك للعمل على حفظ البيانات!.", ephemeral: false, components: [] });
+            if (checker == null) return db.set(`SDPL_${message.author.id}`, { data: ['no'] }) && embed.done(message, "**تم تجهيز حسابك للعمل على حفظ البيانات!.**")
             else if (!checker.includes('no')) {
                 let btn = new MessageButton()
                     .setEmoji(emojis.done)
@@ -95,7 +88,7 @@ module.exports = {
                 });
                 return;
             }
-            if (!data.includes(',')) return message.reply({ content: emojis.error + " | أستخدام خاطئ: /save-playlist songs: song1, song2", ephemeral: true });
+            if (!data.includes(',')) return embed.warn(message, "**أستخدام خاطئ: /save-playlist songs: song1, song2**")
             let array = []
             for (let num = 0; num < 10; num++) {
                 const element = data.split(',')[num];
@@ -103,7 +96,7 @@ module.exports = {
                 array.push(element)
             }
             db.set(`SDPL_${message.author.id}.data`, array);
-            message.reply({ content: emojis.done + " | لقد قمت بحفظ قائمة تشغيل جديده في **reXom** تحقق من الأغناي! ==> " + array, ephemeral: true, components: [] })
+            embed.done("لقد قمت بحفظ قائمة تشغيل جديده في **reXom** تحقق من الأغناي! ==> " + array)
         }
     }
 };

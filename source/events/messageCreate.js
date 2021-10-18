@@ -11,7 +11,8 @@ const cooldowns = new Map();
  */
 
 module.exports = async(client, message) => {
-    if (message.author.bot || message.channel.type == "dm") return;
+    if (message.author.bot) return;
+    if (message.channel.type == "dm") return;
     let settings = db.fetch(`Settings_${message.guild.id}`);
     if (settings == null) return db.set(`Settings_${message.guild.id}`, {
         prefix: require('../../config/bot.json').mainPrefix,

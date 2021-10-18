@@ -18,9 +18,9 @@ module.exports = {
             .setTitle(`Help Commands`)
             .setColor(0x2f3136)
             .setAuthor(message.guild.name, message.guild.iconURL())
-            .setDescription(`**[reXom](https://github.com/DevelopersSupportAR/rexom.git)**, Play your favorite playlist with ReXom 🎶
+            .setDescription(`**[reXom](https://github.com/DevelopersSupportAR/rexom.git)**, Play your favorite playlist with ReXom 🎶\n
             Version: \`2.8.2\`
-            Prefix: ${prefix}
+            Prefix: ${prefix}\n
             `)
         require('fs').readdir(__dirname + '/', (err, files) => {
             if (err) return console.error(err);

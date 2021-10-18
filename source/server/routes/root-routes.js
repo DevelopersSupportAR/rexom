@@ -4,7 +4,7 @@ const { Permissions, Client } = require('discord.js');
 const settings = require('../settings');
 const passport = require('passport');
 const botConfig = require('../../../config/bot.json');
-const client = require('../../index').client;
+const client = require("../../client/discord");
 const db = require('quick.db');
 
 const checkAuth = (req, res, next) => {

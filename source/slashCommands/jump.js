@@ -2,6 +2,7 @@ const { Client, CommandInteraction, MessageEmbed, Message } = require("discord.j
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
 const { player } = require('../index');
+const embed = require("../structures/embeds");
 
 module.exports = {
     name: "jump",
@@ -25,49 +26,27 @@ module.exports = {
         let lang = settings.lang;
         if (lang == "ar") {
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
             const queue = player.getQueue(interaction);
-            if (!queue) return interaction.followUp({ content: emojis.error + " | **لم يتم تشغيل اي أغنيه اصلا**", allowedMentions: false, ephemeral: true })
+            if (!queue) return embed.notQueue(interaction, lang, "/");
             try {
                 player.jump(interaction, parseInt(interaction.options.getNumber('value')))
             } catch (err) {
-                interaction.followUp({
-                    content: "لا يمكن العثور على رقم الأغنيه في طابور عرض الموسيقى",
-                    ephemeral: true,
-                    allowedMentions: false
-                });
+                embed.err(interaction, "**هذا الرقم غير ملحق في طابور عرض السيرفر**", "/");
             }
-            interaction.followUp({
-                content: `⤵ | تم القفظ الى الأغنيه صاحبة الرقم: \`${parseInt(interaction.options.getNumber('value'))}\``,
-                ephemeral: true,
-                allowedMentions: false
-            });
+            embed.done(interaction, `تم القفظ الى الأغنيه صاحبة الرقم: \`${parseInt(interaction.options.getNumber('value'))}\``, "/");
         } else if (lang == "en") {
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
             const queue = player.getQueue(interaction);
-            if (!queue) return interaction.followUp({ content: emojis.error + " | **Thare are no music in the queue**", allowedMentions: false, ephemeral: true })
+            if (!queue) return embed.notQueue(interaction, lang, "/");
             try {
                 player.jump(interaction, parseInt(interaction.options.getNumber('value')))
             } catch (err) {
-                interaction.followUp({
-                    content: "the bot can't find this song number on the server queue",
-                    ephemeral: true,
-                    allowedMentions: false
-                })
+                embed.err(interaction, "**the bot can't find this song number on the server queue**", "/");
                 throw err;
             }
-            interaction.followUp({
-                content: `⤵ | done jumped to song number \`${parseInt(interaction.options.getNumber('value'))}\``,
-                ephemeral: true,
-                allowedMentions: false
-            });
+            embed.done(interaction, `**done jumped to song number \`${parseInt(interaction.options.getNumber('value'))}**`, "/");
         }
     },
 };

@@ -1,6 +1,7 @@
 const { Client, Message, MessageEmbed, Permissions } = require("discord.js");
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
+const colors = require('../../config/colors.json');
 const { player } = require('../index');
 
 module.exports = {
@@ -32,7 +33,7 @@ module.exports = {
             message.reply({
                 embeds: [new MessageEmbed()
                     .setAuthor(`📑 | Lyrics`, thumbnail, url)
-                    .setColor('GREEN')
+                    .setColor(colors.done)
                     .setThumbnail(thumbnail)
                     .setDescription(lyrics)
                     .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
@@ -56,7 +57,7 @@ module.exports = {
             message.reply({
                 embeds: [new MessageEmbed()
                     .setAuthor(`📑 | Lyrics`, thumbnail, url)
-                    .setColor('GREEN')
+                    .setColor(colors.done)
                     .setThumbnail(thumbnail)
                     .setDescription(lyrics)
                     .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))

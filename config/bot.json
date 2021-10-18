@@ -1,16 +1,16 @@
 {
     "activity": {
-        "name": "<The Bot Activity Name>",
-        "type": "<The Bot Activity Type>"
+        "name": "?help | rexom",
+        "type": "PLAYING"
     },
-    "status": "<The Bot Status>",
+    "status": "idle",
 
-    "domain": "<The Bot Website Domain>",
-    "clientID": "<The Bot Id>",
-    "clientSECRET": "<The Bot Secret>",
+    "domain": "https://discord.music-rexom.ml",
+    "clientID": "898300895371071559",
+    "clientSECRET": "4daoeG-ATz4PE3MyZJWwkz2Y-sgsFIHe",
 
-    "mainPrefix": "<The Bot Prefix>",
-    "mainLang": "<The Bot Lang, only: ['ar', 'en']>",
+    "mainPrefix": "%",
+    "mainLang": "ar",
 
-    "panelType": "<panel type: ['buttons', 'reactions', 'none']>"
+    "panelType": "buttons"
 }

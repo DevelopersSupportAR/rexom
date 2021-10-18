@@ -1,5 +1,5 @@
 const { glob } = require("glob");
-const slashCommandsMap = require('../../index').slashCommands;
+const slashCommandsMap = new Map();
 const { promisify } = require("util");
 const globPromise = promisify(glob);
 
@@ -21,3 +21,5 @@ module.exports.run = async(client) => {
         await client.application.commands.set(arrayOfSlashCommands);
     });
 };
+
+module.exports.slashCommandsMap = slashCommandsMap;

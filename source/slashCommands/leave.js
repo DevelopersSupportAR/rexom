@@ -1,6 +1,8 @@
 const { Client, CommandInteraction, MessageEmbed, Message } = require("discord.js");
+const { joinVoiceChannel } = require('@discordjs/voice');
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
+const embed = require("../structures/embeds");
 
 module.exports = {
     name: "leave",
@@ -18,28 +20,26 @@ module.exports = {
         let lang = settings.lang;
         if (lang == "ar") {
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
             db.delete(`Voice_Channel_${interaction.guild.id}`);
-            interaction.followUp({
-                content: `🗃️ | تمت ازالة التثبيت من: <#${voiceChannel.id}>`,
-                ephemeral: true,
-                allowedMentions: false
+            const connection = joinVoiceChannel({
+                channelId: voiceChannel.id,
+                guildId: voiceChannel.guild.id,
+                adapterCreator: voiceChannel.guild.voiceAdapterCreator,
             });
+            connection.destroy(true);
+            embed.done(interaction, `**تمت ازالة التثبيت من: <#${voiceChannel.id}>**`, "/");
         } else if (lang == "en") {
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
             db.delete(`Voice_Channel_${interaction.guild.id}`);
-            interaction.followUp({
-                content: `🗃️ | Done Leaved <#${voiceChannel.id}>`,
-                ephemeral: true,
-                allowedMentions: false
+            const connection = joinVoiceChannel({
+                channelId: voiceChannel.id,
+                guildId: voiceChannel.guild.id,
+                adapterCreator: voiceChannel.guild.voiceAdapterCreator,
             });
+            connection.destroy(true);
+            embed.done(interaction, `**Done Leaved <#${voiceChannel.id}>**`, "/");
         }
     },
 };

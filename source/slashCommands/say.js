@@ -1,7 +1,7 @@
 const { Client, CommandInteraction, MessageEmbed, Message } = require("discord.js");
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
-const { joinVoiceChannel } = require('@discordjs/voice');
+const { createAudioPlayer, NoSubscriberBehavior } = require('@discordjs/voice');
 const discordTTS = require('discord-tts');
 
 module.exports = {
@@ -30,6 +30,13 @@ module.exports = {
                 interaction.followUp({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
                 return
             }
+            const connection = joinVoiceChannel({
+                channelId: voiceChannel.id,
+                guildId: voiceChannel.guild.id,
+                adapterCreator: voiceChannel.guild.voiceAdapterCreator,
+            });
+            connection;
+            connection.subscribe(discordTTS.getVoiceStream('test 123'));
             interaction.followUp({ content: emojis.error + " | هذا الأمر م يعمل على هذا الأصدار من البوت" });
         } else if (lang == "ar") {
             const voiceChannel = interaction.member.voice.channel;
@@ -37,6 +44,13 @@ module.exports = {
                 interaction.followUp({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: false, ephemeral: true })
                 return
             }
+            const connection = joinVoiceChannel({
+                channelId: voiceChannel.id,
+                guildId: voiceChannel.guild.id,
+                adapterCreator: voiceChannel.guild.voiceAdapterCreator,
+            });
+            connection;
+            connection.subscribe(discordTTS.getVoiceStream('test 123'));
             interaction.followUp({ content: emojis.error + " | this command is will not run in this version" });
         }
     },

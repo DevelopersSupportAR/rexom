@@ -2,6 +2,7 @@ const { Client, Message, MessageEmbed, Permissions } = require("discord.js");
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
 const { player } = require('../index');
+const embed = require('../structures/embeds');
 
 module.exports = {
     name: "play-playlist",
@@ -16,10 +17,10 @@ module.exports = {
      */
 
     run: async(client, message, args, prefix, lang) => {
-      module.exports.messageGET = message;
+        module.exports.messageGET = message;
         if (lang == "en") {
             let data = db.get(`SDPL_${message.author.id}.data`);
-            if (data == null || data.includes('no')) return message.reply({ content: emojis.error + " | i cna't find any playlist in you account profile" });
+            if (data == null || data.includes('no')) return embed.err(message, "**i cna't find any playlist in you account profile**");
 
             setTimeout(() => {
                 if (data[0] !== undefined) player.play(message, data[0]);
@@ -59,10 +60,10 @@ module.exports = {
                 player.play(message, element)
             }
 
-            message.reply({ content: emojis.done + " | You Play List Is Playing!" })
+            embed.done(message, "**You Play List Is Playing!**")
         } else if (lang == "ar") {
             let data = db.get(`SDPL_${message.author.id}.data`);
-            if (data == null || data.includes('no')) return message.reply({ content: emojis.error + " | ليس لديك اي قوائم تشغيل في حسابك" });
+            if (data == null || data.includes('no')) return embed.err(message, " | ليس لديك اي قوائم تشغيل في حسابك");
 
             setTimeout(() => {
                 if (data[0] !== undefined) player.play(message, data[0]);
@@ -102,7 +103,7 @@ module.exports = {
                 player.play(message, element)
             }
 
-            message.reply({ content: emojis.done + " | قائمة التشيل خاصتك تعمل!" })
+            embed.done(message, "**قائمة التشيل خاصتك تعمل!**")
         }
     }
 };
