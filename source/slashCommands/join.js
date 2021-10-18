@@ -2,6 +2,7 @@ const { Client, CommandInteraction, MessageEmbed, Message } = require("discord.j
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
 const { joinVoiceChannel } = require('@discordjs/voice');
+const embed = require("../structures/embeds");
 
 module.exports = {
     name: "join",
@@ -19,10 +20,7 @@ module.exports = {
         let lang = settings.lang;
         if (lang == "ar") {
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
             let channel = client.channels.cache.find(c => c.id == voiceChannel.id);
             const connection = joinVoiceChannel({
                 channelId: channel.id,
@@ -31,17 +29,10 @@ module.exports = {
             });
             connection;
             db.set(`Voice_Channel_${interaction.guild.id}`, voiceChannel.id);
-            interaction.followUp({
-                content: `🗃️ | تم التثبيت في <#${voiceChannel.id}>`,
-                ephemeral: true,
-                allowedMentions: false
-            });
+            embed.done(interaction, `**تم التثبيت في <#${voiceChannel.id}>**`, "/");
         } else if (lang == "en") {
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
             let channel = client.channels.cache.find(c => c.id == voiceChannel.id);
             const connection = joinVoiceChannel({
                 channelId: channel.id,
@@ -50,11 +41,7 @@ module.exports = {
             });
             connection;
             db.set(`Voice_Channel_${interaction.guild.id}`, voiceChannel.id);
-            interaction.followUp({
-                content: `🗃️ | Done Joined <#${voiceChannel.id}>`,
-                ephemeral: true,
-                allowedMentions: false
-            });
+            embed.done(interaction, `**Done Joined <#${voiceChannel.id}>**`, "/");
         }
     },
 };

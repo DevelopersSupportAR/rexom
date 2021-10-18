@@ -61,7 +61,7 @@ module.exports = async(client, queue, song) => {
                     inline: true
                 }, {
                     name: "**Requested by**",
-                    value: song.formattedDuration,
+                    value: song.user.username,
                     inline: true
                 }, {
                     name: "**Uploader**",
@@ -104,20 +104,21 @@ module.exports = async(client, queue, song) => {
                 let msg = await queue.textChannel.send({ content: `**🔍 | Found:** \`${song.name}\`\n**Played By: \`${song.user.username}\`**`, embeds: [embed], components: [row, row2] });
                 const filter = i => i.user.id == song.user.id;
                 let collector = msg.createMessageComponentCollector(filter, { time: 0 });
-
+                client.on('interactionCreate', async(i) => {
+                    if (i.isButton()) {
+                        console.log(i.user.username)
+                    }
+                });
                 collector.on('collect', async i => {
-                    if (user.id !== i.user.id) queue.textChannel.send({ content: emojis.error + ' | **only song player can use the panel**!' })
+                    i.deferReply({ ephemeral: true }).catch(() => {});
+                    if (song.user.id !== i.user.id) queue.textChannel.send({ content: emojis.error + ' | **only song player can use the panel**!' })
                     if (i.customId == "stop") {
                         try {
                             if (!getQueue) return;
+                            i.followUp({ content: "🛑 | **Music Has Stoped**", ephemeral: true });
                             let msgID = require('quick.db').fetch(`Delete_${interaction.channel.id}`);
-                            msg.delete();
                             interaction.channel.messages.fetch(msgID).then(m => m.delete())
-                            i.channel.send({ content: "🛑 | **Music Has Stoped**", ephemeral: true }).then(m => {
-                                setTimeout(() => {
-                                    m.delete()
-                                }, 1500);
-                            });
+                            msg.delete();
                             player.stop(interaction);
                         } catch {
                             console.log('')
@@ -127,11 +128,7 @@ module.exports = async(client, queue, song) => {
                             if (!getQueue) return;
                             if (queue) {
                                 player.setRepeatMode(interaction, parseInt(1));
-                                i.channel.send({ content: "🔄 | **Music Is On Loop**", ephemeral: true }).then(m => {
-                                    setTimeout(() => {
-                                        m.delete()
-                                    }, 1500);
-                                });
+                                i.followUp({ content: "🔄 | **Music Is On Loop**", ephemeral: true });
                             }
                         } catch {
                             console.log('')
@@ -147,11 +144,7 @@ module.exports = async(client, queue, song) => {
                                     .setThumbnail(song.thumbnail)
                                     .setDescription(lyrics)
                                     .setFooter("Bot Made By: NIRO")
-                                i.channel.send({ content: "📑 | **Music Lyrics: **", embeds: [lyr], ephemeral: true }).then(m => {
-                                    setTimeout(() => {
-                                        m.delete()
-                                    }, 7500);
-                                });
+                                i.followUp({ content: "📑 | **Music Lyrics: **", embeds: [lyr], ephemeral: true });
                             }
                         } catch {
                             console.log('')
@@ -160,14 +153,10 @@ module.exports = async(client, queue, song) => {
                         try {
                             if (!getQueue) return;
                             if (queue) {
-                                if (queue.songs.map((song, i) => i).length == 1) return i.channel.send({ content: ":x: | **Thare Are No Song To Skip**", ephemeral: true });
+                                if (queue.songs.map((song, i) => i).length == 1) return i.followUp({ content: ":x: | **Thare Are No Song To Skip**", ephemeral: true });
                                 else {
                                     player.skip(interaction);
-                                    i.channel.send({ content: "⏭ | **Music Has Skiped**", ephemeral: true }).then(m => {
-                                        setTimeout(() => {
-                                            m.delete()
-                                        }, 1500);
-                                    });
+                                    i.followUp({ content: "⏭ | **Music Has Skiped**", ephemeral: true });
                                 }
                             }
                         } catch {
@@ -177,13 +166,9 @@ module.exports = async(client, queue, song) => {
                         try {
                             if (!getQueue) return;
                             if (queue) {
-                                if (queue.paused == true) return i.channel.send({ content: ":x: | **This Music Is All Ready Paused**", ephemeral: true });
+                                if (queue.paused == true) return i.followUp({ content: ":x: | **This Music Is All Ready Paused**", ephemeral: true });
                                 player.pause(interaction);
-                                i.channel.send({ content: "⏸ | **Music Has Paused**", ephemeral: true }).then(m => {
-                                    setTimeout(() => {
-                                        m.delete()
-                                    }, 1500);
-                                });
+                                i.followUp({ content: "⏸ | **Music Has Paused**", ephemeral: true });
                             }
                         } catch {
                             console.log('')
@@ -192,13 +177,9 @@ module.exports = async(client, queue, song) => {
                         try {
                             if (!getQueue) return;
                             if (queue) {
-                                if (queue.paused == false) return i.channel.send({ content: ":x: | **The Music Is Not Paused**", ephemeral: true });
+                                if (queue.paused == false) return i.followUp({ content: ":x: | **The Music Is Not Paused**", ephemeral: true });
                                 player.resume(interaction);
-                                i.channel.send({ content: "▶ | **Music Has Resumed**", ephemeral: true }).then(m => {
-                                    setTimeout(() => {
-                                        m.delete()
-                                    }, 1500);
-                                });
+                                i.followUp({ content: "▶ | **Music Has Resumed**", ephemeral: true });
                             }
                         } catch {
                             console.log('')
@@ -310,7 +291,7 @@ module.exports = async(client, queue, song) => {
                     inline: true
                 }, {
                     name: "**مطلوبه بواسطة**",
-                    value: song.formattedDuration,
+                    value: song.user.username,
                     inline: true
                 }, {
                     name: "**مرفوعه بواسطة**",
@@ -353,23 +334,23 @@ module.exports = async(client, queue, song) => {
                 let msg = await queue.textChannel.send({ content: `**🔍 | :تم العثور على** \`${song.name}\`\n**تم التشغيل عن طريق: \`${song.user.username}\`**`, embeds: [embed], components: [row, row2] })
                 const filter = i => i.user.id == song.user.id;
                 let collector = msg.createMessageComponentCollector(filter, { time: 0 });
-
+                client.on('interactionCreate', async(i) => {
+                    if (i.isButton()) {
+                        console.log(i.user.username)
+                    }
+                });
                 collector.on('collect', async i => {
-                    // i.deferReply();
-                    if (song.user.id !== i.user.id) i.channel.send({ content: emojis.error + ' | **only song player can use the panel**!' })
+                    i.deferReply({ ephemeral: true }).catch(() => {});
+                    if (song.user.id !== i.user.id) i.followUp({ content: emojis.error + ' | **only song player can use the panel**!' })
                     if (i.customId == "stop") {
                         try {
                             if (!getQueue) return;
                             if (queue) {
+                                i.followUp({ content: "🛑 | **تم أياف الموسيقى**", ephemeral: true });
                                 let msgID = require('quick.db').fetch(`Delete_${interaction.channel.id}`);
                                 msg.delete();
-                                interaction.channel.messages.fetch(msgID).then(m => m.delete())
+                                interaction.channel.messages.fetch(msgID).then(m => m.delete());
                                 player.stop(interaction);
-                                i.channel.send({ content: "🛑 | **تم أياف الموسيقى**", ephemeral: true }).then(m => {
-                                    setTimeout(() => {
-                                        m.delete()
-                                    }, 1500);
-                                });
                             }
                         } catch {
                             console.log('')
@@ -379,11 +360,7 @@ module.exports = async(client, queue, song) => {
                             if (!getQueue) return;
                             if (queue) {
                                 player.setRepeatMode(interaction, parseInt(1));
-                                i.channel.send({ content: "🔄 | **تم تقعيل وضع التكرار**", ephemeral: true }).then(m => {
-                                    setTimeout(() => {
-                                        m.delete()
-                                    }, 1500);
-                                });
+                                i.followUp({ content: "🔄 | **تم تقعيل وضع التكرار**", ephemeral: true });
                             }
                         } catch {
                             console.log('')
@@ -399,11 +376,7 @@ module.exports = async(client, queue, song) => {
                                     .setThumbnail(song.thumbnail)
                                     .setDescription(lyrics)
                                     .setFooter("Bot Made By: NIRO")
-                                i.channel.send({ content: "📑 | ** كلمات الأغنية: **", embeds: [lyr], ephemeral: true }).then(m => {
-                                    setTimeout(() => {
-                                        m.delete()
-                                    }, 7500);
-                                });
+                                i.followUp({ content: "📑 | ** كلمات الأغنية: **", embeds: [lyr], ephemeral: true });
                             }
                         } catch {
                             console.log('')
@@ -412,14 +385,10 @@ module.exports = async(client, queue, song) => {
                         try {
                             if (!getQueue) return;
                             if (queue) {
-                                if (queue.songs.map((song, i) => i).length == 1) return i.channel.send({ content: ":x: | **مفيش حاجه اسكب ليه هل ات عبيت**", ephemeral: true });
+                                if (queue.songs.map((song, i) => i).length == 1) return i.followUp({ content: ":x: | **مفيش حاجه اسكب ليه هل ات عبيت**", ephemeral: true });
                                 else {
                                     player.skip(interaction);
-                                    i.channel.send({ content: "⏭ | **تم تخطي الغنيه**", ephemeral: true }).then(m => {
-                                        setTimeout(() => {
-                                            m.delete()
-                                        }, 1500);
-                                    });
+                                    i.followUp({ content: "⏭ | **تم تخطي الغنيه**", ephemeral: true });
                                 }
                             }
                         } catch {
@@ -429,13 +398,9 @@ module.exports = async(client, queue, song) => {
                         try {
                             if (!getQueue) return;
                             if (queue) {
-                                if (queue.paused == true) return i.channel.send({ content: ":x: | **والله الموسيقى وقفه متبقاش بضان و دوس تاني**", ephemeral: true });
+                                if (queue.paused == true) return i.followUp({ content: ":x: | **والله الموسيقى وقفه متبقاش بضان و دوس تاني**", ephemeral: true });
                                 player.pause(interaction);
-                                i.channel.send({ content: "⏸ | **تم أيقاف الموسقى**", ephemeral: true }).then(m => {
-                                    setTimeout(() => {
-                                        m.delete()
-                                    }, 1500);
-                                });
+                                i.followUp({ content: "⏸ | **تم أيقاف الموسقى**", ephemeral: true });
                             }
                         } catch {
                             console.log('')
@@ -444,13 +409,9 @@ module.exports = async(client, queue, song) => {
                         try {
                             if (!getQueue) return;
                             if (queue) {
-                                if (queue.paused == false) return i.channel.send({ content: ":x: | **لم يتم ايقاف الموسيى اصلا انت بتعمل ايه**", ephemeral: true });
+                                if (queue.paused == false) return i.followUp({ content: ":x: | **لم يتم ايقاف الموسيى اصلا انت بتعمل ايه**", ephemeral: true });
                                 player.resume(interaction);
-                                i.channel.send({ content: "▶ | **تم أستكمال الموسيقى**", ephemeral: true }).then(m => {
-                                    setTimeout(() => {
-                                        m.delete()
-                                    }, 1500);
-                                });
+                                i.followUp({ content: "▶ | **تم أستكمال الموسيقى**", ephemeral: true });
                             }
                         } catch {
                             console.log('')

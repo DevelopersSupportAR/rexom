@@ -12,7 +12,6 @@ const emojis = require('../../config/emojis.json');
 
 module.exports = async(client, interaction) => {
     let slashCommands = slashCommandsMap
-    await interaction.deferReply().catch(() => {});
     let settings = db.fetch(`Settings_${interaction.guild.id}`);
     if (settings == null) return db.set(`Settings_${interaction.guild.id}`, {
         prefix: require('../../config/bot.json').mainPrefix,
@@ -26,8 +25,8 @@ module.exports = async(client, interaction) => {
     }
     if (interaction.isCommand) {
         const cmd = slashCommands.get(interaction.commandName);
-        if (!cmd)
-            return interaction.followUp({ content: "An error has occured " });
+        if (!cmd) return;
+        await interaction.deferReply().catch(() => {});
         const args = [];
         for (let option of interaction.options.data) {
             if (option.type === "SUB_COMMAND") {
@@ -42,6 +41,7 @@ module.exports = async(client, interaction) => {
         cmd.run(client, interaction, args);
     }
     if (interaction.isContextMenu()) {
+        await interaction.deferReply().catch(() => {});
         const command = slashCommands.get(interaction.commandName);
         if (command) command.run(client, interaction);
     }
