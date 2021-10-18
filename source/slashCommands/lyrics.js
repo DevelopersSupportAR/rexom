@@ -2,6 +2,7 @@ const { Client, CommandInteraction, MessageEmbed, Message } = require("discord.j
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
 const { player } = require('../index');
+const embed = require("../structures/embeds");
 
 module.exports = {
     name: "lyrics",
@@ -20,12 +21,9 @@ module.exports = {
         let lang = settings.lang;
         if (lang == "ar") {
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
             const queue = player.getQueue(interaction);
-            if (!queue) return interaction.followUp({ content: emojis.error + " | **لم يتم تشغيل اي أغنيه اصلا**", allowedMentions: false, ephemeral: true })
+            if (!queue) return embed.notQueue(interaction, lang, "/");
             let name = queue.songs.map((song, id) => song.name).slice(0, 1).join("\n");
             let uploader = queue.songs.map((song, id) => song.uploader.name).slice(0, 1).join("\n");
             let thumbnail = queue.songs.map((song, id) => song.thumbnail).slice(0, 1).join("\n");
@@ -44,12 +42,9 @@ module.exports = {
             });
         } else if (lang == "en") {
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
             const queue = player.getQueue(interaction);
-            if (!queue) return interaction.followUp({ content: emojis.error + " | **Thare are no music in the queue**", allowedMentions: false, ephemeral: true })
+            if (!queue) return embed.notQueue(interaction, lang, "/");
             let name = queue.songs.map((song, id) => song.name).slice(0, 1).join("\n");
             let uploader = queue.songs.map((song, id) => song.uploader.name).slice(0, 1).join("\n");
             let thumbnail = queue.songs.map((song, id) => song.thumbnail).slice(0, 1).join("\n");

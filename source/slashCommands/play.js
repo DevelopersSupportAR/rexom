@@ -2,6 +2,7 @@ const { Client, CommandInteraction, MessageEmbed, Message } = require("discord.j
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
 const { player } = require('../index');
+const embed = require("../structures/embeds");
 
 module.exports = {
     name: "play",
@@ -29,18 +30,12 @@ module.exports = {
         if (lang == "en") {
             module.exports.guildID = interaction.guild.id;
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
             player.play(interaction, interaction.options.getString("song"));
             interaction.followUp({ content: `**🔍 | Searching To:** \`${interaction.options.getString("song")}\``, allowedMentions: false, ephemeral: true })
         } else if (lang == "ar") {
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
             player.play(interaction, interaction.options.getString("song"));
             interaction.followUp({ content: `**🔍 | جار البحث عن:** \`${interaction.options.getString("song")}\``, allowedMentions: false, ephemeral: true })
         }

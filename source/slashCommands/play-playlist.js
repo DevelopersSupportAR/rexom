@@ -2,6 +2,7 @@ const { Client, CommandInteraction, MessageEmbed, Message, MessageActionRow, Mes
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
 const { player } = require('../index');
+const embed = require("../structures/embeds");
 
 module.exports = {
     name: "play-playlist",
@@ -21,7 +22,7 @@ module.exports = {
         module.exports.interactionGET = interaction;
         if (lang == "en") {
             let data = db.get(`SDPL_${interaction.user.id}.data`);
-            if (data == null || data.includes('no')) return interaction.followUp({ content: emojis.error + " | i cna't find any playlist in you account profile" });
+            if (data == null || data.includes('no')) return embed.warn(interaction, "**i cna't find any playlist in you account profile**", "/");
 
             setTimeout(() => {
                 if (data[0] !== undefined) player.play(interaction, data[0]);
@@ -61,10 +62,10 @@ module.exports = {
                 player.play(interaction, element)
             }
 
-            interaction.followUp({ content: emojis.done + " | You Play List Is Playing!" })
+            embed.done(interaction, "**You Play List Is Playing!**", "/");
         } else if (lang == "ar") {
             let data = db.get(`SDPL_${interaction.user.id}.data`);
-            if (data == null || data.includes('no')) return interaction.followUp({ content: emojis.error + " | ليس لديك اي قوائم تشغيل في حسابك" });
+            if (data == null || data.includes('no')) return embed.warn(interaction, "**ليس لديك اي قوائم تشغيل في حسابك**", "/");
 
             setTimeout(() => {
                 if (data[0] !== undefined) player.play(interaction, data[0]);
@@ -104,7 +105,7 @@ module.exports = {
                 player.play(interaction, element)
             }
 
-            interaction.followUp({ content: emojis.done + " | قائمة التشيل خاصتك تعمل!" })
+            embed.done(interaction, "**قائمة التشيل خاصتك تعمل!**", "/");
         }
     },
 };

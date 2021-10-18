@@ -734,7 +734,7 @@
   dependencies:
     "discord.js" "^12.5.3"
 
-"distube@^3.0.0-beta.34", "distube@^3.0.0-beta.35", "distube@^3.0.0-beta.39":
+"distube@^3.0.0-beta.34", "distube@^3.0.0-beta.35", "distube@^3.0.1":
   "integrity" "sha512-6wGR7+RanGHBfyHRNZ3pFKdUnYqBSbDoX+krhKn9HiwKlFr/0r0/JhpOM1Ij7urSCYYJdldnn2+me/nqcR8i5A=="
   "resolved" "https://registry.npmjs.org/distube/-/distube-3.0.1.tgz"
   "version" "3.0.1"
