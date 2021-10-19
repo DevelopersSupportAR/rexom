@@ -1,5 +1,4 @@
 require('dotenv').config();
-const { red, blue, green, gray } = require('chalk');
 const { Collection } = require('discord.js');
 const client = require('./client/discord');
 const player = require('./client/player');
@@ -12,4 +11,4 @@ module.exports = {
     commands: commands,
     client: client,
     player: player
-}
+};

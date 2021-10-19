@@ -1,4 +1,4 @@
-const { red, blue, green, gray } = require('chalk');
+const { red, blue, green, yellow } = require('chalk');
 require("dotenv").config();
 
 module.exports = {
@@ -6,7 +6,7 @@ module.exports = {
         constructor(props) {
             this.client = props.client;
             this.client.login(process.env.TOKEN).then(async function(token) {
-                console.log(gray(require('figlet').textSync("Rexom")));
+                console.log(yellow.bold(require('figlet').textSync("Rexom")));
                 console.log(red.bold('Discord.JS Is Connect On: ') + green(token.split('.')[0] + '****************'));
                 console.log(blue.bold('https://discord.gg/developer-support') + red(' If You Need Support!!.'));
             }).catch(async function(error) {

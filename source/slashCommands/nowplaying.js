@@ -34,7 +34,7 @@ module.exports = {
                     const result = new MessageEmbed()
                         .setColor('YELLOW')
                         .setAuthor(track.name, track.Thumbnail, track.url)
-                        .setDescription(`${queue.paused == true ? ":pause_button:" : ":arrow_forward:"} | ${progressbar.splitBar(time === 0 ? currentTime : time, currentTime, 10)[0]} \`[${queue.formattedCurrentTime}/${track.formattedDuration}]\``)
+                        .setDescription(`${queue.paused == true ? ":pause_button:" : ":arrow_forward:"} | ${progressbar.filledBar(time === 0 ? currentTime : time, currentTime)} \`[${queue.formattedCurrentTime}/${track.formattedDuration}]\``)
                         .setThumbnail(track.Thumbnail)
                     interaction.followUp({
                         embeds: [result],
@@ -46,13 +46,13 @@ module.exports = {
                                 embeds: [new MessageEmbed()
                                     .setColor('YELLOW')
                                     .setAuthor(track.name, track.Thumbnail, track.url)
-                                    .setDescription(`${queue.paused == true ? ":pause_button:" : ":arrow_forward:"} | ${progressbar.splitBar(time === 0 ? currentTime : time, currentTime, 10)[0]} \`[${queue.formattedCurrentTime}/${track.formattedDuration}]\``)
+                                    .setDescription(`${queue.paused == true ? ":pause_button:" : ":arrow_forward:"} | ${progressbar.filledBar(time === 0 ? currentTime : time, currentTime)} \`[${queue.formattedCurrentTime}/${track.formattedDuration}]\``)
                                     .setThumbnail(track.Thumbnail)
                                 ],
                                 ephemeral: false,
                                 allowedMentions: false
-                            })
-                        }, 1000);
+                            }).catch(err => { console.log(' ') })
+                        }, 5000);
                     })
                 }
             } else if (lang == "ar") {
@@ -67,7 +67,7 @@ module.exports = {
                     const result = new MessageEmbed()
                         .setColor('YELLOW')
                         .setAuthor(track.name, track.Thumbnail, track.url)
-                        .setDescription(`${queue.paused == true ? ":pause_button:" : ":arrow_forward:"} | ${progressbar.splitBar(time === 0 ? currentTime : time, currentTime, 10)[0]} \`[${queue.formattedCurrentTime}/${track.formattedDuration}]\``)
+                        .setDescription(`${queue.paused == true ? ":pause_button:" : ":arrow_forward:"} | ${progressbar.filledBar(time === 0 ? currentTime : time, currentTime, 10)[0]} \`[${queue.formattedCurrentTime}/${track.formattedDuration}]\``)
                         .setThumbnail(track.Thumbnail)
                     interaction.followUp({
                         embeds: [result],
@@ -79,13 +79,13 @@ module.exports = {
                                 embeds: [new MessageEmbed()
                                     .setColor('YELLOW')
                                     .setAuthor(track.name, track.Thumbnail, track.url)
-                                    .setDescription(`${queue.paused == true ? ":pause_button:" : ":arrow_forward:"} | ${progressbar.splitBar(time === 0 ? currentTime : time, currentTime, 10)[0]} \`[${queue.formattedCurrentTime}/${track.formattedDuration}]\``)
+                                    .setDescription(`${queue.paused == true ? ":pause_button:" : ":arrow_forward:"} | ${progressbar.filledBar(time === 0 ? currentTime : time, currentTime, 10)[0]} \`[${queue.formattedCurrentTime}/${track.formattedDuration}]\``)
                                     .setThumbnail(track.Thumbnail)
                                 ],
                                 ephemeral: true,
                                 allowedMentions: false
                             })
-                        }, 1000);
+                        }, 5000).catch(err => { console.log(' ') })
                     })
                 }
             }

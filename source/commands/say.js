@@ -2,7 +2,7 @@ const { Client, Message, MessageEmbed, MessageActionRow, MessageButton } = requi
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
 const { joinVoiceChannel, createAudioPlayer, NoSubscriberBehavior, createAudioResource } = require('@discordjs/voice');
-const discordTTS = require('discord-tts');
+const tts = require('google-tts-api');
 const embed = require("../structures/embeds");
 
 module.exports = {
@@ -34,10 +34,10 @@ module.exports = {
                     noSubscriber: NoSubscriberBehavior.Pause,
                 },
             });
-            const resource = createAudioResource(discordTTS.getVoiceStream("command has an error"));
+            const resource = createAudioResource(tts.getAudioUrl(value, { lang: "en", slow: false, host: "https://translate.google.com" }));
             player.play(resource);
             connection.subscribe(player);
-            message.react(emojis.done)
+            message.reply({ content: emojis.done, allowedMentions: { repliedUser: false }, ephemeral: false });
         } else if (lang == "ar") {
             const voiceChannel = message.member.voice.channel;
             if (!voiceChannel) return embed.notInVoice(message, lang);
@@ -53,10 +53,10 @@ module.exports = {
                     noSubscriber: NoSubscriberBehavior.Pause,
                 },
             });
-            const resource = createAudioResource(discordTTS.getVoiceStream("command has an error"));
+            const resource = createAudioResource(tts.getAudioUrl(value, { lang: "ar", slow: false, host: "https://translate.google.com" }));
             player.play(resource);
             connection.subscribe(player);
-            message.react(emojis.done)
+            message.reply({ content: emojis.done, allowedMentions: { repliedUser: false }, ephemeral: false });
         }
     }
 };
