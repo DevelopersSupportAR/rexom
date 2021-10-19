@@ -2,6 +2,7 @@ const { Client, CommandInteraction, MessageEmbed, Message } = require("discord.j
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
 const { player } = require('../index');
+const embed = require("../structures/embeds");
 
 module.exports = {
     name: "skip",
@@ -21,29 +22,23 @@ module.exports = {
         if (lang == "en") {
             module.exports.guildID = interaction.guild.id;
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
             const queue = player.getQueue(interaction);
-            if (!queue) return interaction.followUp({ content: emojis.error + " | **Thare are no music in the queue**", allowedMentions: false, ephemeral: true })
-            if (queue.songs.map((song, i) => i).length == 1) return interaction.followUp({ content: ":x: | **Thare Are No Song To Skip**", ephemeral: true });
+            if (!queue) return embed.notQueue(interaction, lang, "/");
+            if (queue.songs.map((song, i) => i).length == 1) return embed.warn(interaction, "**Thare Are No Song To Skip**", "/");
             else {
                 player.skip(interaction);
-                interaction.followUp({ content: "⏭ | **Music Has Skiped**", allowedMentions: false, ephemeral: true })
+                embed.done(interaction, "**Music Has Skiped**", "/");
             }
         } else if (lang == "ar") {
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
             const queue = player.getQueue(interaction);
-            if (!queue) return interaction.followUp({ content: emojis.error + " | **لم يتم تشغيل اي أغنيه اصلا**", allowedMentions: false, ephemeral: true })
-            if (queue.songs.map((song, i) => i).length == 1) return interaction.followUp({ content: ":x: | **مفيش حاجه اسكب ليه هل ات عبيت**", ephemeral: true });
+            if (!queue) return embed.notQueue(interaction, lang, "/");
+            if (queue.songs.map((song, i) => i).length == 1) return embed.warn(interaction, "**مفيش حاجه اسكب ليه هل ات عبيت**", "/")
             else {
-                player.skip(interaction)
-                interaction.followUp({ content: "⏭ | **تم تخطي الغنيه**", allowedMentions: false, ephemeral: true })
+                player.skip(interaction);
+                embed.done(interaction, "**تم تخطي الغنيه**", "/");
             }
         }
     },

@@ -3,6 +3,7 @@ const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
 const { createAudioPlayer, NoSubscriberBehavior } = require('@discordjs/voice');
 const discordTTS = require('discord-tts');
+const embed = require("../structures/embeds");
 
 module.exports = {
     name: "say",
@@ -26,32 +27,40 @@ module.exports = {
         let lang = settings.lang;
         if (lang == "en") {
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
             const connection = joinVoiceChannel({
                 channelId: voiceChannel.id,
                 guildId: voiceChannel.guild.id,
                 adapterCreator: voiceChannel.guild.voiceAdapterCreator,
             });
             connection;
-            connection.subscribe(discordTTS.getVoiceStream('test 123'));
-            interaction.followUp({ content: emojis.error + " | هذا الأمر م يعمل على هذا الأصدار من البوت" });
+            const player = createAudioPlayer({
+                behaviors: {
+                    noSubscriber: NoSubscriberBehavior.Pause,
+                },
+            });
+            const resource = createAudioResource(discordTTS.getVoiceStream("command has an error"));
+            player.play(resource);
+            connection.subscribe(player);
+            embed.err(interaction, "this command is will not run in this version", "/");
         } else if (lang == "ar") {
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
             const connection = joinVoiceChannel({
                 channelId: voiceChannel.id,
                 guildId: voiceChannel.guild.id,
                 adapterCreator: voiceChannel.guild.voiceAdapterCreator,
             });
             connection;
-            connection.subscribe(discordTTS.getVoiceStream('test 123'));
-            interaction.followUp({ content: emojis.error + " | this command is will not run in this version" });
+            const player = createAudioPlayer({
+                behaviors: {
+                    noSubscriber: NoSubscriberBehavior.Pause,
+                },
+            });
+            const resource = createAudioResource(discordTTS.getVoiceStream("command has an error"));
+            player.play(resource);
+            connection.subscribe(player);
+            embed.err(interaction, "this command is will not run in this version", "/");
         }
     },
 };
