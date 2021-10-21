@@ -1,7 +1,8 @@
 const { MessageEmbed, Collection, Client, Message, MessageButton, MessageActionRow } = require('discord.js');
-const { commands } = require('../index');
+const { commands, player } = require('../index');
 const db = require('quick.db');
 const cooldowns = new Map();
+const colors = require('../../config/colors.json');
 
 /**
  * 
@@ -11,8 +12,34 @@ const cooldowns = new Map();
  */
 
 module.exports = async(client, message) => {
-    if (message.author.bot) return;
+    module.exports.messageGET = message;
     if (message.channel.type == "dm") return;
+    let data = db.fetch(`SeTupInFo_${message.guild.id}`);
+    if (data !== null) {
+        if (message.channel.id == data.channelID) {
+            message.delete()
+            if (message.guild.me.voice.channel) {
+                if (message.member.voice.channel !== message.guild.me.voice.channel) return message.reply({ content: emojis.error + ' | please join a voice channel first!' })
+            }
+            player.play(message, message.content).then(() => {
+                setInterval(() => {
+                    message.channel.messages.fetch(data.msgID).then(msg => {
+                        let queue = player.getQueue(message);
+                        msg.edit({
+                            embeds: [
+                                new MessageEmbed()
+                                .setAuthor(require('../music/playSong').song.name || "No song playing currently")
+                                .setColor(colors.done)
+                                .setImage(require('../music/playSong').song.thumbnail || "https://camo.githubusercontent.com/0b6082ac62d1a2b9257aafe9e5e4e82e10efa73e07bb306a0717131e877be8bf/68747470733a2f2f6d656469612e646973636f72646170702e6e65742f6174746163686d656e74732f3834353130373434333537333731393131322f3835393232323532393933393231303235302f53637265656e73686f745f323032312d30362d32392d30322d30332d30322d36335f33613633373033376433356639356335646263646363373565363937636539312e6a7067")
+                                .setFooter(`${queue ? queue.songs.length : 0} in load | ${require('../music/playSong').song.likes}👍 ${require('../music/playSong').song.dislikes}👎`, client.user.avatarURL({ dynamic: true }))
+                            ],
+                        });
+                    });
+                }, 5000);
+            });
+        }
+    }
+    if (message.author.bot) return;
     let settings = db.fetch(`Settings_${message.guild.id}`);
     if (settings == null) return db.set(`Settings_${message.guild.id}`, {
         prefix: require('../../config/bot.json').mainPrefix,
@@ -47,5 +74,4 @@ module.exports = async(client, message) => {
     } catch (e) {
         message.reply({ content: ':x: | Something went wrong ```' + e + '```' });
     }
-
 };

@@ -1,5 +1,4 @@
 const { Client, CommandInteraction, MessageEmbed, Message, Permissions } = require("discord.js");
-const { Song } = require('distube')
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
 const { player } = require('../index');

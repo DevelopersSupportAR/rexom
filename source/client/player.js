@@ -2,7 +2,7 @@ const SoundCloudPlugin = require('@distube/soundcloud');
 const SpotifyPlugin = require('@distube/spotify');
 const client = require('./discord');
 
-const DisTube = require('distube');
+const DisTube = require('disrexom');
 const player = new DisTube.default(client, {
     leaveOnEmpty: false,
     leaveOnStop: true,

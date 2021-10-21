@@ -18,7 +18,7 @@ module.exports = async(client, interaction) => {
         lang: require('../../config/bot.json').mainLang
     });
     if (db.fetch(`DJ_TOG_${interaction.guild.id}`) == "on") {
-        if (!interaction.member.roles.cache.find(role => role.id == db.fetch(`DJ_${interaction.guild.id}`))) return interaction.followUp({
+        if (!interaction.member.roles.cache.find(role => role.id == db.fetch(`DJ_${interaction.guild.id}`))) return interaction.reply({
             ephemeral: true,
             content: emojis.error + " | You can't use bot commands with out DJ role"
         });

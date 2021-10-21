@@ -694,7 +694,19 @@
     "node-fetch" "^2.6.1"
     "ws" "^8.2.3"
 
-"distube@^3.0.0-beta.34", "distube@^3.0.0-beta.35", "distube@^3.0.1":
+"disrexom@^3.0.1":
+  "integrity" "sha512-DGgdxTrecJiHgdpQXFR1rjxm0lmxrMxVGVfU5uUVYJX4XriGioIGO4AivgCGYY8+SlKJ782yLFsxRxNp8iMldg=="
+  "resolved" "https://registry.npmjs.org/disrexom/-/disrexom-3.0.1.tgz"
+  "version" "3.0.1"
+  dependencies:
+    "@distube/youtube-dl" "^2.2.2"
+    "@distube/ytdl-core" "^4.9.3"
+    "@distube/ytpl" "^1.1.1"
+    "@distube/ytsr" "^1.1.5"
+    "prism-media" "https://codeload.github.com/distubejs/prism-media/tar.gz/main"
+    "tiny-typed-emitter" "^2.1.0"
+
+"distube@^3.0.0-beta.34", "distube@^3.0.0-beta.35":
   "integrity" "sha512-6wGR7+RanGHBfyHRNZ3pFKdUnYqBSbDoX+krhKn9HiwKlFr/0r0/JhpOM1Ij7urSCYYJdldnn2+me/nqcR8i5A=="
   "resolved" "https://registry.npmjs.org/distube/-/distube-3.0.1.tgz"
   "version" "3.0.1"

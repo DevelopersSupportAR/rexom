@@ -278,3 +278,8 @@ select {
     height: 40px!important;
     margin-top: -10px;
 }
+
+#avatar {
+    width: 350px;
+    animation: float 6s ease-in-out infinite
+}

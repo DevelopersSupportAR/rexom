@@ -37,7 +37,7 @@ module.exports = {
             const queue = player.getQueue(interaction);
             if (!queue) return embed.notQueue(interaction, lang, "/");
             player.seek(interaction, Number(interaction.options.getNumber("value")));
-            embed.done(interaction, `**تم الأقتصاص الى:** \`${value}\``, "/");
+            embed.done(interaction, `**تم الأقتصاص الى:** \`${interaction.options.getNumber("value")}\``, "/");
         }
     },
 };
