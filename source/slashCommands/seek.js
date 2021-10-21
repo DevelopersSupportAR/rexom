@@ -2,6 +2,7 @@ const { Client, CommandInteraction, MessageEmbed, Message } = require("discord.j
 const { player } = require('../index');
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
+const embed = require("../structures/embeds");
 
 module.exports = {
     name: "seek",
@@ -25,20 +26,18 @@ module.exports = {
         let lang = settings.lang;
         if (lang == "en") {
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
+            const queue = player.getQueue(interaction);
+            if (!queue) return embed.notQueue(interaction, lang, "/");
             player.seek(interaction, Number(interaction.options.getNumber("value")));
-            interaction.seek({ content: `✂️ | **seeked to** \`${value}\``, allowedMentions: { repliedUser: false }, ephemeral: true });
+            embed.done(interaction, `**seeked to** \`${value}\``, "/");
         } else if (lang == "ar") {
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
+            const queue = player.getQueue(interaction);
+            if (!queue) return embed.notQueue(interaction, lang, "/");
             player.seek(interaction, Number(interaction.options.getNumber("value")));
-            interaction.followUp({ content: `✂️ | **تم الأقتصاص الى:** \`${value}\``, allowedMentions: { repliedUser: false }, ephemeral: true });
+            embed.done(interaction, `**تم الأقتصاص الى:** \`${interaction.options.getNumber("value")}\``, "/");
         }
     },
 };

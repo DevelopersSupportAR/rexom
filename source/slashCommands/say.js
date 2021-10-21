@@ -1,8 +1,9 @@
 const { Client, CommandInteraction, MessageEmbed, Message } = require("discord.js");
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
-const { createAudioPlayer, NoSubscriberBehavior } = require('@discordjs/voice');
-const discordTTS = require('discord-tts');
+const { joinVoiceChannel, createAudioPlayer, NoSubscriberBehavior, createAudioResource } = require('@discordjs/voice');
+const tts = require('google-tts-api');
+const embed = require("../structures/embeds");
 
 module.exports = {
     name: "say",
@@ -22,36 +23,45 @@ module.exports = {
      */
 
     run: async(client, interaction, args) => {
+        let value = interaction.options.getString("value")
         let settings = db.fetch(`Settings_${interaction.guild.id}`);
         let lang = settings.lang;
         if (lang == "en") {
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
             const connection = joinVoiceChannel({
                 channelId: voiceChannel.id,
                 guildId: voiceChannel.guild.id,
                 adapterCreator: voiceChannel.guild.voiceAdapterCreator,
             });
             connection;
-            connection.subscribe(discordTTS.getVoiceStream('test 123'));
-            interaction.followUp({ content: emojis.error + " | هذا الأمر م يعمل على هذا الأصدار من البوت" });
+            const player = createAudioPlayer({
+                behaviors: {
+                    noSubscriber: NoSubscriberBehavior.Pause,
+                },
+            });
+            const resource = createAudioResource(tts.getAudioUrl(value, { lang: "en", slow: false, host: "https://translate.google.com" }));
+            player.play(resource);
+            connection.subscribe(player);
+            interaction.followUp({ content: emojis.done, allowedMentions: { repliedUser: false }, ephemeral: false })
         } else if (lang == "ar") {
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
             const connection = joinVoiceChannel({
                 channelId: voiceChannel.id,
                 guildId: voiceChannel.guild.id,
                 adapterCreator: voiceChannel.guild.voiceAdapterCreator,
             });
             connection;
-            connection.subscribe(discordTTS.getVoiceStream('test 123'));
-            interaction.followUp({ content: emojis.error + " | this command is will not run in this version" });
+            const player = createAudioPlayer({
+                behaviors: {
+                    noSubscriber: NoSubscriberBehavior.Pause,
+                },
+            });
+            const resource = createAudioResource(tts.getAudioUrl(value, { lang: "ar", slow: false, host: "https://translate.google.com" }));
+            player.play(resource);
+            connection.subscribe(player);
+            interaction.followUp({ content: emojis.done, allowedMentions: { repliedUser: false }, ephemeral: false })
         }
     },
 };

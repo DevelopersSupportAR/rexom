@@ -2,6 +2,7 @@ const { Client, CommandInteraction, MessageEmbed, Message, MessageActionRow, Mes
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
 const { player } = require('../index');
+const embed = require('../structures/embeds');
 
 module.exports = {
     name: "save-playlist",
@@ -26,7 +27,7 @@ module.exports = {
         if (lang == "en") {
             let data = interaction.options.getString("songs");
             let checker = db.get(`SDPL_${interaction.user.id}.data`);
-            if (checker == null) return db.set(`SDPL_${interaction.user.id}`, { data: ['no'] }) && interaction.followUp({ content: emojis.warn + " | Your New Profile Has Setuped Please use the command again!.", ephemeral: false, components: [] });
+            if (checker == null) return db.set(`SDPL_${interaction.user.id}`, { data: ['no'] }) && embed.done(interaction, "**Your New Profile Has Setuped Please use the command again!.**", "/")
             else if (!checker.includes('no')) {
                 let btn = new MessageButton()
                     .setEmoji(emojis.done)
@@ -52,7 +53,7 @@ module.exports = {
                 });
                 return;
             }
-            if (!data.includes(',')) return interaction.followUp({ content: emojis.error + " | Wrong Use: /save-playlist songs: song1, song2", ephemeral: true });
+            if (!data.includes(',')) return embed.err(interaction, "Wrong Use: /save-playlist songs: song1, song2", "/")
             let array = []
             for (let num = 0; num < 10; num++) {
                 const element = data.split(',')[num];
@@ -61,11 +62,11 @@ module.exports = {
                 array.push(element)
             }
             db.set(`SDPL_${interaction.user.id}.data`, array);
-            interaction.followUp({ content: emojis.done + " | You Have Saved A Playlist on **reXom** Check The Songs That You Add! ==> " + array, ephemeral: true, components: [] })
+            embed.done(interaction, "You Have Saved A Playlist on **reXom** Check The Songs That You Add! ==> \n" + array.join('\n'), "/")
         } else if (lang == "ar") {
             let data = interaction.options.getString("songs");
             let checker = db.get(`SDPL_${interaction.user.id}.data`);
-            if (checker == null) return db.set(`SDPL_${interaction.user.id}`, { data: ['no'] }) && interaction.followUp({ content: emojis.warn + " | تم تجهيز حسابك للعمل على حفظ البيانات!.", ephemeral: false, components: [] });
+            if (checker == null) return embed.done(interaction, "**تم تجهيز حسابك للعمل على حفظ البيانات!.**", "/")
             else if (!checker.includes('no')) {
                 let btn = new MessageButton()
                     .setEmoji(emojis.done)
@@ -91,7 +92,7 @@ module.exports = {
                 });
                 return;
             }
-            if (!data.includes(',')) return interaction.followUp({ content: emojis.error + " | أستخدام خاطئ: /save-playlist songs: song1, song2", ephemeral: true });
+            if (!data.includes(',')) return embed.err(interaction, "أستخدام خاطئ: /save-playlist songs: song1, song2", "/")
             let array = []
             for (let num = 0; num < 10; num++) {
                 const element = data.split(',')[num];
@@ -100,7 +101,7 @@ module.exports = {
                 array.push(element)
             }
             db.set(`SDPL_${interaction.user.id}.data`, array);
-            interaction.followUp({ content: emojis.done + " | لقد قمت بحفظ قائمة تشغيل جديده في **reXom** تحقق من الأغناي! ==> " + array, ephemeral: true, components: [] })
+            embed.done(interaction, "لقد قمت بحفظ قائمة تشغيل جديده في **reXom** تحقق من الأغناي! ==> " + array.join('\n'), "/")
         }
     },
 };

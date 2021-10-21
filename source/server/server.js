@@ -1,6 +1,6 @@
 const { red, blue } = require('chalk');
 const { Permissions } = require('discord.js');
-const settings = require('./settings');
+const settings = require("./settings");
 const db = require('quick.db');
 const path = require('path');
 const express = require('express');
@@ -14,7 +14,7 @@ const session = require("express-session");
 const memorystore = require('memorystore')(session);
 const PORT = process.env.PORT || settings.config.port;
 const botConfig = require('../../config/bot.json');
-const client = require('../client/discord').client;
+const client = require('../client/discord');
 
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((obj, done) => done(null, obj));
@@ -64,6 +64,7 @@ const checkAuth = (req, res, next) => {
 }
 
 app.get("/login", (req, res, next) => {
+    if (!client) res.render('errors/808');
     if (req.session.backURL) {
         req.session.backURL = req.session.backURL
     } else if (req.headers.referer) {
@@ -78,6 +79,7 @@ app.get("/login", (req, res, next) => {
 }, passport.authenticate("discord", { prompt: "none" }));
 
 app.post("/dashboard/:guildID", checkAuth, async(req, res) => {
+    if (!client) res.render('errors/808');
     const guild = client.guilds.cache.find(g => g.id == req.params.guildID);
     if (!guild) return res.render('errors/307');
     let user = guild.members.cache.find(u => u.id == req.user.id);
@@ -101,13 +103,13 @@ app.post("/dashboard/:guildID", checkAuth, async(req, res) => {
 
     if (['en', 'ar'].includes(req.body.lang)) lang = req.body.lang;
     else lang = settings.lang;
-
+    require('quick.db').set(`DJ_${req.params.guildID}`, req.body.role.split('<@&')[1].split('>')[0])
     require('quick.db').set(`DefVol_${req.params.guildID}`, req.body.mxv)
     require('quick.db').set(`DJ_TOG_${req.params.guildID}`, toggle);
     if (req.body.djrole) require('quick.db').set(`DJ_${req.params.guildID}`, req.body.djrole);
     require('quick.db').set(`Settings_${req.params.guildID}`, {
-        prefix: req.body.prefix,
-        lang: lang
+        prefix: req.body.prefix || settings.prefix,
+        lang: lang || settings.lang
     });
 
 
@@ -120,7 +122,6 @@ app.post("/dashboard/:guildID", checkAuth, async(req, res) => {
         db: db,
         bot: client,
         permissions: Permissions,
-        websiteconfig: settings.webiste,
         collback: require('./settings').config.collback,
         botconfig: botConfig,
         repeat: db.get(`SongDashData_${req.params.guildID}.repeat`),

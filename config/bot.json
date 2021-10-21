@@ -9,8 +9,8 @@
     "clientID": "898300895371071559",
     "clientSECRET": "4daoeG-ATz4PE3MyZJWwkz2Y-sgsFIHe",
 
-    "mainPrefix": "%",
-    "mainLang": "ar",
+    "mainPrefix": "?",
+    "mainLang": "en",
 
     "panelType": "buttons"
 }

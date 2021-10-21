@@ -14,6 +14,7 @@ const checkAuth = (req, res, next) => {
 }
 
 router.get("/", (req, res) => {
+    if (!client) res.render('errors/808');
     res.render('index', {
         req: req,
         user: req.isAuthenticated() ? req.user : null,
@@ -26,6 +27,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
+    if (!client) res.render('errors/808');
     req.session.destroy(() => {
         req.logout();
         res.redirect("/");
@@ -33,11 +35,13 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/callback", passport.authenticate("discord", { fallureRedirect: "/" }), async(req, res) => {
+    if (!client) res.render('errors/808');
     res.redirect('/dashboard');
 });
 
 router.get("/dashboard", (req, res) => {
-    if (!req.isAuthenticated() || !req.user) return res.redirect(`/?error=` + encodeURIComponent("You_Must_Login_In_The_Dashboard_first"));
+    if (!client) res.render('errors/808');
+    if (!req.isAuthenticated() || !req.user) return res.redirect('/login')
     if (!req.user.guilds) return res.redirect(`/?error=` + encodeURIComponent("Dashboard_Can't_Get_Your_Guilds_Data"));
     res.render('dashboard', {
         req: req,
@@ -51,6 +55,7 @@ router.get("/dashboard", (req, res) => {
 });
 
 router.get("/commands", (req, res) => {
+    if (!client) res.render('errors/808');
     res.render('commands', {
         req: req,
         user: req.isAuthenticated() ? req.user : null,
@@ -61,6 +66,7 @@ router.get("/commands", (req, res) => {
 });
 
 router.get("/dashboard/:guildID", checkAuth, async(req, res) => {
+    if (!client) res.render('errors/808');
     const guild = client.guilds.cache.find(g => g.id == req.params.guildID);
     if (!guild) return res.render('errors/307');
     let user = guild.members.cache.find(u => u.id == req.user.id);
@@ -80,7 +86,6 @@ router.get("/dashboard/:guildID", checkAuth, async(req, res) => {
         db: db,
         bot: client,
         permissions: Permissions,
-        websiteconfig: settings.webiste,
         collback: settings.config.collback,
         botconfig: botConfig,
         repeat: db.get(`SongDashData_${req.params.guildID}.repeat`),
@@ -90,6 +95,7 @@ router.get("/dashboard/:guildID", checkAuth, async(req, res) => {
 });
 
 router.get("/features", (req, res) => {
+    if (!client) res.render('errors/808');
     res.render('features', {
         req: req,
         user: req.isAuthenticated() ? req.user : null,
@@ -100,6 +106,7 @@ router.get("/features", (req, res) => {
 });
 
 router.get("*", (req, res) => {
+    if (!client) res.render('errors/808');
     res.render('errors/404')
 });
 

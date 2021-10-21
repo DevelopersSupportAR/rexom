@@ -2,6 +2,7 @@ const { Client, CommandInteraction, MessageEmbed, Message } = require("discord.j
 const { player } = require('../index');
 const emojis = require('../../config/emojis.json');
 const db = require('quick.db');
+const embed = require("../structures/embeds");
 
 module.exports = {
     name: "search",
@@ -27,10 +28,7 @@ module.exports = {
         let lang = settings.lang;
         if (lang == "en") {
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/")
             player.search(interaction.options.getString('value'), {
                 limit: 20,
                 type: 'video',
@@ -94,10 +92,7 @@ module.exports = {
             });
         } else if (lang == "ar") {
             const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) {
-                interaction.followUp({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: false, ephemeral: true })
-                return
-            }
+            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/")
             player.search(interaction.options.getString('value'), {
                 limit: 20,
                 type: 'video',
