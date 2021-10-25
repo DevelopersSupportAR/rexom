@@ -2,7 +2,7 @@
 <div align="center">
   <img src="https://media.discordapp.net/attachments/845107443573719112/859222529939210250/Screenshot_2021-06-29-02-03-02-63_3a637037d35f95c5dbcdcc75e697ce91.jpg" align="center">
   <br>
-  <h1><strong><i>make your day with rexom 🎵</i></strong></h1>
+  <h1><i>Music bots are always what gives an artistic touch to servers, but <b>Rexom 🎵</b> gives a different touch.</i></h1>
   <br>
   <a href="#">
     <img src="https://img.shields.io/github/v/tag/DevelopersSupportAR/rexom?color=red&label=rexom&logo=discord&style=for-the-badge" alt="Support">
@@ -28,9 +28,6 @@
     </a>
 </div>
 
-<h1 align="center"> rexom 🎶</h1>
-
-<h3 align="center"> Play your favorite playlist with rexom 🎶 </h3>
 
 ## Features ✨
 
@@ -43,11 +40,13 @@ There are many advantages that make you use reXom!!
 5. 30+ commands
 6. supports `700+` online music websites like Spotify and Soundcloud
 7. fast discord api connection
-8. distinguished message collector to play music
+8. fast sqlite databases
+9. distinguished message collector to play music
+10. simple dashboard support any domains
 
 ## how to use reXom 🛠️
 
-Its easy to use reXom!!
+its easy to use rexom :)
 
 #### Requirements 📜
 
@@ -58,42 +57,42 @@ login with your discord account
 press `new appliactin`
 type the appliactin name and press `Create`
 set your appliactin/bot icon and description/about me
-choose for navbar `Bot` option
+choose form the navbar in the left `Bot` option
 press `add bot` and `yes, do it!`
 Make sure the `PRESENCE INTENT` and `SERVER MEMBERS INTENT` options are enabled
-then choose for navbar `OAuth2`
-scroll down and choose `bot` and `applications.commands` options then scroll down more and choose the bot permissions you won't but i suggest `Administrator` and copy the url(this is the bot invite url)
+then chose form the navbar in the right `OAuth2`
+scroll down and chose `bot` and `applications.commands` options then scroll down more and choose the bot permissions you won't i suggest the `Administrator` permissions then copy the url(this is the bot invite url) and invite it
 
 2. make sure you have [Git](https://git-scm.com/downloads), [VS Code](https://code.visualstudio.com/download), [nodejs](https://nodejs.org/en/download/current/) in your pc (this is only required if you using computer)
 
 
 #### Get Started 🚀
 
-but if you using your computer soo follow this steps!
+if you using your computer follow my steps!
 
-1. make a new folder name it any thing
-2. press right click and chose `git bash here`
-3. then he well open a cmd for you type this command inside: `git clone https://github.com/DevelopersSupportAR/8Ticket.git`
-
-well done you forked the project in your pc or fork it on replit
-
-1. find a folder could `config` and open the `bot.json` file (make sure if you using computer to open this file with `VS Code`)
-2. you well find thar thing like this:
+1. press right click any ware in your disktop and chose `git bash here`
+2. then he well open a cmd for you type this command inside: `git clone https://github.com/DevelopersSupportAR/rexom.git`
+3. after that he will fork the github repo, okay now go inside the forked folder with this command: `cd rexom`
+4. find a folder could `config` and open the `bot.json` file (make sure if you using computer to open this file with `VS Code`)
+5. you well find thar thing like this:
 
 ```json
 {
     "activity": {
-        "name": "<The Bot Activity Name>",
-        "type": "<The Bot Activity Type>"
+        "name": "<The Bot Activity Name (that waht is the bot will type in his activity)>",
+        "type": "<The Bot Activity Type (that what is the bot activity type  will be ['PLAYING', 'LISTENING', 'WATCHING', 'COMPETING'])>"
     },
-    "status": "<The Bot Status>",
+    "status": "<The Bot Status (that what is the bot status will be ['dnd', 'online', 'idle])>",
 
-    "domain": "<The Bot Website Domain>",
-    "clientID": "<The Bot Id>",
-    "clientSECRET": "<The Bot Secret>",
+    "domain": "<The Bot Website Domain (the dashboard domain)>",
+    "clientID": "<The Bot Id (that you will find it in the OAuth2)>",
+    "clientSECRET": "<The Bot Secret (that you will find it in the OAuth2)>",
 
-    "mainPrefix": "<The Bot Prefix>",
-    "mainLang": "<The Bot Lang, only: ['ar', 'en']>"
+    "mainPrefix": "<The Bot Prefix (that what the bot will starts commands)>",
+    "mainLang": "<The Bot Lang, only: ['ar', 'en']>",
+    "ownerID": "<The Onwer Id (this is importing for sent the full updates for the bot)>",
+
+    "panelType": "<the type of the contorle panel ['buttons', 'reactions', 'none']>"
 }
 ```
 
@@ -112,20 +111,12 @@ its have to like you domain link and `/callback` like this `https://<The Project
 
 #### Run The Project 🌀
 
-if you using replit `download the github repositorie` then extract the file and drag the `node_modules` folder to replit files
-to edit `node_modules` files on replit (make sure you install all the packages you will need because you can't install any package after do that)
-now just wait a little alert from the website and press replace
-after that wait 5 seconds and press run
-will down
+if you are using replit just press run button on the top;
+but if you are using you computer or vps you will find an file cold `run.bat` open it and jsut wait;
 
-if you using a pc copy `node_modules` folder away from the project folder and open the `install.bat` file to install the bot packages
-after it done go back to the `node_modules` that you copy, go inside it and copy all the files and folders form it and past it on the new `node_modules` folder and press replace
-now you can open `run.bat` file
-will done
+any problim go to [developer-support](https://discord.gg/developer-support)
 
 
 ## Made By 🔌
 
 `@ニロ#3121`
-
-.
