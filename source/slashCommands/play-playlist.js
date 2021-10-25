@@ -8,7 +8,12 @@ module.exports = {
     name: "play-playlist",
     description: "play your playlist",
     type: 'CHAT_INPUT',
-
+    options: [{
+        name: "name",
+        description: "the name of the playlist",
+        type: "STRING",
+        required: true
+    }],
     /**
      *
      * @param {Client} client
@@ -20,92 +25,33 @@ module.exports = {
         let settings = db.fetch(`Settings_${interaction.guild.id}`);
         let lang = settings.lang;
         module.exports.interactionGET = interaction;
-        if (lang == "en") {
-            let data = db.get(`SDPL_${interaction.user.id}.data`);
-            if (data == null || data.includes('no')) return embed.warn(interaction, "**i cna't find any playlist in you account profile**", "/");
-
-            setTimeout(() => {
-                if (data[0] !== undefined) player.play(interaction, data[0]);
-            }, 1000);
-            setTimeout(() => {
-                if (data[1] !== undefined) player.play(interaction, data[1]);
-            }, 2000);
-            setTimeout(() => {
-                if (data[2] !== undefined) player.play(interaction, data[2]);
-            }, 3000);
-            setTimeout(() => {
-                if (data[3] !== undefined) player.play(interaction, data[3]);
-            }, 4000);
-            setTimeout(() => {
-                if (data[4] !== undefined) player.play(interaction, data[4]);
-            }, 5000);
-            setTimeout(() => {
-                if (data[5] !== undefined) player.play(interaction, data[5]);
-            }, 6000);
-            setTimeout(() => {
-                if (data[6] !== undefined) player.play(interaction, data[6]);
-            }, 7000);
-            setTimeout(() => {
-                if (data[7] !== undefined) player.play(interaction, data[7]);
-            }, 8000);
-            setTimeout(() => {
-                if (data[8] !== undefined) player.play(interaction, data[8]);
-            }, 9000);
-            setTimeout(() => {
-                if (data[9] !== undefined) player.play(interaction, data[9]);
-            }, 10000);
-
-            for (let index = 0; index < data.length; index++) {
-                const element = data[index];
-                if (element == undefined) continue;
-                console.log(element)
-                player.play(interaction, element)
+        let z = 0;
+        let value = interaction.options.getString('name');
+        let voiceChannel = interaction.member.voice.channel;
+        if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
+        let data = db.fetch(`PlaylistsData_${interaction.user.id}`);
+        if (data == null) await db.set(`PlaylistsData_${interaction.user.id}`, []) && embed.warn(interaction, `**thare are no user cold \`${interaction.user.username}\`!.**`, "/");
+        for (let index = 0; index < data.length; index++) {
+            const element = data[index];
+            if (element.name == value) {
+                z = 1;
+                for (var i = 0; i < element.songs.length; i++) {
+                    (function(i) {
+                        setTimeout(function() {
+                            player.play(interaction, element.songs[i]);
+                        }, 3500 * i);
+                    })(i);
+                };
             }
-
-            embed.done(interaction, "**You Play List Is Playing!**", "/");
-        } else if (lang == "ar") {
-            let data = db.get(`SDPL_${interaction.user.id}.data`);
-            if (data == null || data.includes('no')) return embed.warn(interaction, "**ليس لديك اي قوائم تشغيل في حسابك**", "/");
-
-            setTimeout(() => {
-                if (data[0] !== undefined) player.play(interaction, data[0]);
-            }, 1000);
-            setTimeout(() => {
-                if (data[1] !== undefined) player.play(interaction, data[1]);
-            }, 2000);
-            setTimeout(() => {
-                if (data[2] !== undefined) player.play(interaction, data[2]);
-            }, 3000);
-            setTimeout(() => {
-                if (data[3] !== undefined) player.play(interaction, data[3]);
-            }, 4000);
-            setTimeout(() => {
-                if (data[4] !== undefined) player.play(interaction, data[4]);
-            }, 5000);
-            setTimeout(() => {
-                if (data[5] !== undefined) player.play(interaction, data[5]);
-            }, 6000);
-            setTimeout(() => {
-                if (data[6] !== undefined) player.play(interaction, data[6]);
-            }, 7000);
-            setTimeout(() => {
-                if (data[7] !== undefined) player.play(interaction, data[7]);
-            }, 8000);
-            setTimeout(() => {
-                if (data[8] !== undefined) player.play(interaction, data[8]);
-            }, 9000);
-            setTimeout(() => {
-                if (data[9] !== undefined) player.play(interaction, data[9]);
-            }, 10000);
-
-            for (let index = 0; index < data.length; index++) {
-                const element = data[index];
-                if (element == undefined) continue;
-                console.log(element)
-                player.play(interaction, element)
-            }
-
-            embed.done(interaction, "**قائمة التشيل خاصتك تعمل!**", "/");
+        }
+        if (z == 1) {
+            setTimeout(async() => {
+                await embed.done(interaction, "you playlist is running!", "/")
+            }, 1440)
+        } else {
+            setTimeout(async() => {
+                await embed.err(interaction, "i can't find this playlist!", "/")
+            }, 1440)
         }
     },
 };

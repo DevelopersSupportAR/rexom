@@ -86,7 +86,9 @@ module.exports = {
                                                                     let filter = (i) => i.user.id == interaction.user.id;
                                                                     let collector = await MeSsAgE.createMessageComponentCollector(filter, { time: 0 });
                                                                     collector.on("collect", async(i) => {
+                                                                        i.deferReply({ ephemeral: true }).catch(() => {});
                                                                         if (i.customId == "video") {
+                                                                            i.followUp({ content: "video data has loaded!" })
                                                                             let embed = new MessageEmbed()
                                                                                 .setColor("BLUE")
                                                                                 .setDescription(`**\`\`\`\n${axiosData.data.desc || null}\n\`\`\`**`)
@@ -115,14 +117,18 @@ module.exports = {
                                                                             let filter = (i) => i.user.id == interaction.user.id;
                                                                             let collector = await videoMessage.createMessageComponentCollector(filter, { time: 0 });
                                                                             collector.on('collect', async(i) => {
+                                                                                i.deferReply({ ephemeral: true }).catch(() => {});
+                                                                                i.followUp({ content: "The View Has Sended" });
                                                                                 interaction.channel.send({
                                                                                     files: [{
                                                                                         name: "rexom.mp4",
                                                                                         attachment: axiosData.data.video_no_watermark
                                                                                     }],
-                                                                                });
+                                                                                })
                                                                             });
                                                                         } else if (i.customId == "music") {
+                                                                            i.followUp({ content: "music data has loaded!" })
+                                                                            i.deferReply({ ephemeral: true }).catch(() => {});
                                                                             let embed = new MessageEmbed()
                                                                                 .setColor("BLUE")
                                                                                 .setDescription(`**\`\`\`\n${axiosData.data.music_author || null}\n\`\`\`**`)
@@ -147,7 +153,9 @@ module.exports = {
                                                                             let filter = (i) => i.user.id == interaction.user.id;
                                                                             let collector = await musicMessage.createMessageComponentCollector(filter, { time: 0 });
                                                                             collector.on('collect', async(i) => {
+                                                                                i.deferReply({ ephemeral: true }).catch(() => {});
                                                                                 player.play(interaction, axiosData.data.music_url)
+                                                                                i.followUp({ content: "music has add to server queue!" })
                                                                             });
                                                                         }
                                                                     });

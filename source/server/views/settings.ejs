@@ -16,12 +16,12 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
     </head>
 
-    <body style="background-color: #2f3136;">
+    <body>
+      <div class="jumbotron text-center text-dark bg-transparent">
         <section>
             <center>
-                <h2 style="font-size: 65px;color:#ffffff" class="display-3">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <b style="color: rgb(145, 255, 0);"><%= guild.name %></b> | reXom
+                <h2 style="font-size: 65px;" class="display-3">
+                    <i class="fas fa-tachometer-alt" style="color: rgba(12,217,90,255);"></i> <%= guild.name %>
                 </h2>
                 <main style="margin-top: 58px">
                     <div class="container pt-4">
@@ -35,7 +35,7 @@
                                                     <h3 class="text-danger">
                                                         <%= songs || 0 %>
                                                     </h3>
-                                                    <p class="mb-0">Song in queue</p>
+                                                    <p class="mb-0 text-secondary">Song in queue</p>
                                                 </div>
                                                 <div class="align-self-center">
                                                     <i class="fas fa-music text-danger fa-3x"></i>
@@ -52,7 +52,7 @@
                                                     <h3 class="text-success">
                                                         <%= pause || "Empty" %>
                                                     </h3>
-                                                    <p class="mb-0">Song Type</p>
+                                                    <p class="mb-0 text-secondary">Song Type</p>
                                                 </div>
                                                 <div class="align-self-center">
                                                     <i class="fas fa-pause text-success fa-3x"></i>
@@ -69,7 +69,7 @@
                                                     <h3 class="text-warning">
                                                         <%= repeat || "Empty" %>
                                                     </h3>
-                                                    <p class="mb-0">Loop mode</p>
+                                                    <p class="mb-0 text-secondary">Loop mode</p>
                                                 </div>
                                                 <div class="align-self-center">
                                                     <i class="fas fa-sync text-warning fa-3x"></i>
@@ -86,7 +86,7 @@
                                                     <h3 class="text-info">
                                                         <%= db.get(`Settings_${guild.id}.prefix`) %>
                                                     </h3>
-                                                    <p class="mb-0">Prefix</p>
+                                                    <p class="mb-0 text-secondary">Prefix</p>
                                                 </div>
                                                 <div class="align-self-center">
                                                     <i class="fas fa-robot text-info fa-3x"></i>
@@ -101,8 +101,7 @@
                             <div class="container pt-4">
                                 <section>
                                     <br>
-                                    <br>
-                                    <h3 class="display-3"><i class="fas fa-cogs"></i> Settings!</h3>
+                                    <h3 class="display-3"><i class="fas fa-cogs text-info"></i> Settings!</h3>
                                     <br>
                                     <br>
                                     <div class="row">
@@ -153,13 +152,32 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <h3 class="display-3"><i class="fab fa-500px text-danger"></i> Dj!</h3>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
                                             <div class="col-xl-3 col-sm-6 col-12 mb-4">
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <div class="d-flex justify-content-between px-md-1">
                                                             <div>
-                                                                <p class="mb-0 text-danger">Dj Toggle:</p>
-                                                                <input style="margin-top: 3px; margin-right: 10%;" type="text" class="form-control" name="djt" value="<%= db.fetch(`DJ_TOG_${guild.id}`) ? db.fetch(`DJ_TOG_${guild.id}`)  : 'off' %>" placeholder="Your Toggle Have To Be ['on', 'off']">
+                                                            <h1> </h1>
+                                                            <h1> </h1>
+                                                            <h1> </h1>
+                                                            <h1> </h1>
+                                                            <h1> </h1>
+                                                            <h1> </h1>
+<div class="form-check form-switch">
+  <input class="form-check-input" name="djTo" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+  <label class="form-check-label mb-0 text-danger" for="flexSwitchCheckDefault">Dj Toggle</label>
+</div>
                                                             </div>
                                                             <div class="align-self-center">
                                                                 <i class="fas fa-headphones text-danger fa-3x"></i>
@@ -202,13 +220,10 @@
             <br>
             <br>
             <br>
+      </div>
     </body>
     <footer>
 
     </footer>
 
     </html>
-    <!-- 
-
-    
-        </section> -->

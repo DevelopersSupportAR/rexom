@@ -13,7 +13,7 @@ const colors = require('../../config/colors.json');
 
 module.exports = async(client, message) => {
     module.exports.messageGET = message;
-    if (message.channel.type == "dm") return;
+    if (message.channel.type == "DM") return;
     let data = db.fetch(`SeTupInFo_${message.guild.id}`);
     if (data !== null) {
         if (message.channel.id == data.channelID) {
@@ -47,6 +47,7 @@ module.exports = async(client, message) => {
     });
     let prefix = settings.prefix;
     let lang = settings.lang;
+    if (!message.content.startsWith(prefix)) return;
     if (!message.content.includes(prefix)) return;
     const argument = message.content.slice(prefix.length).trim().split(/ +/g);
     const cmd = argument.shift().toLowerCase()

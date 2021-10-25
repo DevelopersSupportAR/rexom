@@ -25,17 +25,17 @@ module.exports = {
             if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
             const queue = player.getQueue(interaction);
             if (!queue) return embed.notQueue(interaction, lang, "/");
-            if (queue.paused == true) return embed.warn(interaction, "**this Music Is All Ready Paused**")
+            if (queue.paused == true) return embed.warn(interaction, "**this Music Is All Ready Paused**", "/")
             player.pause(interaction);
-            embed.done("**Music Has Paused*");
+            embed.done("**Music Has Paused*", "/");
         } else if (lang == "ar") {
             const voiceChannel = interaction.member.voice.channel;
             if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
             const queue = player.getQueue(interaction);
             if (!queue) return embed.notQueue(interaction, lang, "/");
-            if (queue.paused == true) return embed.warn(interaction, "**الميوزك واقف يا بيض ’_’**")
+            if (queue.paused == true) return embed.warn(interaction, "**الميوزك واقف يا بيض ’_’**", "/")
             player.pause(interaction)
-            embed.done("**تم أيقاف الموسقى*");
+            embed.done("**تم أيقاف الموسقى*", "/");
         }
     },
 };

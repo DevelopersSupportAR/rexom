@@ -19,7 +19,7 @@ module.exports = async(client, queue, song) => {
     module.exports.song = song;
     let lang = require('../slashCommands/play').guildLANG || require('../commands/play').guildLANG;
     let interaction = require('../slashCommands/play').interactionGET || require('../commands/play').messageGET || require('../slashCommands/search').interactionGET || require('../commands/search').messageGET || require('../slashCommands/play-playlist').interactionGET || require('../commands/play-playlist').messageGET || require('../events/messageCreate').messageGET;
-    let noMessage = require('../slashCommands/search').noMessage || require('../commands/search').noMessage;
+    let noMessage = require('../slashCommands/search').noMessage || require('../commands/search').noMessage || require('../slashCommands/play-playlist').noMessage || require('../commands/play-playlist').noMessage;
     let getQueue;
     if (interaction) {
         try {
@@ -41,7 +41,7 @@ module.exports = async(client, queue, song) => {
             } catch (err) {
                 db.delete(`SongDashData_${interaction.guild.id}`)
             }
-            if (queue.songs.map((song, id) => id + 1).length == 0) return db.delete(`SongDashData_${interaction.guild.id}`);
+            if (queue.songs.map((song, id) => id + 1).length == 0) return db.delete(`SongDashData_${interaction.guild ? interaction.guild.id : "0000"}`);
             db.set(`SongDashData_${interaction.guild.id}`, {
                 repeat: repeatModee,
                 pause: pausee,
@@ -50,7 +50,7 @@ module.exports = async(client, queue, song) => {
         }, 2500)
     }
     let data = db.fetch(`SeTupInFo_${interaction.guild.id}`);
-    if (data.channelID !== interaction.channel.id) {
+    if (data ? data.channelID : "00" !== interaction.channel.id) {
         if (noMessage !== "off") {
             if (lang == "en") {
                 let embed = new MessageEmbed()
@@ -548,4 +548,5 @@ module.exports = async(client, queue, song) => {
             }
         }
     }
+
 }

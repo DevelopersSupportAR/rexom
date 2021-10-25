@@ -79,6 +79,7 @@ app.get("/login", (req, res, next) => {
 }, passport.authenticate("discord", { prompt: "none" }));
 
 app.post("/dashboard/:guildID", checkAuth, async(req, res) => {
+    console.log(req.body)
     if (!client) res.render('errors/808');
     const guild = client.guilds.cache.find(g => g.id == req.params.guildID);
     if (!guild) return res.render('errors/307');
@@ -95,17 +96,12 @@ app.post("/dashboard/:guildID", checkAuth, async(req, res) => {
 
     let settings = require('quick.db').fetch(`Settings_${req.params.guildID}`);
     let lang;
-    let toggle;
-
-
-    if (['on', 'off'].includes(req.body.djt)) toggle = req.body.djt;
-    else toggle = 'off';
 
     if (['en', 'ar'].includes(req.body.lang)) lang = req.body.lang;
     else lang = settings.lang;
-    require('quick.db').set(`DJ_${req.params.guildID}`, req.body.role.split('<@&')[1].split('>')[0])
-    require('quick.db').set(`DefVol_${req.params.guildID}`, req.body.mxv)
-    require('quick.db').set(`DJ_TOG_${req.params.guildID}`, toggle);
+    require('quick.db').set(`DJ_${req.params.guildID}`, req.body.role ? req.body.role.split('<@&')[1].split('>')[0] : "")
+    require('quick.db').set(`DefVol_${req.params.guildID}`, req.body.mxv || 50)
+    require('quick.db').set(`DJ_TOG_${req.params.guildID}`, req.body.djTo || "off");
     if (req.body.djrole) require('quick.db').set(`DJ_${req.params.guildID}`, req.body.djrole);
     require('quick.db').set(`Settings_${req.params.guildID}`, {
         prefix: req.body.prefix || settings.prefix,

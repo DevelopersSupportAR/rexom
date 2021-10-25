@@ -8,19 +8,27 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
         <link rel="stylesheet" href="/index.css">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+        <link rel="stylesheet" href="../public/index.css">
     </head>
 
-    <body style="background-color: #2f3136;">
+    <body>
         <section>
-            <div class="d-flex justify-content-center head display-5">
-                <h1 style="color: white;"><b>Dashboard</b></h1>
+          <div class="jumbotron text-center ">
+            <div class="d-flex justify-content-center head text-dark display-5">
+                <h1>Dashboard <i class="fas fa-tachometer-alt" style="color: rgba(12,217,90,255);"></i></h1>
             </div>
-            <div class="d-flex justify-content-center head display-5">
-                <p style="color: white;">
-                    With <b style="color: red;">reXom</b> dashboard you can manage your server settings easly!
+            <div class="d-flex justify-content-center subtext text-dark display-5">
+                <p>
+                    With <b style="color: rgb(233, 30, 99);">reXom <i style="color: rgb(233, 30, 99);" class="fas fa-music"></i></b> dashboard you can manage your server settings easly!
                 </p>
             </div>
-            <% if(user && user.id){ %>
+                        <% if(user && user.id){ %>
                 <div style="display: flex; flex-wrap: wrap; justify-content: center">
                     <% user.guilds.filter(guild=>{
                         const permsOnGuild = new permissions(guild.permissions_new);
@@ -30,20 +38,15 @@
                     }).forEach(guild => {
                     %>
                         <div class="card text-white bg-dark mb-3">
-                            <%- guild.icon ? `<img src="https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}" class="card-img-top" style="max-width: 250px;width: 250px;">` : `<img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw8REBAREBAVEBIVDxARFRUREhYWFhISFRUWFhgSFhUaHSgjGBopGxUWITEhJSkrLi4uFx8zODMsNygtLisBCgoKDg0OGxAQGzUlICUtLS0tLi0vLS8rLS4rLS0tLS0wLS0vLS0tLS0tLy0tLSs3Ky0yLS0tKy0tLS0tLS0tLf/AABEIAKgBLAMBIgACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAAABQYBBAcDAv/EADwQAAIBAgEIBggFAwUAAAAAAAABAgMRBAUGEiExQVFhEyJxgZGhIzJCUmJyscEHgpKy0RSiwhYzY/Dx/8QAGgEBAAMBAQEAAAAAAAAAAAAAAAIDBAEFBv/EACkRAQACAgEDAwQBBQAAAAAAAAABAgMRIQQSMUFRYQUTFDIiI0JSgbH/2gAMAwEAAhEDEQA/ANoyAfSMIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATeSM2MRXtJroqb9qa1tfDHf2uxC+StI3aXYiZ8IM2cLga1X/bpTnzjFteOw6Bgs28Hh46U0pta3Os1Zc7bEauUM8MPT6tGLqtb11YLv39yMn5drzrFXaz7evMqnisg4qlTdWpS0YK1+tFtXdtiZGk9i84MZilKEY9WSacaVNyunub1v6GrRzcxktlCS+ZqP1ZfTJMR/VmIQmsf2osE9DNDGvbGEe2a+x9f6Nxn/H+t/wAHfyMX+UHZb2V8E5PNLGr2Iy7Jx+5qzyLjKTUugmnFppxjpWa1p6rnYzY58Whztn2elTNrGpX6FtWv1ZRb8L3I2vh5wdpwlB8JJr6liwmeGJpvRrQVS226cJ+WryLDgs4sHiVoTtFvVoVkrPsexmac2anNq7j4WRSs+Jc4B0DKWZ+HqXdJ9DLlrg+7d3FOypkevh36WPV2KcdcX37uxl2LqceTiPKNqTVoAA0IAAAAAAAAAAAAAAAAAAAAAAAAAAAGYxbaSV22kkt7e4wWPMjJvS13VkrxpWa5zezwV34FeXJFKzaXaxudJ7N/NanRUalZKpV22fqw7FvfM38sZbp0LQSdWs/Vpw1t83wRJVoyatF6Le+17dnM8MFk6lSu4x6z1ynLXOT4uT1niTk77d1+WuK6jUKvLIuOxjUsVU6GF7qC12Xy3snzbbJjAZrYSlr6PpHxqdb+3Z5E2Dts95jUcR7QRSHxThGKtFJLglZH2AUpAAAAADxxGFp1FapCM1wlFP6kDj8zsNO7p3ov4dcf0v7NFkBOmS1P1lyaxPlTaEcoYHav6mgt0W24rlvj2a0WPA42hiqV4WnF6pRkldfDKJvmjVyZT0+lh6OpvlFesuE47JLz5krZIvzMc+8ORXSpZ0ZsRpRlXoeotcobdFe9F8ORUzsc6alFxkk0001uaas0cpyxgHQr1KT2J9V8YvWn4HodFnm8dtvKjLTXMNMAG9UAAAAAAAAAAAAAAAAAAAAAAAAwdRzYwHQYanFq0mtOXzS127lZdxQM3sF02JpQezS0pfLHW/47zqiR5vX5PFP9r8MerIAPNXgAAAAAAAAAAAAAAABUM/8AAXhTrpa4vQl8r2Puf7i3mrlPCKtRqU37UGux7n42LMN+y8WRvG405GDM4tNp6mm0+1GD6CGMAAAAAAAAAAAAAAAAAAAAAAABcfw9wmurWfKmv3S/xLqQ2aWG6PCUlvknUf5ndeViZPB6i/fkmWukaqAApTACKy3l6jhUtK8ptXUI7WuL4I7Ws2nUOTOuZSoKTDPqWlrw60eU9dvAtGScq0sTDTpvZqaepxfBosyYMlI3aHIvE+G8ACpIAIXLmcdHDPRadSpa+jHcuMnuJVpNp1WHJmI8poFKo59PS69C0fhndrxWsteT8fSrwVSlLST1c0+DW5k8mG+P9oci8T4bQAKkgAAcxzuwnRYupZWU7VF+bb/cmQ5dPxDw2qjVW5ypvv1r6S8Slnu9NfuxRLHkjVgAF6IAAAAAAAAAAAAAAAAAAB9U6blKMVtk1Fdrdj5JPNmjp4ugvj0v0py+xC9u2syRG5dPo01GMYrZFKK7ErHoAfPNwAAPPEVVCEpvZGLk+xK7OSY7FzrVJ1J65Sd+xbkuSWo6jlyLeGxCW3oan7WcmPS+n1jmWfNPiGSSzcyg6GIpyv1ZNQmuMW7eW3uI0+qcW5RS2tpLtbN96xasxKmJ1LsgMR2GT55uauVMWqNGpU92Dl2vcvGxyatVlOUpyelKTbbe9s6VnfFvBVrcIvuU4tnMj1Pp9Y7ZlnzTzpgnczsoOliYxv1KnUa5+y/HV3kGbeSIt4iglt6an+5GzLWLUmJVVnUutgA+fbQAAQueGH08HV4x0Zr8rV/K5zM7BjaOnTqQ96Eo+KaOPnqfT7fxmGfNHOwAHoKQAAAAAAAAAAAAAAAAAACxZiUr4py92lJ97aX3ZXS3/h3T62IlwjTj4uT+xn6qdYpSx/tC7gA8NsAABiSurM5bnBkmWGquNn0cm3CW5r3b8UdTPLE4aFSLjUipxe6Sui/p884rb9EL07oceLFmdkeVWsqsl6Om73a9aa2Jdm1lqhmtglLS6G/Jyk14XJinTjFKMUopKySVklyRqzddFq9tIV1xanllGQDzl7zxNGM4ShJXjKLi+xqxynK2TZ4erKnNc4y3TjuaOtHhjMHSqx0asFNcJLZzXA0dP1E4p+EL07nILFszHyPKU/6iatGN9C/tSatpLklcsVHNjBRekqKfzSlJeDdiXjFJWSsuRoz9bF69tY8oVxancsgA89cAADDOR5UpaFetDhVqLu0nbyOunL87KejjK/OUZeMYs3dBP85j4U5vCJAB6zOAAAAAAAAAAAAAAAAAAAXn8PIeirPjVS8I3+5RixZo5dWHk6dTVTnK+l7krJXfLUuwzdXW1sUxCeOYi3LogMRkmrp3XIyeI1tPF41UmnUVqbdtPdB8J8Fz2cbb9uMk1da1yMVIKSakk00009jXBlXxmExWCbnhX0tDa6MrvQ+Xfbs8ydKxbjfKMzpagQGS87MNVspvoZ8JvVflLZ42J2Mk1dO64o5alqTq0OxMT4fQAIugAAAAAAeVfEQgtKc1BcZNJeYHqeOKxUKUXOpJRit7+nN8iu4/O+F+jwsHXm3ZOz0b8ltl5GzkvJFWU1XxkukqrXGHsUuxbNL/ALrLZxTWN34/6j3b8JfCVpTWk46CfqqXrW4yW7s/8WwYsZKkg5znzC2Lb404P6r7F+x2Mp0YSqVJaMV58lxZzDLeU3ia0qjWirKMVwim7X4vW/E3dDWZv3einNPGmgAD1mcAAAAAAAAAAAAAAAAAAAwZAE/m9nNPD2hO9Slw9qHy8uRfsDjqVaKnSmprltXJrczkR7YTFVKUtOnNwlxT8mt6Mefo635rxKymWY4l2AFIybntJWWIp6XxU9T74vV4MsWDzhwlW2jWinwn1X5nm36fJTzC+L1lq5azWo17yj6KpxitUvmj90VOvgsfgm3FzjH3qbcoPm1u70dJjNPWmmuRBZ25Z/p6WjB+lmmo/DHfP+C3Bmybinn4lG9Y1tW8Lnnio201Couas/FavIkqOfUfboNfLNP6pFKMHoW6TFPopjJaPV0CGe+G3wqr8sX/AJH3/rTCcKn6F/JzwEPwcXy792y/1M98Pup1H3RX+RpV8+n7FDvnP7Jfcpxg7HRYo9D7tk/ic7cZU1Rkqd91OOvxd2emCzcxmJanWlKC96q25NcovX42ITA4qdGpCpB2lF3XPinysdTyVj4V6UakNjWtb4yW2LK+omcER9usR8pUjv8AMvHJGRKGGXo43k1rnLXJ9+5ckSJ8Va8IK85RiuMml9SHxudeEp7J9I+FNX/u2eZ52r5J35ldxWE4RmWMuUMMuvK87aoR9Z/wubKhlPPGvUvGklRjx2z8d3cVycm22223rbbu2+bNeLobTzfhXbN7N/LGWKuJnpTdor1YLZH+XzI8A9OtYrGoZ5nYACQAAAAAAAAAAAAAAAAAAAAAAAAGDIA+qVWUfVk4/K2voKtWUneUnJ2teTbduF2fIOajybAAdAAAAAAPSliKkU1Gcop7VGTSfbY8wcmInyMyk27ttvm7mADoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2Q==" class="card-img-top" style="max-width: 250px;width: 250px;">` %>
+                            <%- guild.icon ? `<img src="https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}" class="card-img-top" style="max-width: 250px;width: 250px;">` : `<img src="https://www.apkmirror.com/wp-content/uploads/2021/06/51/60b986642cc19.png" class="card-img-top" style="max-width: 250px;width: 250px;">` %>
                                 <div class="card-img-overlay text-grey h-100 d-flex flex-column justify-content-end" style="background: #000000b0;max-width: 250px;width: 250px;">
-                                    <h5 class="card-title text-primary" style="font-size: 25px;">
-                                        <%= guild.name %>
-                                    </h5>
                                     <% if(bot.guilds.cache.get(guild.id)){ %>
-                                        <p class="card-text" style="font-size: 12px;font-style:italic;color: #b3b3b3">reXom is ready to edit <b><%= guild.name %></b>'s Settings!</p>
-                                        <a style="font-size: 25px" href=" <%- botconfig.domain %>/dashboard/<%- guild.id %>" class="mt-auto btn btn-lg btn-block btn-success">Settings</a>
-
-                                        <% }else {  %>
-                                            <p class="card-text" style="font-size: 12px;font-style:italic;color: #b3b3b3">reXom is not joined to <b><%= guild.name %></b> please invite him first!</p>
-                                            <a style="font-size: 25px" href="<%= `https://discord.com/api/oauth2/authorize?response_type=code&client_id=${bot.user.id}&guild_id=${guild.id}&permissions=6747975000&redirect_uri=https%3A%2F%2Fdiscord.music-rexom.ml%2Fcallback&scope=bot%20applications.commands`%>" class="mt-auto btn btn-lg btn-block btn-primary">Invite!</a>
-
-                                            <% } %>
+                                    <h5 class="card-title text-primary" style="font-size: 25px;"><%= guild.name %></h5>
+                                      <a style="font-size: 25px" href=" <%- botconfig.domain %>/dashboard/<%- guild.id %>" class="mt-auto btn btn-lg btn-block btn-success">Settings</a>
+                                    <% }else {  %>
+                                      <h5 class="card-title text-primary" style="font-size: 25px;"><%= guild.name %></h5>
+                                      <a style="font-size: 25px" href="<%= `https://discord.com/api/oauth2/authorize?response_type=code&client_id=${bot.user.id}&guild_id=${guild.id}&permissions=6747975000&redirect_uri=${collback}&scope=bot%20applications.commands`%>" class="mt-auto btn btn-lg btn-block btn-primary">Invite!</a>
+                                    <% } %>
                                 </div>
                         </div>
                         <% }) %>
@@ -51,6 +54,7 @@
                 <% }else {  %>
                     <p>Please login First!</p>
                     <%  } %>
+          </div>
         </section>
     </body>
     <footer>

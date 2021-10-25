@@ -6,9 +6,12 @@ const commands = new Collection();
 const { login, register } = require('./structures/build');
 new login({ client: client });
 new register({ dir: __dirname, commands: commands, player: player, client: client });
-
 module.exports = {
-    commands: commands,
-    client: client,
-    player: player
+  commands: commands,
+  client: client,
+  player: player
 };
+
+const db = require('quick.db')
+const embed = require('./structures/embeds');
+const colors = require('../config/colors.json');
