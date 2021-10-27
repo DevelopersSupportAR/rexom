@@ -1,6 +1,6 @@
 {
     "name": "rexom",
-    "version": "2.8.9",
+    "version": "2.9.8",
     "description": "make your day with rexom music :)",
     "main": "./source/index.js",
     "scripts": {
