@@ -7,11 +7,15 @@ const { Client, MessageEmbed, TextChannel } = require('discord.js');
  */
 
 module.exports = async(client, channel, error) => {
-    channel.send({
-        embeds: [
-            new MessageEmbed()
-            .setColor('RED')
-            .setDescription(`${error}`)
-        ]
-    })
+    try {
+        channel.send({
+            embeds: [
+                new MessageEmbed()
+                .setColor('RED')
+                .setDescription(`${error}`)
+            ]
+        });
+    } catch {
+        console.log('rexom')
+    }
 }

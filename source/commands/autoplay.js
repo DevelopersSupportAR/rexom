@@ -17,20 +17,24 @@ module.exports = {
      */
 
     run: async(client, message, args, prefix, lang) => {
-        if (lang == "en") {
-            const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(message, lang);
-            const queue = player.getQueue(message);
-            if (!queue) return embed.notQueue(message, lang);
-            let mode = player.toggleAutoplay(message);
-            embed.done(message, `**Autoplay toggle has changed to: \`${mode ? "On" : "Off"}\` **`);
-        } else if (lang == "ar") {
-            const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(message, lang);
-            const queue = player.getQueue(message);
-            if (!queue) return embed.notQueue(message, lang);
-            let mode = player.toggleAutoplay(message);
-            embed.done(message, `** \`${mode ? "On" : "Off"}\` وضع التشغيل التلقئاء تحول لـ**`);
+        try {
+            if (lang == "en") {
+                const voiceChannel = message.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(message, lang);
+                const queue = player.getQueue(message);
+                if (!queue) return embed.notQueue(message, lang);
+                let mode = player.toggleAutoplay(message);
+                embed.done(message, `**Autoplay toggle has changed to: \`${mode ? "On" : "Off"}\` **`);
+            } else if (lang == "ar") {
+                const voiceChannel = message.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(message, lang);
+                const queue = player.getQueue(message);
+                if (!queue) return embed.notQueue(message, lang);
+                let mode = player.toggleAutoplay(message);
+                embed.done(message, `** \`${mode ? "On" : "Off"}\` وضع التشغيل التلقئاء تحول لـ**`);
+            }
+        } catch {
+            console.log('rexom')
         }
     }
 };

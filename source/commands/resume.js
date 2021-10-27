@@ -17,23 +17,27 @@ module.exports = {
      */
 
     run: async(client, message, args, prefix, lang) => {
-        if (lang == "en") {
-            module.exports.guildID = message.guild.id;
-            const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(message, lang);
-            const queue = player.getQueue(message);
-            if (!queue) return embed.notQueue(message, lang);
-            if (queue.paused == false) return embed.err(message, "**The Music Is Not Paused**")
-            player.resume(message);
-            embed.done(message, "**Music Has Resumed!**")
-        } else if (lang == "ar") {
-            const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(message, lang);
-            const queue = player.getQueue(message);
-            if (!queue) return embed.notQueue(message, lang);
-            if (queue.paused == false) return embed.err(message, "**لم يتم ايقاف الموسيى اصلا انت بتعمل ايه**");
-            player.resume(message)
-            embed.done(message, "*تم أستكمال الموسيقى**");
+        try {
+            if (lang == "en") {
+                module.exports.guildID = message.guild.id;
+                const voiceChannel = message.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(message, lang);
+                const queue = player.getQueue(message);
+                if (!queue) return embed.notQueue(message, lang);
+                if (queue.paused == false) return embed.err(message, "**The Music Is Not Paused**")
+                player.resume(message);
+                embed.done(message, "**Music Has Resumed!**")
+            } else if (lang == "ar") {
+                const voiceChannel = message.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(message, lang);
+                const queue = player.getQueue(message);
+                if (!queue) return embed.notQueue(message, lang);
+                if (queue.paused == false) return embed.err(message, "**لم يتم ايقاف الموسيى اصلا انت بتعمل ايه**");
+                player.resume(message)
+                embed.done(message, "*تم أستكمال الموسيقى**");
+            }
+        } catch {
+            console.log('rexom')
         }
     }
 };

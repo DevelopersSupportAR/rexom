@@ -16,19 +16,20 @@ module.exports = {
          */
 
         run: async(client, message, args, prefix, lang) => {
-                if (lang == "en") {
-                    const voiceChannel = message.member.voice.channel;
-                    if (!voiceChannel) {
-                        message.reply({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
-                        return
-                    }
-                    const queue = player.getQueue(message);
-                    if (!queue) return message.reply({ content: emojis.error + " | **Thare are no music in the queue**", allowedMentions: false, ephemeral: true })
-                    message.reply({
-                                embeds: [new MessageEmbed()
-                                        .setAuthor(`Server Queue`, client.user.avatarURL({ dynamic: true }), `https://discord.gg/developer-support`)
-                                        .setColor('YELLOW')
-                                        .setDescription(`__Now Playing:__\n${queue.songs.map((song, id) => `**[${song.name}](${song.url})** | \`${song.formattedDuration}\` | \`Requested By: ${song.user.tag}\``).slice(0, 1).join("\n")}\n\n__Up Next:__\n${queue.songs.map((song, id) => `**${id + 1}**. **[${song.name}](${song.url})** | \`${song.formattedDuration}\` | \`Requested By: ${song.user.tag}\``).slice(1, 10).join("\n")}`)],
+                try {
+                    if (lang == "en") {
+                        const voiceChannel = message.member.voice.channel;
+                        if (!voiceChannel) {
+                            message.reply({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
+                            return
+                        }
+                        const queue = player.getQueue(message);
+                        if (!queue) return message.reply({ content: emojis.error + " | **Thare are no music in the queue**", allowedMentions: false, ephemeral: true })
+                        message.reply({
+                                    embeds: [new MessageEmbed()
+                                            .setAuthor(`Server Queue`, client.user.avatarURL({ dynamic: true }), `https://discord.gg/developer-support`)
+                                            .setColor('YELLOW')
+                                            .setDescription(`__Now Playing:__\n${queue.songs.map((song, id) => `**[${song.name}](${song.url})** | \`${song.formattedDuration}\` | \`Requested By: ${song.user.tag}\``).slice(0, 1).join("\n")}\n\n__Up Next:__\n${queue.songs.map((song, id) => `**${id + 1}**. **[${song.name}](${song.url})** | \`${song.formattedDuration}\` | \`Requested By: ${song.user.tag}\``).slice(1, 10).join("\n")}`)],
                         allowedMentions: false,
                         ephemeral: true
             });
@@ -47,7 +48,10 @@ module.exports = {
                                 .setDescription(`__Now Playing:__\n${queue.songs.map((song, id) => `**[${song.name}](${song.url})** | \`${song.formattedDuration}\` | \`Requested By: ${song.user.tag}\``).slice(0, 1).join("\n")}\n\n__Up Next:__\n${queue.songs.map((song, id) => `**${id + 1}**. **[${song.name}](${song.url})** | \`${song.formattedDuration}\` | \`Requested By: ${song.user.tag}\``).slice(1, 10).join("\n")}`)],
                                 allowedMentions: false,
                                 ephemeral: true
-            });
-}
+                });
+            }
+        } catch {
+            console.log('rexom')
+        }
     }
 };

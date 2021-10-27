@@ -22,23 +22,27 @@ module.exports = {
      */
 
     run: async(client, interaction, args) => {
-        let settings = db.fetch(`Settings_${interaction.guild.id}`);
-        let lang = settings.lang;
-        if (lang == "en") {
-            module.exports.guildID = interaction.guild.id;
-            const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
-            const queue = player.getQueue(interaction);
-            if (!queue) return embed.notQueue(interaction, lang, "/");
-            player.setVolume(interaction, Number(interaction.options.getNumber('number') || 100));
-            embed.done(interaction, "**Music Volume Has Changed To: **" + interaction.options.getNumber('number') || 100, "/");
-        } else if (lang == "ar") {
-            const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
-            const queue = player.getQueue(interaction);
-            if (!queue) return embed.notQueue(interaction, lang, "/");
-            player.setVolume(interaction, Number(interaction.options.getNumber('number') || 100));
-            embed.done(interaction, "**تم تغير مستوى الصوت الى: **" + interaction.options.getNumber('number') || 100, "/");
+        try {
+            let settings = db.fetch(`Settings_${interaction.guild.id}`);
+            let lang = settings.lang;
+            if (lang == "en") {
+                module.exports.guildID = interaction.guild.id;
+                const voiceChannel = interaction.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
+                const queue = player.getQueue(interaction);
+                if (!queue) return embed.notQueue(interaction, lang, "/");
+                player.setVolume(interaction, Number(interaction.options.getNumber('number') || 100));
+                embed.done(interaction, "**Music Volume Has Changed To: **" + interaction.options.getNumber('number') || 100, "/");
+            } else if (lang == "ar") {
+                const voiceChannel = interaction.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
+                const queue = player.getQueue(interaction);
+                if (!queue) return embed.notQueue(interaction, lang, "/");
+                player.setVolume(interaction, Number(interaction.options.getNumber('number') || 100));
+                embed.done(interaction, "**تم تغير مستوى الصوت الى: **" + interaction.options.getNumber('number') || 100, "/");
+            }
+        } catch {
+            console.log('rexom')
         }
     },
 };

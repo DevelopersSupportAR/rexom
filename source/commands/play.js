@@ -17,22 +17,30 @@ module.exports = {
      */
 
     run: async(client, message, args, prefix, lang) => {
-        module.exports.guildLANG = lang;
-        module.exports.messageGET = message;
-        let value = message.content.split(' ').slice(1).join(' ');
-        if (lang == "en") {
-            if (!value) return embed.err(message, "**please type the song name/url**")
-            module.exports.guildID = message.guild.id;
-            const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(message, lang);
-            player.play(message, value);
-            message.reply({ content: `**🔍 | Searching To:** \`${value}\``, allowedMentions: false, ephemeral: true })
-        } else if (lang == "ar") {
-            if (!value) return embed.err(message, "**يرجى كتابة اسم/رابط الأغنيه**")
-            const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(message, lang);
-            player.play(message, value);
-            message.reply({ content: `**🔍 | جار البحث عن:** \`${value}\``, allowedMentions: false, ephemeral: true })
+        try {
+            module.exports.guildLANG = lang;
+            module.exports.messageGET = message;
+            let value = message.content.split(' ').slice(1).join(' ');
+            if (lang == "en") {
+                if (!value) return embed.err(message, "**please type the song name/url**")
+                module.exports.guildID = message.guild.id;
+                const voiceChannel = message.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(message, lang);
+                player.play(message, value);
+                message.reply({ content: `**🔍 | Searching To:** \`${value}\``, allowedMentions: false, ephemeral: true })
+            } else if (lang == "ar") {
+                if (!value) return embed.err(message, "**يرجى كتابة اسم/رابط الأغنيه**")
+                const voiceChannel = message.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(message, lang);
+                player.play(message, value);
+                message.reply({ content: `**🔍 | جار البحث عن:** \`${value}\``, allowedMentions: false, ephemeral: true }).then(m => {
+                    setTimeout(() => {
+                        m.delete()
+                    }, 2500);
+                });
+            }
+        } catch {
+            console.log('rexom')
         }
     }
 };

@@ -23,24 +23,28 @@ module.exports = {
      */
 
     run: async(client, interaction, args) => {
-        let z = 0;
-        let value = interaction.options.getString('name');
-        let data = db.fetch(`PlaylistsData_${interaction.user.id}`);
-        if (data == null) return await db.set(`PlaylistsData_${interaction.user.id}`, []) && embed.warn(interaction, `**thare are no user cold \`${interaction.user.username}\`!.**`, "/");
-        let araay = [];
-        for (let index = 0; index < data.length; index++) {
-            const element = data[index];
-            if (element.name == value) { z = 1 } else {
-                araay.push(element)
+        try {
+            let z = 0;
+            let value = interaction.options.getString('name');
+            let data = db.fetch(`PlaylistsData_${interaction.user.id}`);
+            if (data == null) return await db.set(`PlaylistsData_${interaction.user.id}`, []) && embed.warn(interaction, `**thare are no user cold \`${interaction.user.username}\`!.**`, "/");
+            let araay = [];
+            for (let index = 0; index < data.length; index++) {
+                const element = data[index];
+                if (element.name == value) { z = 1 } else {
+                    araay.push(element)
+                }
             }
+            await db.set(`PlaylistsData_${interaction.user.id}`, araay)
+            setTimeout(async() => {
+                if (z == 1) {
+                    await embed.done(interaction, "Playlist has removed", "/");
+                } else if (z == 0) {
+                    await embed.warn(interaction, "I Can't Find This Playlist", "/");
+                }
+            }, 1440);
+        } catch {
+            console.log('rexom')
         }
-        await db.set(`PlaylistsData_${interaction.user.id}`, araay)
-        setTimeout(async() => {
-            if (z == 1) {
-                await embed.done(interaction, "Playlist has removed", "/");
-            } else if (z == 0) {
-                await embed.warn(interaction, "I Can't Find This Playlist", "/");
-            }
-        }, 1440);
     },
 };

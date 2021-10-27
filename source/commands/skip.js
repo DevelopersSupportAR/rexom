@@ -17,27 +17,31 @@ module.exports = {
      */
 
     run: async(client, message, args, prefix, lang) => {
-        if (lang == "en") {
-            module.exports.guildID = message.guild.id;
-            const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(message, lang);
-            const queue = player.getQueue(message);
-            if (!queue) return embed.notQueue(message, lang);
-            if (queue.songs.map((song, i) => i).length == 1) return embed.err(message, "**Thare Are No Song To Skip**");
-            else {
-                player.skip(message);
-                embed.done(message, "**Music Has Skiped**")
+        try {
+            if (lang == "en") {
+                module.exports.guildID = message.guild.id;
+                const voiceChannel = message.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(message, lang);
+                const queue = player.getQueue(message);
+                if (!queue) return embed.notQueue(message, lang);
+                if (queue.songs.map((song, i) => i).length == 1) return embed.err(message, "**Thare Are No Song To Skip**");
+                else {
+                    player.skip(message);
+                    embed.done(message, "**Music Has Skiped**")
+                }
+            } else if (lang == "ar") {
+                const voiceChannel = message.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(message, lang);
+                const queue = player.getQueue(message);
+                if (!queue) return embed.notQueue(message, lang);
+                if (queue.songs.map((song, i) => i).length == 1) return embed.err(message, "**مفيش حاجه اسكب ليه هل ات عبيت**");
+                else {
+                    player.skip(message)
+                    embed.done(message, "**تم تخطي الغنيه**")
+                }
             }
-        } else if (lang == "ar") {
-            const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(message, lang);
-            const queue = player.getQueue(message);
-            if (!queue) return embed.notQueue(message, lang);
-            if (queue.songs.map((song, i) => i).length == 1) return embed.err(message, "**مفيش حاجه اسكب ليه هل ات عبيت**");
-            else {
-                player.skip(message)
-                embed.done(message, "**تم تخطي الغنيه**")
-            }
+        } catch {
+            console.log('rexom')
         }
     }
 };

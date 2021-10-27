@@ -1,8 +1,8 @@
 
 <div align="center">
-  <img src="https://media.discordapp.net/attachments/845107443573719112/859222529939210250/Screenshot_2021-06-29-02-03-02-63_3a637037d35f95c5dbcdcc75e697ce91.jpg" align="center">
+  <img src="https://media.discordapp.net/attachments/743880363331420241/902711609112264804/unknown.png" align="center">
   <br>
-  <h1><i>Music bots are always what gives an artistic touch to servers, but <b>Rexom 🎵</b> gives a different touch.</i></h1>
+  <h3>Music bots are always what gives an artistic touch to servers, but <b>Rexom 🎵</b> gives a different touch.</h3> 
   <br>
   <a href="#">
     <img src="https://img.shields.io/github/v/tag/DevelopersSupportAR/rexom?color=red&label=rexom&logo=discord&style=for-the-badge" alt="Support">

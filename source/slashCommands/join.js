@@ -16,32 +16,36 @@ module.exports = {
      */
 
     run: async(client, interaction, args) => {
-        let settings = db.fetch(`Settings_${interaction.guild.id}`);
-        let lang = settings.lang;
-        if (lang == "ar") {
-            const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
-            let channel = client.channels.cache.find(c => c.id == voiceChannel.id);
-            const connection = joinVoiceChannel({
-                channelId: channel.id,
-                guildId: channel.guild.id,
-                adapterCreator: channel.guild.voiceAdapterCreator,
-            });
-            connection;
-            db.set(`Voice_Channel_${interaction.guild.id}`, voiceChannel.id);
-            embed.done(interaction, `**تم التثبيت في <#${voiceChannel.id}>**`, "/");
-        } else if (lang == "en") {
-            const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
-            let channel = client.channels.cache.find(c => c.id == voiceChannel.id);
-            const connection = joinVoiceChannel({
-                channelId: channel.id,
-                guildId: channel.guild.id,
-                adapterCreator: channel.guild.voiceAdapterCreator,
-            });
-            connection;
-            db.set(`Voice_Channel_${interaction.guild.id}`, voiceChannel.id);
-            embed.done(interaction, `**Done Joined <#${voiceChannel.id}>**`, "/");
+        try {
+            let settings = db.fetch(`Settings_${interaction.guild.id}`);
+            let lang = settings.lang;
+            if (lang == "ar") {
+                const voiceChannel = interaction.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
+                let channel = client.channels.cache.find(c => c.id == voiceChannel.id);
+                const connection = joinVoiceChannel({
+                    channelId: channel.id,
+                    guildId: channel.guild.id,
+                    adapterCreator: channel.guild.voiceAdapterCreator,
+                });
+                connection;
+                db.set(`Voice_Channel_${interaction.guild.id}`, voiceChannel.id);
+                embed.done(interaction, `**تم التثبيت في <#${voiceChannel.id}>**`, "/");
+            } else if (lang == "en") {
+                const voiceChannel = interaction.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
+                let channel = client.channels.cache.find(c => c.id == voiceChannel.id);
+                const connection = joinVoiceChannel({
+                    channelId: channel.id,
+                    guildId: channel.guild.id,
+                    adapterCreator: channel.guild.voiceAdapterCreator,
+                });
+                connection;
+                db.set(`Voice_Channel_${interaction.guild.id}`, voiceChannel.id);
+                embed.done(interaction, `**Done Joined <#${voiceChannel.id}>**`, "/");
+            }
+        } catch {
+            console.log('rexom')
         }
     },
 };

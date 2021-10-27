@@ -23,21 +23,25 @@ module.exports = {
      */
 
     run: async(client, interaction, args) => {
-        let settings = db.fetch(`Settings_${interaction.guild.id}`);
-        let lang = settings.lang;
-        module.exports.guildLANG = lang;
-        module.exports.interactionGET = interaction;
-        if (lang == "en") {
-            module.exports.guildID = interaction.guild.id;
-            const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
-            player.play(interaction, interaction.options.getString("song"));
-            interaction.followUp({ content: `**🔍 | Searching To:** \`${interaction.options.getString("song")}\``, allowedMentions: false, ephemeral: true })
-        } else if (lang == "ar") {
-            const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
-            player.play(interaction, interaction.options.getString("song"));
-            interaction.followUp({ content: `**🔍 | جار البحث عن:** \`${interaction.options.getString("song")}\``, allowedMentions: false, ephemeral: true })
+        try {
+            let settings = db.fetch(`Settings_${interaction.guild.id}`);
+            let lang = settings.lang;
+            module.exports.guildLANG = lang;
+            module.exports.interactionGET = interaction;
+            if (lang == "en") {
+                module.exports.guildID = interaction.guild.id;
+                const voiceChannel = interaction.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
+                player.play(interaction, interaction.options.getString("song"));
+                interaction.followUp({ content: `**🔍 | Searching To:** \`${interaction.options.getString("song")}\``, allowedMentions: false, ephemeral: true })
+            } else if (lang == "ar") {
+                const voiceChannel = interaction.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
+                player.play(interaction, interaction.options.getString("song"));
+                interaction.followUp({ content: `**🔍 | جار البحث عن:** \`${interaction.options.getString("song")}\``, allowedMentions: false, ephemeral: true })
+            }
+        } catch {
+            console.log('rexom')
         }
     },
 };
