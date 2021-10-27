@@ -17,31 +17,35 @@ module.exports = {
      */
 
     run: async(client, message, args, prefix, lang) => {
-        var mode = message.content.split(' ').slice(1).join(' ') || "repeat song";
-        if (lang == "ar") {
-            const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(message, lang);
-            const queue = player.getQueue(message);
-            if (!queue) return embed.notQueue(message, lang);
-            var modeler;
-            if (mode == "off") modeler = 0;
-            else if (mode == "repeat song") modeler = 1;
-            else if (mode == "repeat queue") modeler = 2;
-            else return embed.err(message, "**you have to type the repeating mode type like <off/repeat song/repeat queue>**")
-            player.setRepeatMode(message, parseInt(modeler));
-            embed.done(message, `**تم تغير وضع التكرار الي: \`${mode}\`**`);
-        } else if (lang == "en") {
-            const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(message, lang);
-            const queue = player.getQueue(message);
-            if (!queue) return embed.notQueue(message, lang);
-            var modeler;
-            if (mode == "off") modeler = 0;
-            else if (mode == "repeat song") modeler = 1;
-            else if (mode == "repeat queue") modeler = 2;
-            else return embed.err(message, "**you have to type the repeating mode type like <off/repeat song/repeat queue>**")
-            player.setRepeatMode(message, parseInt(modeler));
-            embed.done(message, `**repeating mode has changed to: \`${mode}\`**`)
+        try {
+            var mode = message.content.split(' ').slice(1).join(' ') || "repeat song";
+            if (lang == "ar") {
+                const voiceChannel = message.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(message, lang);
+                const queue = player.getQueue(message);
+                if (!queue) return embed.notQueue(message, lang);
+                var modeler;
+                if (mode == "off") modeler = 0;
+                else if (mode == "repeat song") modeler = 1;
+                else if (mode == "repeat queue") modeler = 2;
+                else return embed.err(message, "**you have to type the repeating mode type like <off/repeat song/repeat queue>**")
+                player.setRepeatMode(message, parseInt(modeler));
+                embed.done(message, `**تم تغير وضع التكرار الي: \`${mode}\`**`);
+            } else if (lang == "en") {
+                const voiceChannel = message.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(message, lang);
+                const queue = player.getQueue(message);
+                if (!queue) return embed.notQueue(message, lang);
+                var modeler;
+                if (mode == "off") modeler = 0;
+                else if (mode == "repeat song") modeler = 1;
+                else if (mode == "repeat queue") modeler = 2;
+                else return embed.err(message, "**you have to type the repeating mode type like <off/repeat song/repeat queue>**")
+                player.setRepeatMode(message, parseInt(modeler));
+                embed.done(message, `**repeating mode has changed to: \`${mode}\`**`)
+            }
+        } catch {
+            console.log('rexom')
         }
     }
 };

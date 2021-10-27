@@ -13,6 +13,6 @@ const player = new DisTube.default(client, {
     plugins: [new SoundCloudPlugin.default(), new SpotifyPlugin.default()]
 });
 
-player.setMaxListeners(0)
+player.setMaxListeners(0);
 
 module.exports = player;

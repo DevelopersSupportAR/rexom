@@ -16,30 +16,34 @@ module.exports = {
      */
 
     run: async(client, interaction, args) => {
-        let settings = db.fetch(`Settings_${interaction.guild.id}`);
-        let lang = settings.lang;
-        if (lang == "ar") {
-            const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
-            db.delete(`Voice_Channel_${interaction.guild.id}`);
-            const connection = joinVoiceChannel({
-                channelId: voiceChannel.id,
-                guildId: voiceChannel.guild.id,
-                adapterCreator: voiceChannel.guild.voiceAdapterCreator,
-            });
-            connection.destroy(true);
-            embed.done(interaction, `**تمت ازالة التثبيت من: <#${voiceChannel.id}>**`, "/");
-        } else if (lang == "en") {
-            const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
-            db.delete(`Voice_Channel_${interaction.guild.id}`);
-            const connection = joinVoiceChannel({
-                channelId: voiceChannel.id,
-                guildId: voiceChannel.guild.id,
-                adapterCreator: voiceChannel.guild.voiceAdapterCreator,
-            });
-            connection.destroy(true);
-            embed.done(interaction, `**Done Leaved <#${voiceChannel.id}>**`, "/");
+        try {
+            let settings = db.fetch(`Settings_${interaction.guild.id}`);
+            let lang = settings.lang;
+            if (lang == "ar") {
+                const voiceChannel = interaction.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
+                db.delete(`Voice_Channel_${interaction.guild.id}`);
+                const connection = joinVoiceChannel({
+                    channelId: voiceChannel.id,
+                    guildId: voiceChannel.guild.id,
+                    adapterCreator: voiceChannel.guild.voiceAdapterCreator,
+                });
+                connection.destroy(true);
+                embed.done(interaction, `**تمت ازالة التثبيت من: <#${voiceChannel.id}>**`, "/");
+            } else if (lang == "en") {
+                const voiceChannel = interaction.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
+                db.delete(`Voice_Channel_${interaction.guild.id}`);
+                const connection = joinVoiceChannel({
+                    channelId: voiceChannel.id,
+                    guildId: voiceChannel.guild.id,
+                    adapterCreator: voiceChannel.guild.voiceAdapterCreator,
+                });
+                connection.destroy(true);
+                embed.done(interaction, `**Done Leaved <#${voiceChannel.id}>**`, "/");
+            }
+        } catch {
+            console.log('rexom')
         }
     },
 };

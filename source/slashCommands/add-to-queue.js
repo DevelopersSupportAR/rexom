@@ -16,24 +16,28 @@ module.exports = {
      */
 
     run: async(client, interaction, args) => {
-        let settings = db.fetch(`Settings_${interaction.guild.id}`);
-        let lang = settings.lang;
-        let msg;
-        const message = await interaction.channel.messages.fetch(interaction.targetId);
-        const queue = player.getQueue(interaction);
-        if (lang == "ar") {
-            msg = "لم يتم تشغيل اي موسيقى اصلا";
-        }
-        if (lang == "en") {
-            msg = "thare is no music playing";
-        }
-        if (queue) {
-            player.play(interaction, message.content);
+        try {
+            let settings = db.fetch(`Settings_${interaction.guild.id}`);
+            let lang = settings.lang;
+            let msg;
+            const message = await interaction.channel.messages.fetch(interaction.targetId);
+            const queue = player.getQueue(interaction);
             if (lang == "ar") {
-                embed.done(interaction, "تمت أضافة **" + message.content + "** الي طابور عرض السيرفر", "/")
-            } else if (lang == "en") {
-                embed.done(interaction, "**" + message.content + "** Has Add To Server Queue!.", "/");
+                msg = "لم يتم تشغيل اي موسيقى اصلا";
             }
-        } else embed.notQueue(interaction, lang, "/")
+            if (lang == "en") {
+                msg = "thare is no music playing";
+            }
+            if (queue) {
+                player.play(interaction, message.content);
+                if (lang == "ar") {
+                    embed.done(interaction, "تمت أضافة **" + message.content + "** الي طابور عرض السيرفر", "/")
+                } else if (lang == "en") {
+                    embed.done(interaction, "**" + message.content + "** Has Add To Server Queue!.", "/");
+                }
+            } else embed.notQueue(interaction, lang, "/")
+        } catch {
+            console.log('rexom')
+        }
     },
 };

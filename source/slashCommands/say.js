@@ -23,45 +23,49 @@ module.exports = {
      */
 
     run: async(client, interaction, args) => {
-        let value = interaction.options.getString("value")
-        let settings = db.fetch(`Settings_${interaction.guild.id}`);
-        let lang = settings.lang;
-        if (lang == "en") {
-            const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
-            const connection = joinVoiceChannel({
-                channelId: voiceChannel.id,
-                guildId: voiceChannel.guild.id,
-                adapterCreator: voiceChannel.guild.voiceAdapterCreator,
-            });
-            connection;
-            const player = createAudioPlayer({
-                behaviors: {
-                    noSubscriber: NoSubscriberBehavior.Pause,
-                },
-            });
-            const resource = createAudioResource(tts.getAudioUrl(value, { lang: "en", slow: false, host: "https://translate.google.com" }));
-            player.play(resource);
-            connection.subscribe(player);
-            interaction.followUp({ content: emojis.done, allowedMentions: { repliedUser: false }, ephemeral: false })
-        } else if (lang == "ar") {
-            const voiceChannel = interaction.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
-            const connection = joinVoiceChannel({
-                channelId: voiceChannel.id,
-                guildId: voiceChannel.guild.id,
-                adapterCreator: voiceChannel.guild.voiceAdapterCreator,
-            });
-            connection;
-            const player = createAudioPlayer({
-                behaviors: {
-                    noSubscriber: NoSubscriberBehavior.Pause,
-                },
-            });
-            const resource = createAudioResource(tts.getAudioUrl(value, { lang: "ar", slow: false, host: "https://translate.google.com" }));
-            player.play(resource);
-            connection.subscribe(player);
-            interaction.followUp({ content: emojis.done, allowedMentions: { repliedUser: false }, ephemeral: false })
+        try {
+            let value = interaction.options.getString("value")
+            let settings = db.fetch(`Settings_${interaction.guild.id}`);
+            let lang = settings.lang;
+            if (lang == "en") {
+                const voiceChannel = interaction.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
+                const connection = joinVoiceChannel({
+                    channelId: voiceChannel.id,
+                    guildId: voiceChannel.guild.id,
+                    adapterCreator: voiceChannel.guild.voiceAdapterCreator,
+                });
+                connection;
+                const player = createAudioPlayer({
+                    behaviors: {
+                        noSubscriber: NoSubscriberBehavior.Pause,
+                    },
+                });
+                const resource = createAudioResource(tts.getAudioUrl(value, { lang: "en", slow: false, host: "https://translate.google.com" }));
+                player.play(resource);
+                connection.subscribe(player);
+                interaction.followUp({ content: emojis.done, allowedMentions: { repliedUser: false }, ephemeral: false })
+            } else if (lang == "ar") {
+                const voiceChannel = interaction.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
+                const connection = joinVoiceChannel({
+                    channelId: voiceChannel.id,
+                    guildId: voiceChannel.guild.id,
+                    adapterCreator: voiceChannel.guild.voiceAdapterCreator,
+                });
+                connection;
+                const player = createAudioPlayer({
+                    behaviors: {
+                        noSubscriber: NoSubscriberBehavior.Pause,
+                    },
+                });
+                const resource = createAudioResource(tts.getAudioUrl(value, { lang: "ar", slow: false, host: "https://translate.google.com" }));
+                player.play(resource);
+                connection.subscribe(player);
+                interaction.followUp({ content: emojis.done, allowedMentions: { repliedUser: false }, ephemeral: false })
+            }
+        } catch {
+            console.log('rexom')
         }
     },
 };

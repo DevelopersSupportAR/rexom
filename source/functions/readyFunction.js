@@ -16,21 +16,25 @@ async function ReadyFunction(client, red, blue) {
     await client.user.setStatus(status);
 
     setInterval(() => {
-        client.guilds.cache.forEach(guild => {
-            let channelID = require('quick.db').fetch(`Voice_Channel_${guild.id}`)
-            if (channelID !== null) {
-                let channel = client.channels.cache.find(c => c.id == channelID);
-                const connection = joinVoiceChannel({
-                    channelId: channel.id,
-                    guildId: channel.guild.id,
-                    adapterCreator: channel.guild.voiceAdapterCreator,
-                });
-                connection;
-                connection.on("error", err => {
-                    return
-                });
-            }
-        });
+        try {
+            client.guilds.cache.forEach(guild => {
+                let channelID = require('quick.db').fetch(`Voice_Channel_${guild.id}`)
+                if (channelID !== null) {
+                    let channel = client.channels.cache.find(c => c.id == channelID);
+                    const connection = joinVoiceChannel({
+                        channelId: channel.id,
+                        guildId: channel.guild.id,
+                        adapterCreator: channel.guild.voiceAdapterCreator,
+                    });
+                    connection;
+                    connection.on("error", err => {
+                        return
+                    });
+                }
+            });
+        } catch {
+            console.log('rexom')
+        }
     }, 500);
 };
 

@@ -90,7 +90,7 @@ module.exports = {
                 }
             }
         } catch {
-            console.log(' ')
+            console.log('rexom')
         }
     },
 };

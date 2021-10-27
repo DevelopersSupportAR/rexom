@@ -17,20 +17,24 @@ module.exports = {
      */
 
     run: async(client, message, args, prefix, lang) => {
-        if (lang == "en") {
-            const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(message, lang);
-            const queue = player.getQueue(message);
-            if (!queue) return embed.notQueue(message, lang);
-            player.shuffle(message);
-            embed.done(message, "**server queue has shuffled**")
-        } else if (lang == "ar") {
-            const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(message, lang);
-            const queue = player.getQueue(message);
-            if (!queue) return embed.notQueue(message, lang);
-            player.shuffle(message);
-            embed.done(message, "**تمت اعادة ترتيب قائمة التشغيل**")
+        try {
+            if (lang == "en") {
+                const voiceChannel = message.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(message, lang);
+                const queue = player.getQueue(message);
+                if (!queue) return embed.notQueue(message, lang);
+                player.shuffle(message);
+                embed.done(message, "**server queue has shuffled**")
+            } else if (lang == "ar") {
+                const voiceChannel = message.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(message, lang);
+                const queue = player.getQueue(message);
+                if (!queue) return embed.notQueue(message, lang);
+                player.shuffle(message);
+                embed.done(message, "**تمت اعادة ترتيب قائمة التشغيل**")
+            }
+        } catch {
+            console.log('rexom')
         }
     }
 };

@@ -17,19 +17,23 @@ module.exports = {
      */
 
     run: async(client, message, args, prefix, lang) => {
-        let value = message.content.split(' ').slice(1).join(' ');
-        if (lang == "en") {
-            if (!value) return embed.warn(message, "**please Type The Skip Time Number**")
-            const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(message, lang);
-            player.seek(message, Number(value));
-            embed.done(message, `**seeked to** \`${value}\``)
-        } else if (lang == "ar") {
-            if (!value) return embed.warn(message, "**يرجى كتابة الوقت المراد تخطيه بالثواني**")
-            const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(message, lang);
-            player.seek(message, Number(value));
-            embed.done(message, `**تم الأقتصاص الى:** \`${value}\``)
+        try {
+            let value = message.content.split(' ').slice(1).join(' ');
+            if (lang == "en") {
+                if (!value) return embed.warn(message, "**please Type The Skip Time Number**")
+                const voiceChannel = message.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(message, lang);
+                player.seek(message, Number(value));
+                embed.done(message, `**seeked to** \`${value}\``)
+            } else if (lang == "ar") {
+                if (!value) return embed.warn(message, "**يرجى كتابة الوقت المراد تخطيه بالثواني**")
+                const voiceChannel = message.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(message, lang);
+                player.seek(message, Number(value));
+                embed.done(message, `**تم الأقتصاص الى:** \`${value}\``)
+            }
+        } catch {
+            console.log('rexom')
         }
     }
 };

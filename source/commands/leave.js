@@ -17,28 +17,32 @@ module.exports = {
      */
 
     run: async(client, message, args, prefix, lang) => {
-        if (lang == "ar") {
-            const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(message, lang);
-            db.delete(`Voice_Channel_${message.guild.id}`);
-            const connection = joinVoiceChannel({
-                channelId: voiceChannel.id,
-                guildId: voiceChannel.guild.id,
-                adapterCreator: voiceChannel.guild.voiceAdapterCreator,
-            });
-            connection.destroy(true);
-            embed.done(message, `**تمت ازالة التثبيت من: <#${voiceChannel.id}>**`);
-        } else if (lang == "en") {
-            const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(message, lang);
-            db.delete(`Voice_Channel_${message.guild.id}`);
-            const connection = joinVoiceChannel({
-                channelId: voiceChannel.id,
-                guildId: voiceChannel.guild.id,
-                adapterCreator: voiceChannel.guild.voiceAdapterCreator,
-            });
-            connection.destroy(true);
-            embed.done(message, `**Done Leaved <#${voiceChannel.id}>**`);
+        try {
+            if (lang == "ar") {
+                const voiceChannel = message.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(message, lang);
+                db.delete(`Voice_Channel_${message.guild.id}`);
+                const connection = joinVoiceChannel({
+                    channelId: voiceChannel.id,
+                    guildId: voiceChannel.guild.id,
+                    adapterCreator: voiceChannel.guild.voiceAdapterCreator,
+                });
+                connection.destroy(true);
+                embed.done(message, `**تمت ازالة التثبيت من: <#${voiceChannel.id}>**`);
+            } else if (lang == "en") {
+                const voiceChannel = message.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(message, lang);
+                db.delete(`Voice_Channel_${message.guild.id}`);
+                const connection = joinVoiceChannel({
+                    channelId: voiceChannel.id,
+                    guildId: voiceChannel.guild.id,
+                    adapterCreator: voiceChannel.guild.voiceAdapterCreator,
+                });
+                connection.destroy(true);
+                embed.done(message, `**Done Leaved <#${voiceChannel.id}>**`);
+            }
+        } catch {
+            console.log('rexom')
         }
     }
 };

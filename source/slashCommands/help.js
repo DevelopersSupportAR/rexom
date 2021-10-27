@@ -15,27 +15,31 @@ module.exports = {
      */
 
     run: async(client, interaction, args) => {
-        const prefix = '/';
-        const embed = new MessageEmbed()
-            .setTitle(`Help Commands`)
-            .setColor(0x2f3136)
-            .setAuthor(interaction.guild.name, interaction.guild.iconURL())
-            .setDescription(`**[reXom](https://github.com/DevelopersSupportAR/rexom.git)**, Play your favorite playlist with ReXom 🎶
+        try {
+            const prefix = '/';
+            const embed = new MessageEmbed()
+                .setTitle(`Help Commands`)
+                .setColor(0x2f3136)
+                .setAuthor(interaction.guild.name, interaction.guild.iconURL())
+                .setDescription(`**[reXom](https://github.com/DevelopersSupportAR/rexom.git)**, Play your favorite playlist with ReXom 🎶
             Version: \`2.8.2\`
             Prefix: ${prefix}
             `)
-        require('fs').readdir(__dirname + '/', (err, files) => {
-            if (err) return console.error(err);
-            files.forEach(file => {
-                if (!file.endsWith(".js")) return;
-                let props = require(__dirname + '/' + file);
-                embed.addFields({ name: prefix + props.name, value: props.description || "0", inline: true })
+            require('fs').readdir(__dirname + '/', (err, files) => {
+                if (err) return console.error(err);
+                files.forEach(file => {
+                    if (!file.endsWith(".js")) return;
+                    let props = require(__dirname + '/' + file);
+                    embed.addFields({ name: prefix + props.name, value: props.description || "0", inline: true })
+                });
             });
-        });
-        interaction.followUp({ content: emojis.loading + " | processing command...", ephemeral: true }).then(() => {
-            setTimeout(() => {
-                interaction.editReply({ content: emojis.done + " | processing complete!.", embeds: [embed], ephemeral: true })
-            }, ms('1s'))
-        });
+            interaction.followUp({ content: emojis.loading + " | processing command...", ephemeral: true }).then(() => {
+                setTimeout(() => {
+                    interaction.editReply({ content: emojis.done + " | processing complete!.", embeds: [embed], ephemeral: true })
+                }, ms('1s'))
+            });
+        } catch {
+            console.log('rexom')
+        }
     },
 };

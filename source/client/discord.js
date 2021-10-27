@@ -4,7 +4,7 @@ const client = new Client({
     partials: ["CHANNEL", "GUILD_MEMBER", "MESSAGE", "REACTION", "USER"],
     allowedMentions: {
         parse: ['users', 'roles'],
-        repliedUser: true
+        repliedUser: false
     }
 });
 

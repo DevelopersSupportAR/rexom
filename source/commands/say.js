@@ -18,45 +18,49 @@ module.exports = {
      */
 
     run: async(client, message, args, prefix, lang) => {
-        let value = args.slice(1).join(' ');
-        if (lang == "en") {
-            const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(message, lang);
-            if (!value) return embed.warn(message, '**please type the word after the command**');
-            const connection = joinVoiceChannel({
-                channelId: voiceChannel.id,
-                guildId: voiceChannel.guild.id,
-                adapterCreator: voiceChannel.guild.voiceAdapterCreator,
-            });
-            connection;
-            const player = createAudioPlayer({
-                behaviors: {
-                    noSubscriber: NoSubscriberBehavior.Pause,
-                },
-            });
-            const resource = createAudioResource(tts.getAudioUrl(value, { lang: "en", slow: false, host: "https://translate.google.com" }));
-            player.play(resource);
-            connection.subscribe(player);
-            message.reply({ content: emojis.done, allowedMentions: { repliedUser: false }, ephemeral: false });
-        } else if (lang == "ar") {
-            const voiceChannel = message.member.voice.channel;
-            if (!voiceChannel) return embed.notInVoice(message, lang);
-            if (!value) return embed.warn(message, '**يرجى كتابة الكلمه بعد الأمر**');
-            const connection = joinVoiceChannel({
-                channelId: voiceChannel.id,
-                guildId: voiceChannel.guild.id,
-                adapterCreator: voiceChannel.guild.voiceAdapterCreator,
-            });
-            connection;
-            const player = createAudioPlayer({
-                behaviors: {
-                    noSubscriber: NoSubscriberBehavior.Pause,
-                },
-            });
-            const resource = createAudioResource(tts.getAudioUrl(value, { lang: "ar", slow: false, host: "https://translate.google.com" }));
-            player.play(resource);
-            connection.subscribe(player);
-            message.reply({ content: emojis.done, allowedMentions: { repliedUser: false }, ephemeral: false });
+        try {
+            let value = args.slice(1).join(' ');
+            if (lang == "en") {
+                const voiceChannel = message.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(message, lang);
+                if (!value) return embed.warn(message, '**please type the word after the command**');
+                const connection = joinVoiceChannel({
+                    channelId: voiceChannel.id,
+                    guildId: voiceChannel.guild.id,
+                    adapterCreator: voiceChannel.guild.voiceAdapterCreator,
+                });
+                connection;
+                const player = createAudioPlayer({
+                    behaviors: {
+                        noSubscriber: NoSubscriberBehavior.Pause,
+                    },
+                });
+                const resource = createAudioResource(tts.getAudioUrl(value, { lang: "en", slow: false, host: "https://translate.google.com" }));
+                player.play(resource);
+                connection.subscribe(player);
+                message.reply({ content: emojis.done, allowedMentions: { repliedUser: false }, ephemeral: false });
+            } else if (lang == "ar") {
+                const voiceChannel = message.member.voice.channel;
+                if (!voiceChannel) return embed.notInVoice(message, lang);
+                if (!value) return embed.warn(message, '**يرجى كتابة الكلمه بعد الأمر**');
+                const connection = joinVoiceChannel({
+                    channelId: voiceChannel.id,
+                    guildId: voiceChannel.guild.id,
+                    adapterCreator: voiceChannel.guild.voiceAdapterCreator,
+                });
+                connection;
+                const player = createAudioPlayer({
+                    behaviors: {
+                        noSubscriber: NoSubscriberBehavior.Pause,
+                    },
+                });
+                const resource = createAudioResource(tts.getAudioUrl(value, { lang: "ar", slow: false, host: "https://translate.google.com" }));
+                player.play(resource);
+                connection.subscribe(player);
+                message.reply({ content: emojis.done, allowedMentions: { repliedUser: false }, ephemeral: false });
+            }
+        } catch {
+            console.log('rexom')
         }
     }
 };

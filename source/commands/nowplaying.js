@@ -51,7 +51,7 @@ module.exports = {
                                 ],
                                 ephemeral: false,
                                 allowedMentions: false
-                            }).catch(err => { console.log(' ') })
+                            }).catch(err => { console.log(' ') });
                         }, 5000);
                     })
                 }
@@ -93,7 +93,7 @@ module.exports = {
                 }
             }
         } catch {
-            console.log(' ')
+            console.log('rexom')
         }
     }
 };
