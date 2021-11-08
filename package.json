@@ -1,7 +1,7 @@
 {
     "name": "rexom",
     "version": "2.9.8",
-    "description": "make your day with rexom music :)",
+    "description": "make your day with rexom",
     "main": "./source/index.js",
     "scripts": {
         "build": "npm install && npx node@latest ./source/index.js",
