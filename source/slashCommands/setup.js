@@ -27,7 +27,7 @@ module.exports = {
                     embeds: [
                         new MessageEmbed()
                         .setAuthor("No song playing currently")
-                        .setImage("https://media.discordapp.net/attachments/743880363331420241/902711609112264804/unknown.png")
+                        .setImage("https://d.top4top.io/p_2151263kx1.jpg")
                     ],
                 }).then(async msg => {
                     msg.react('⏹️')
