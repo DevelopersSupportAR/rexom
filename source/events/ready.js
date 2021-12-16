@@ -11,7 +11,6 @@ module.exports = async(client) => {
     try {
         let ownerID = require("../../config/bot.json").ownerID;
         let user = client.users.cache.get(ownerID);
-        if (!user) process.exit(1)
         require('../functions/readyFunction').get(client, red, blue);
         const gitHubPath = 'DevelopersSupportAR/rexom';
         const url = 'https://api.github.com/repos/' + gitHubPath + '/tags';
