@@ -20,7 +20,7 @@ module.exports = async(client, message) => {
             if (message.channel.id == data.channelID) {
                 message.delete()
                 if (message.guild.me.voice.channel) {
-                    if (message.member.voice.channel !== message.guild.me.voice.channel) return message.reply({ content: emojis.error + ' | please join a voice channel first!' })
+                    if (message.member.voice.channel !== message.guild.me.voice.channel) return message.reply({ content: '❌ | please join a voice channel first!' })
                 }
                 player.play(message, message.content).then(() => {
                     setInterval(() => {
@@ -50,6 +50,12 @@ module.exports = async(client, message) => {
         let lang = settings.lang;
         if (!message.content.startsWith(prefix)) return;
         if (!message.content.includes(prefix)) return;
+        if (db.fetch(`DJ_TOG_${message.guild.id}`) == "on") {
+            if (!message.member.roles.cache.find(role => role.id == db.fetch(`DJ_${message.guild.id}`))) return message.reply({
+                ephemeral: true,
+                content: "❌ | You can't use bot commands with out DJ role"
+            });
+        }
         const argument = message.content.slice(prefix.length).trim().split(/ +/g);
         const cmd = argument.shift().toLowerCase()
         const command = commands.get(cmd) || commands.find(a => a.aliases && a.aliases.includes(cmd));
