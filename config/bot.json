@@ -14,6 +14,7 @@
   "ownerID": "<The Onwer Id (this is importing for sent the full updates for the bot)>",
 
   "panelType": "<the type of the contorle panel ['buttons', 'reactions', 'none']>",
+  "replyType": "<the type of bot reply ['embeds', 'messages']>",
 
   "leaveOnEmpty": "<if you won't to make the bot leave the voice channel when the queue is empty but 'true' if not but 'false'>",
   "leaveOnStop": "<if you won't to make the bot leave the voice channel when you type the stop command but 'true' if ot but 'false'>",
