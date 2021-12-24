@@ -117,7 +117,7 @@ module.exports = async (client, message) => {
     } catch (e) {
       message.reply({ content: ":x: | Something went wrong ```" + e + "```" });
     }
-  } catch {
-    console.log("rexom");
+  } catch (err) {
+    console.log(err);
   }
 };

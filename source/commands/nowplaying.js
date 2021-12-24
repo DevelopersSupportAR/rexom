@@ -22,11 +22,15 @@ module.exports = {
                 module.exports.guildID = message.guild.id;
                 const voiceChannel = message.member.voice.channel;
                 if (!voiceChannel) {
-                    message.reply({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
+                    message.reply({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: {
+            repliedUser: false
+        }, ephemeral: true })
                     return
                 }
                 const queue = player.getQueue(message);
-                if (!queue) return message.reply({ content: emojis.error + " | **Thare are no music in the queue**", allowedMentions: false, ephemeral: true })
+                if (!queue) return message.reply({ content: emojis.error + " | **Thare are no music in the queue**", allowedMentions: {
+            repliedUser: false
+        }, ephemeral: true })
                 let track = queue.songs[0];
                 if (track) {
                     const time = track.duration * 1000;
@@ -39,7 +43,9 @@ module.exports = {
                     message.channel.send({
                         embeds: [result],
                         ephemeral: false,
-                        allowedMentions: false
+                        allowedMentions: {
+            repliedUser: false
+        }
                     }).then(async function(m) {
                         setInterval(() => {
                             m.edit({
@@ -50,7 +56,9 @@ module.exports = {
                                     .setThumbnail(track.Thumbnail)
                                 ],
                                 ephemeral: false,
-                                allowedMentions: false
+                                allowedMentions: {
+            repliedUser: false
+        }
                             }).catch(err => { console.log(' ') });
                         }, 5000);
                     })
@@ -58,11 +66,15 @@ module.exports = {
             } else if (lang == "ar") {
                 const voiceChannel = message.member.voice.channel;
                 if (!voiceChannel) {
-                    message.reply({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: false, ephemeral: true })
+                    message.reply({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: {
+            repliedUser: false
+        }, ephemeral: true })
                     return
                 }
                 const queue = player.getQueue(message);
-                if (!queue) return message.reply({ content: emojis.error + " | **لم يتم تشغيل اي أغنيه اصلا**", allowedMentions: false, ephemeral: true })
+                if (!queue) return message.reply({ content: emojis.error + " | **لم يتم تشغيل اي أغنيه اصلا**", allowedMentions: {
+            repliedUser: false
+        }, ephemeral: true })
                 let track = queue.songs[0];
                 if (track) {
                     const time = track.duration * 1000;
@@ -75,7 +87,9 @@ module.exports = {
                     message.channel.send({
                         embeds: [result],
                         ephemeral: false,
-                        allowedMentions: false
+                        allowedMentions: {
+            repliedUser: false
+        }
                     }).then(async function(m) {
                         setInterval(() => {
                             m.edit({
@@ -86,7 +100,9 @@ module.exports = {
                                     .setThumbnail(track.Thumbnail)
                                 ],
                                 ephemeral: false,
-                                allowedMentions: false
+                                allowedMentions: {
+            repliedUser: false
+        }
                             }).catch(err => { console.log(' ') })
                         }, 5000);
                     })

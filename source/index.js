@@ -13,6 +13,9 @@ const { login, register } = require("./structures/build");
     player: player,
     client: client,
   });
+  client.on("debug", (bug) => console.log(require("chalk").magenta(bug)));
+  client.on("error", (err) => console.log(require("chalk").red(err)));
+  client.on("warn", (warn) => console.log(require("chalk").yellow(warn)));
 })();
 
 module.exports = {

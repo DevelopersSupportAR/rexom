@@ -21,11 +21,15 @@ module.exports = {
             if (lang == "ar") {
                 const voiceChannel = message.member.voice.channel;
                 if (!voiceChannel) {
-                    message.reply({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: false, ephemeral: true })
+                    message.reply({ content: emojis.error + " | **يجب انت تكون في غرفه صوتيه**", allowedMentions: {
+            repliedUser: false
+        }, ephemeral: true })
                     return
                 }
                 const queue = player.getQueue(message);
-                if (!queue) return message.reply({ content: emojis.error + " | **لم يتم تشغيل اي أغنيه اصلا**", allowedMentions: false, ephemeral: true })
+                if (!queue) return message.reply({ content: emojis.error + " | **لم يتم تشغيل اي أغنيه اصلا**", allowedMentions: {
+            repliedUser: false
+        }, ephemeral: true })
                 let name = queue.songs.map((song, id) => song.name).slice(0, 1).join("\n");
                 let uploader = queue.songs.map((song, id) => song.uploader.name).slice(0, 1).join("\n");
                 let thumbnail = queue.songs.map((song, id) => song.thumbnail).slice(0, 1).join("\n");
@@ -39,17 +43,23 @@ module.exports = {
                         .setDescription(lyrics)
                         .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
                     ],
-                    allowedMentions: false,
+                    allowedMentions: {
+            repliedUser: false
+        },
                     ephemeral: true
                 });
             } else if (lang == "en") {
                 const voiceChannel = message.member.voice.channel;
                 if (!voiceChannel) {
-                    message.reply({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: false, ephemeral: true })
+                    message.reply({ content: emojis.error + " | **You Have To Be On Voice Channel**", allowedMentions: {
+            repliedUser: false
+        }, ephemeral: true })
                     return
                 }
                 const queue = player.getQueue(message);
-                if (!queue) return message.reply({ content: emojis.error + " | **Thare are no music in the queue**", allowedMentions: false, ephemeral: true })
+                if (!queue) return message.reply({ content: emojis.error + " | **Thare are no music in the queue**", allowedMentions: {
+            repliedUser: false
+        }, ephemeral: true })
                 let name = queue.songs.map((song, id) => song.name).slice(0, 1).join("\n");
                 let uploader = queue.songs.map((song, id) => song.uploader.name).slice(0, 1).join("\n");
                 let thumbnail = queue.songs.map((song, id) => song.thumbnail).slice(0, 1).join("\n");
@@ -63,7 +73,9 @@ module.exports = {
                         .setDescription(lyrics)
                         .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
                     ],
-                    allowedMentions: false,
+                    allowedMentions: {
+            repliedUser: false
+        },
                     ephemeral: true
                 });
             }

@@ -754,7 +754,7 @@ module.exports = async (client, queue, song) => {
         }
       }
     }
-  } catch {
-    console.log("rexom");
+  } catch (err) {
+    console.log(err);
   }
 };

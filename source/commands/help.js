@@ -31,8 +31,12 @@ module.exports = {
                     embed.addFields({ name: prefix + props.name, value: props.description || "o", inline: true })
                 });
             });
-            message.reply({ content: emojis.loading + " | processing command...", allowedMentions: false, ephemeral: true }).then(msg => {
-                setTimeout(() => { msg.edit({ content: emojis.done + " | processing complete!.", embeds: [embed], allowedMentions: false, ephemeral: true }) }, ms('1s'))
+            message.reply({ content: emojis.loading + " | processing command...", allowedMentions: {
+            repliedUser: false
+        }, ephemeral: true }).then(msg => {
+                setTimeout(() => { msg.edit({ content: emojis.done + " | processing complete!.", embeds: [embed], allowedMentions: {
+            repliedUser: false
+        }, ephemeral: true }) }, ms('1s'))
             });
         } catch {
             console.log('rexom')

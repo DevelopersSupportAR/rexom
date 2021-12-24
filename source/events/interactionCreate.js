@@ -55,7 +55,7 @@ module.exports = async (client, interaction) => {
       const command = slashCommands.get(interaction.commandName);
       if (command) command.run(client, interaction);
     }
-  } catch {
-    console.log("rexom");
+  } catch (err) {
+    console.log(err);
   }
 };

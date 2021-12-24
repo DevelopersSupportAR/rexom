@@ -2,6 +2,7 @@ const { MessageEmbed, Message, Client } = require("discord.js");
 const emojis = require("../../config/emojis.json");
 const colors = require("../../config/colors.json");
 const { replyType } = require("../../config/bot.json");
+
 /**
  *
  * @param {Client} client
@@ -73,8 +74,8 @@ module.exports = {
               });
             });
       }
-    } catch {
-      console.log("rexom");
+    } catch (err) {
+      console.log(err);
     }
   },
   done: async (message, content, type) => {
@@ -141,8 +142,8 @@ module.exports = {
               });
             });
       }
-    } catch {
-      console.log("rexom");
+    } catch (err) {
+      console.log(err);
     }
   },
   loading: async (message, content, type) => {
@@ -210,8 +211,8 @@ module.exports = {
               });
             });
       }
-    } catch {
-      console.log("rexom");
+    } catch (err) {
+      console.log(err);
     }
   },
   warn: async (message, content, type) => {
@@ -278,8 +279,8 @@ module.exports = {
               });
             });
       }
-    } catch {
-      console.log("rexom");
+    } catch (err) {
+      console.log(err);
     }
   },
   notInVoice: async (message, lang, type) => {
@@ -319,8 +320,8 @@ module.exports = {
             });
           });
       }
-    } catch {
-      console.log("rexom");
+    } catch (err) {
+      console.log(err);
     }
   },
   notQueue: async (message, lang, type) => {
@@ -360,8 +361,8 @@ module.exports = {
             });
           });
       }
-    } catch {
-      console.log("rexom");
+    } catch (err) {
+      console.log(err);
     }
   },
 };
