@@ -52,8 +52,10 @@ module.exports = async (client, guild) => {
         });
       })
       .catch((err) => {});
-  } catch {
-    console.log("rexom");
+  } catch (err) {
+    console.log(err);
   }
-  require("../functions/guildCreateFunction").get(guild, db);
+  require("../functions/guildCreateFunction")
+    .get(guild, db)
+    .catch((err) => console.log(err));
 };

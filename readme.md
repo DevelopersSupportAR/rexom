@@ -44,6 +44,10 @@ There are many advantages that make you use reXom!!
 9. distinguished message collector to play music
 10. simple dashboard support any domains
 
+## some photos if the bot 🖼
+
+<img src="" align="center" style="weight: 500px"/>
+
 ## how to use reXom 🛠️
 
 its easy to use rexom :)
@@ -98,7 +102,13 @@ if you using your computer follow my steps!
   "leaveOnEmpty": "<if you won't to make the bot leave the voice channel when the queue is empty but 'true' if not but 'false'>",
   "leaveOnStop": "<if you won't to make the bot leave the voice channel when you type the stop command but 'true' if ot but 'false'>",
   "leaveOnFinish": "<if you won't to make the leave the voice channel when it's done type 'true' if not type 'false'>",
-  "searchSongs": "<type how many songs you son't the bot send it the search menu if you don't wont the search menu type 0>"
+  "searchSongs": "<type how many songs you son't the bot send it the search menu if you don't wont the search menu type 0>",
+  "api": {
+    "spotify": {
+      "clientID": "<if you have an spotify clientID if not but none>",
+      "clientSECRET": "if you have an spotify client secret if not but none"
+    }
+  }
 }
 ```
 

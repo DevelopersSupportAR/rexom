@@ -27,13 +27,17 @@ module.exports = {
                 const voiceChannel = message.member.voice.channel;
                 if (!voiceChannel) return embed.notInVoice(message, lang);
                 player.play(message, value);
-                message.reply({ content: `**🔍 | Searching To:** \`${value}\``, allowedMentions: false, ephemeral: true })
+                message.reply({ content: `**🔍 | Searching To:** \`${value}\``, allowedMentions: {
+            repliedUser: false
+        }, ephemeral: true })
             } else if (lang == "ar") {
                 if (!value) return embed.err(message, "**يرجى كتابة اسم/رابط الأغنيه**")
                 const voiceChannel = message.member.voice.channel;
                 if (!voiceChannel) return embed.notInVoice(message, lang);
                 player.play(message, value);
-                message.reply({ content: `**🔍 | جار البحث عن:** \`${value}\``, allowedMentions: false, ephemeral: true }).then(m => {
+                message.reply({ content: `**🔍 | جار البحث عن:** \`${value}\``, allowedMentions: {
+            repliedUser: false
+        }, ephemeral: true }).then(m => {
                     setTimeout(() => {
                         m.delete()
                     }, 2500);

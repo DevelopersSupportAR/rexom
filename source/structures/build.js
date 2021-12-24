@@ -22,8 +22,8 @@ module.exports = {
           .catch(async function (error) {
             console.log(red.bold(error));
           });
-      } catch {
-        console.log("rexom");
+      } catch (err) {
+        console.log(err);
       }
     }
   },
@@ -48,10 +48,10 @@ module.exports = {
           this.commands,
           this.dir
         );
-        require("../models/slashCommands/loader").run(this.client);
-        require("../models/music/loader").run(blue, red, this.player, this.dir);
-      } catch {
-        console.log("rexom");
+        require("../models/slashCommands/loader").run(this.client).catch(err => console.log(err));
+        require("../models/music/loader").run(blue, red, this.player, this.dir).catch(err => console.log(err));
+      } catch (err) {
+        console.log(err);
       }
     }
   },
