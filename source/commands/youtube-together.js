@@ -3,9 +3,9 @@ const fetch = require("node-fetch");
 const embed = require("../structures/embeds");
 
 module.exports = {
-  name: "volume",
+  name: "youtube-together",
   aliases: [],
-  description: "Controle Volume The Music",
+  description: "Watch Youtube Together",
 
   /**
    *
