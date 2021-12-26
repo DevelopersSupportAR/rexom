@@ -63,7 +63,7 @@ module.exports = {
             "/"
           );
         player.setRepeatMode(interaction, parseInt(modeler));
-        embed.done(interaction, `**تم تغير وضع التكرار الي: \`${mode}\`**`);
+        embed.done(interaction, `**تم تغير وضع التكرار الي: \`${mode}\`**`, "/");
       } else if (lang == "en") {
         const voiceChannel = interaction.member.voice.channel;
         if (!voiceChannel) return embed.notInVoice(interaction, lang, "/");
@@ -83,7 +83,7 @@ module.exports = {
         player.setRepeatMode(interaction, parseInt(modeler));
         embed.done(
           interaction,
-          `**repeating mode has changed to: \`${mode}\`**`
+          `**repeating mode has changed to: \`${mode}\`**`, "/"
         );
       }
     } catch {
