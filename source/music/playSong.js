@@ -164,7 +164,7 @@ module.exports = async (client, queue, song) => {
                     content:
                       emojis.error +
                       ` | **You Must Join <#${interaction.guild.me.voice.channel.id}> To Contolr The Panel**`,
-                  });
+                  }).catch(() => {});
               }
               if (song.user.id !== i.user.id)
                 queue.textChannel.send({
@@ -177,7 +177,7 @@ module.exports = async (client, queue, song) => {
                   i.followUp({
                     content: "🛑 | **Music Has Stoped**",
                     ephemeral: true,
-                  });
+                  }).catch(() => {});
                   let msgID = require("quick.db").fetch(
                     `Delete_${interaction.channel.id}`
                   );
@@ -504,7 +504,7 @@ module.exports = async (client, queue, song) => {
                       emojis.error +
                       ` | **You Must Join <#${interaction.guild.me.voice.channel.id}> To Contolr The Panel**`,
                     ephemeral: true,
-                  });
+                  }).catch(() => {});
               }
               if (song.user.id !== i.user.id)
                 i.followUp({
