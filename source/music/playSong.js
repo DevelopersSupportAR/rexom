@@ -146,7 +146,7 @@ module.exports = async (client, queue, song) => {
               }
             });
             collector.on("collect", async (i) => {
-              i.deferReply({ ephemeral: true }).catch(() => {});
+              i.deferUpdate({ ephemeral: true }).catch(() => {});
               if (!interaction.member.voice.channel)
                 return i
                   .followUp({
@@ -485,7 +485,7 @@ module.exports = async (client, queue, song) => {
               }
             });
             collector.on("collect", async (i) => {
-              i.deferReply({ ephemeral: true }).catch(() => {});
+              i.deferUpdate({ ephemeral: true }).catch(() => {});
               if (!interaction.member.voice.channel)
                 return i
                   .followUp({
