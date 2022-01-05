@@ -7,7 +7,7 @@ const {
 const { Song, Queue } = require("distube");
 const emojis = require("../../config/emojis.json");
 const { player } = require("../index");
-const { panelType } = require("../../config/bot.json");
+const { panelType } = require("../../config/bot.js");
 const db = require("quick.db");
 
 let repeatModee;
@@ -148,11 +148,13 @@ module.exports = async (client, queue, song) => {
             collector.on("collect", async (i) => {
               i.deferReply({ ephemeral: true }).catch(() => {});
               if (!interaction.member.voice.channel)
-                return i.followUp({
-                  content:
-                    emojis.error + ` | **You Must Join A Voice Channel**`,
-                  ephemeral: true,
-                });
+                return i
+                  .followUp({
+                    content:
+                      emojis.error + ` | **You Must Join A Voice Channel**`,
+                    ephemeral: true,
+                  })
+                  .catch(() => {});
               if (interaction.guild.me.voice.channel) {
                 if (
                   interaction.member.voice.channel?.id !==
@@ -168,7 +170,7 @@ module.exports = async (client, queue, song) => {
                 queue.textChannel.send({
                   content:
                     emojis.error + " | **only song player can use the panel**!",
-                });
+                }).catch(() => {});
               if (i.customId == "stop") {
                 try {
                   if (!getQueue) return;
@@ -195,7 +197,7 @@ module.exports = async (client, queue, song) => {
                     i.followUp({
                       content: "🔄 | **Music Is On Loop**",
                       ephemeral: true,
-                    });
+                    }).catch(() => {});
                   }
                 } catch {
                   console.log("");
@@ -217,7 +219,7 @@ module.exports = async (client, queue, song) => {
                       content: "📑 | **Music Lyrics: **",
                       embeds: [lyr],
                       ephemeral: true,
-                    });
+                    }).catch(() => {});
                   }
                 } catch {
                   console.log("");
@@ -227,16 +229,18 @@ module.exports = async (client, queue, song) => {
                   if (!getQueue) return;
                   if (queue) {
                     if (queue.songs.map((song, i) => i).length == 1)
-                      return i.followUp({
-                        content: ":x: | **Thare Are No Song To Skip**",
-                        ephemeral: true,
-                      });
+                      return i
+                        .followUp({
+                          content: ":x: | **Thare Are No Song To Skip**",
+                          ephemeral: true,
+                        })
+                        .catch(() => {});
                     else {
                       player.skip(interaction);
                       i.followUp({
                         content: "⏭ | **Music Has Skiped**",
                         ephemeral: true,
-                      });
+                      }).catch(() => {});
                     }
                   }
                 } catch {
@@ -247,15 +251,17 @@ module.exports = async (client, queue, song) => {
                   if (!getQueue) return;
                   if (queue) {
                     if (queue.paused == true)
-                      return i.followUp({
-                        content: ":x: | **This Music Is All Ready Paused**",
-                        ephemeral: true,
-                      });
+                      return i
+                        .followUp({
+                          content: ":x: | **This Music Is All Ready Paused**",
+                          ephemeral: true,
+                        })
+                        .catch(() => {});
                     player.pause(interaction);
                     i.followUp({
                       content: "⏸ | **Music Has Paused**",
                       ephemeral: true,
-                    });
+                    }).catch(() => {});
                   }
                 } catch {
                   console.log("");
@@ -265,15 +271,17 @@ module.exports = async (client, queue, song) => {
                   if (!getQueue) return;
                   if (queue) {
                     if (queue.paused == false)
-                      return i.followUp({
-                        content: ":x: | **The Music Is Not Paused**",
-                        ephemeral: true,
-                      });
+                      return i
+                        .followUp({
+                          content: ":x: | **The Music Is Not Paused**",
+                          ephemeral: true,
+                        })
+                        .catch(() => {});
                     player.resume(interaction);
                     i.followUp({
                       content: "▶ | **Music Has Resumed**",
                       ephemeral: true,
-                    });
+                    }).catch(() => {});
                   }
                 } catch {
                   console.log("");
@@ -479,11 +487,13 @@ module.exports = async (client, queue, song) => {
             collector.on("collect", async (i) => {
               i.deferReply({ ephemeral: true }).catch(() => {});
               if (!interaction.member.voice.channel)
-                return i.followUp({
-                  content:
-                    emojis.error + ` | **You Must Join A Voice Channel**`,
-                  ephemeral: true,
-                });
+                return i
+                  .followUp({
+                    content:
+                      emojis.error + ` | **You Must Join A Voice Channel**`,
+                    ephemeral: true,
+                  })
+                  .catch(() => {});
               if (interaction.guild.me.voice.channel) {
                 if (
                   interaction.member.voice.channel?.id !==
@@ -500,7 +510,7 @@ module.exports = async (client, queue, song) => {
                 i.followUp({
                   content:
                     emojis.error + " | **only song player can use the panel**!",
-                });
+                }).catch(() => {});
               if (i.customId == "stop") {
                 try {
                   if (!getQueue) return;
@@ -508,7 +518,7 @@ module.exports = async (client, queue, song) => {
                     i.followUp({
                       content: "🛑 | **تم أياف الموسيقى**",
                       ephemeral: true,
-                    });
+                    }).catch(() => {});
                     let msgID = require("quick.db").fetch(
                       `Delete_${interaction.channel.id}`
                     );
@@ -529,7 +539,7 @@ module.exports = async (client, queue, song) => {
                     i.followUp({
                       content: "🔄 | **تم تقعيل وضع التكرار**",
                       ephemeral: true,
-                    });
+                    }).catch(() => {});
                   }
                 } catch {
                   console.log("");
@@ -551,7 +561,7 @@ module.exports = async (client, queue, song) => {
                       content: "📑 | ** كلمات الأغنية: **",
                       embeds: [lyr],
                       ephemeral: true,
-                    });
+                    }).catch(() => {});
                   }
                 } catch {
                   console.log("");
@@ -561,16 +571,18 @@ module.exports = async (client, queue, song) => {
                   if (!getQueue) return;
                   if (queue) {
                     if (queue.songs.map((song, i) => i).length == 1)
-                      return i.followUp({
-                        content: ":x: | **مفيش حاجه اسكب ليه هل ات عبيت**",
-                        ephemeral: true,
-                      });
+                      return i
+                        .followUp({
+                          content: ":x: | **مفيش حاجه اسكب ليه هل ات عبيت**",
+                          ephemeral: true,
+                        })
+                        .catch(() => {});
                     else {
                       player.skip(interaction);
                       i.followUp({
                         content: "⏭ | **تم تخطي الغنيه**",
                         ephemeral: true,
-                      });
+                      }).catch(() => {});
                     }
                   }
                 } catch {
@@ -581,16 +593,18 @@ module.exports = async (client, queue, song) => {
                   if (!getQueue) return;
                   if (queue) {
                     if (queue.paused == true)
-                      return i.followUp({
-                        content:
-                          ":x: | **والله الموسيقى وقفه متبقاش بضان و دوس تاني**",
-                        ephemeral: true,
-                      });
+                      return i
+                        .followUp({
+                          content:
+                            ":x: | **والله الموسيقى وقفه متبقاش بضان و دوس تاني**",
+                          ephemeral: true,
+                        })
+                        .catch(() => {});
                     player.pause(interaction);
                     i.followUp({
                       content: "⏸ | **تم أيقاف الموسقى**",
                       ephemeral: true,
-                    });
+                    }).catch(() => {});
                   }
                 } catch {
                   console.log("");
@@ -600,16 +614,18 @@ module.exports = async (client, queue, song) => {
                   if (!getQueue) return;
                   if (queue) {
                     if (queue.paused == false)
-                      return i.followUp({
-                        content:
-                          ":x: | **لم يتم ايقاف الموسيى اصلا انت بتعمل ايه**",
-                        ephemeral: true,
-                      });
+                      return i
+                        .followUp({
+                          content:
+                            ":x: | **لم يتم ايقاف الموسيى اصلا انت بتعمل ايه**",
+                          ephemeral: true,
+                        })
+                        .catch(() => {});
                     player.resume(interaction);
                     i.followUp({
                       content: "▶ | **تم أستكمال الموسيقى**",
                       ephemeral: true,
-                    });
+                    }).catch(() => {});
                   }
                 } catch {
                   console.log("");
