@@ -7,7 +7,7 @@ const {
 const { Song, Queue } = require("distube");
 const emojis = require("../../config/emojis.json");
 const { player } = require("../index");
-const { panelType } = require("../../config/bot.js");
+const { panelType } = require("../../config/bot.json");
 const db = require("quick.db");
 
 let repeatModee;
