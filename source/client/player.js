@@ -1,7 +1,7 @@
 const { SoundCloudPlugin } = require("@distube/soundcloud");
 const { SpotifyPlugin } = require("@distube/spotify");
 const client = require("./discord");
-const {
+let {
   leaveOnEmpty,
   leaveOnStop,
   leaveOnFinish,
