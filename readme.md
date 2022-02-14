@@ -5,7 +5,7 @@
   <h3>Music bots are always what gives an artistic touch to servers, but <b>Rexom 🎵</b> gives a different touch.</h3> 
   <br>
   <a href="#">
-    <img src="https://img.shields.io/github/v/tag/DevelopersSupportAR/rexom?color=red&label=rexom&logo=discord&style=for-the-badge" alt="Support">
+    <img src="https://img.shields.io/github/v/tag/DevelopersSupportAR/rexom?label=rexom&logo=discord&logoColor=red&style=for-the-badge" alt="Support">
   <br>
   <br>
 <br>
