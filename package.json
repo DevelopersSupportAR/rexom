@@ -41,7 +41,6 @@
     "discord.js": "^13.3.1",
     "disrexom": "^3.0.1",
     "distube": "^3.0.3",
-    "distube-spotify": "^0.0.6",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "erlpack": "discordapp/erlpack",
