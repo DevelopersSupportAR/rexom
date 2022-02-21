@@ -1,30 +1,30 @@
 {
   "activity": {
-    "name": "deep music | r?help | /help",
-    "type": "LISTENING"
+    "name": "<The Bot Activity Name (that waht is the bot will type in his activity)>",
+    "type": "<The Bot Activity Type (that what is the bot activity type  will be ['PLAYING', 'LISTENING', 'WATCHING', 'COMPETING'])>"
   },
-  "status": "dnd",
+  "status": "<The Bot Status (that what is the bot status will be ['dnd', 'online', 'idle])>",
 
-  "domain": "https://rexom-1.defextra.repl.co",
-  "clientID": "933759319118319667",
-  "clientSECRET": "Q23N4Yi6dS0kXYC9J1L6z5Szys-xhszX",
+  "domain": "<The Bot Website Domain (the dashboard domain)>",
+  "clientID": "<The Bot Id (that you will find it in the OAuth2)>",
+  "clientSECRET": "<The Bot Secret (that you will find it in the OAuth2)>",
 
-  "mainPrefix": "r?",
-  "mainLang": "en",
-  "ownerID": "933856726770413578",
+  "mainPrefix": "<The Bot Prefix (that what the bot will starts commands)>",
+  "mainLang": "<The Bot Lang, only: ['ar', 'en']>",
+  "ownerID": "<The Onwer Id (this is importing for sent the full updates for the bot)>",
 
-  "panelType": "buttons",
-  "replyType": "embeds",
+  "panelType": "<the type of the contorle panel ['buttons', 'reactions', 'none']>",
+  "replyType": "<the type of bot reply ['embeds', 'messages']>",
 
-  "leaveOnEmpty": "false",
-  "leaveOnStop": "true",
-  "leaveOnFinish": "true",
-  "YTDLP": "lol",
-  "searchSongs": "0",
+  "leaveOnEmpty": "<if you won't to make the bot leave the voice channel when the queue is empty but 'true' if not but 'false'>",
+  "leaveOnStop": "<if you won't to make the bot leave the voice channel when you type the stop command but 'true' if ot but 'false'>",
+  "leaveOnFinish": "<if you won't to make the leave the voice channel when it's done type 'true' if not type 'false'>",
+  "searchSongs": "<type how many songs you son't the bot send it the search menu if you don't wont the search menu type 0>",
+  "YTDLP": "<if you won't to use a online music server type 'true' if won't a local music server type 'any thing or false'>",
   "api": {
     "spotify": {
-      "clientID": "none",
-      "clientSECRET": "none"
+      "clientID": "<if you have an spotify clientID if not but none>",
+      "clientSECRET": "<if you have an spotify client secret if not but none>"
     }
   }
 }
