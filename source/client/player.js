@@ -1,10 +1,12 @@
 const { SoundCloudPlugin } = require("@distube/soundcloud");
 const { SpotifyPlugin } = require("@distube/spotify");
+const { YtDlpPlugin } = require("@distube/yt-dlp")
 const client = require("./discord");
 let {
   leaveOnEmpty,
   leaveOnStop,
   leaveOnFinish,
+  YTDLP,
   searchSongs,
   api,
 } = require("../../config/bot.json");
@@ -13,6 +15,7 @@ let {
 if (!["true", "false"].includes(leaveOnEmpty)) leaveOnEmpty = true;
 if (!["true", "false"].includes(leaveOnStop)) leaveOnStop = true;
 if (!["true", "false"].includes(leaveOnFinish)) leaveOnFinish = true;
+if (!["true", "false"].includes(YTDLP)) YTDLP = false;
 if (Number(searchSongs) > 20) searchSongs = 20;
 if (isNaN(Number(searchSongs))) searchSongs = 0;
 let player;
@@ -23,9 +26,9 @@ if (api.spotify.clientID == "none" || api.spotify.clientSECRET == "none") {
     leaveOnStop: Boolean(leaveOnStop),
     leaveOnFinish: Boolean(leaveOnFinish),
     searchSongs: Number(searchSongs),
-    youtubeDL: true,
-    updateYouTubeDL: true,
-    plugins: [new SoundCloudPlugin(), new SpotifyPlugin()],
+    youtubeDL: Boolean(YTDLP),
+    updateYouTubeDL: Boolean(YTDLP),
+    plugins: [new SoundCloudPlugin(), new SpotifyPlugin(), new YtDlpPlugin()],
   });
 } else {
   player = new DisTube.default(client, {
@@ -33,8 +36,8 @@ if (api.spotify.clientID == "none" || api.spotify.clientSECRET == "none") {
     leaveOnStop: Boolean(leaveOnStop),
     leaveOnFinish: Boolean(leaveOnFinish),
     searchSongs: Number(searchSongs),
-    youtubeDL: true,
-    updateYouTubeDL: true,
+    youtubeDL: Boolean(YTDLP),
+    updateYouTubeDL: Boolean(YTDLP),
     plugins: [
       new SoundCloudPlugin(),
       new SpotifyPlugin({
@@ -45,6 +48,7 @@ if (api.spotify.clientID == "none" || api.spotify.clientSECRET == "none") {
           clientSecret: api.spotify.clientSECRET,
         },
       }),
+      new YtDlpPlugin()
     ],
   });
 }
